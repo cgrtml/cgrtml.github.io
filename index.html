@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cagri Temel — ML Engineer · Researcher · CTO</title>
+  <meta name="description" content="Cagri Temel — Machine Learning Engineer, Researcher, and CTO at Hezarfen LLC. IEEE Senior Member working on Neural Trees, Explainable AI, Autonomous Systems, and AI Safety." />
+  <meta name="author" content="Cagri Temel" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Cagri Temel — ML Engineer · Researcher · CTO" />
+  <meta property="og:description" content="IEEE Senior Member. Neural Trees, Explainable AI, Autonomous Systems, AI Safety." />
+  <meta property="og:url" content="https://cagritemel.com" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="patents.html">Patents</a></li>
+        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <img src="assets/img/profile.jpg" alt="Cagri Temel" class="hero-photo"
+             onerror="this.src='data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22&gt;&lt;rect width=%22200%22 height=%22200%22 fill=%22%23eef2f7%22/&gt;&lt;text x=%22100%22 y=%22112%22 font-size=%2264%22 fill=%22%231a2b4a%22 text-anchor=%22middle%22 font-family=%22Georgia%22&gt;CT&lt;/text&gt;&lt;/svg&gt;'" />
+        <div>
+          <h1>Cagri Temel</h1>
+          <p class="roles"><strong>ML Engineer</strong> · <strong>Researcher</strong> · <strong>CTO @ Hezarfen LLC</strong></p>
+          <div class="badges">
+            <span class="badge">IEEE Senior Member</span>
+            <span class="badge">Conference Reviewer (IEEE SMC)</span>
+            <span class="badge">AI Safety</span>
+            <span class="badge">Explainable AI</span>
+          </div>
+          <p class="lead">I build trustworthy, explainable machine-learning systems — from grounded retrieval pipelines to model-risk tooling for regulated industries.</p>
+          <div class="btn-row">
+            <a href="research.html" class="btn btn-primary">View Research</a>
+            <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+          </div>
+          <div class="social">
+            <a href="https://github.com/cgrtml" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/cagritemel" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+      <div class="container prose">
+        <h2>About</h2>
+        <p>
+          I am a machine-learning engineer and researcher, and the CTO of
+          <strong>Hezarfen LLC</strong>. My work sits at the intersection of
+          <strong>explainable AI</strong>, <strong>AI safety</strong>, and applied
+          large-language-model systems. I focus on making advanced models
+          <em>trustworthy</em>: grounded, auditable, and safe enough to deploy in
+          high-stakes settings such as healthcare and regulated finance.
+        </p>
+        <p>
+          As an <strong>IEEE Senior Member</strong> and a reviewer for the
+          IEEE SMC International Conference, I contribute to the research community
+          while shipping production systems — including retrieval-augmented
+          generation platforms with near-zero hallucination targets and an
+          explainable security layer for LLMs.
+        </p>
+      </div>
+    </section>
+
+    <!-- Research highlights -->
+    <section class="section">
+      <div class="container">
+        <h2>Research Areas</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Neural Trees</h3>
+            <p>Interpretable architectures bridging neural networks and decision trees for transparent, auditable predictions.</p>
+            <div class="tags"><span class="tag">interpretability</span><span class="tag">architecture</span></div>
+          </div>
+          <div class="card">
+            <h3>Explainable AI</h3>
+            <p>Methods that make model decisions inspectable — chain-of-thought auditing, grounding, and model-risk governance.</p>
+            <div class="tags"><span class="tag">XAI</span><span class="tag">governance</span></div>
+          </div>
+          <div class="card">
+            <h3>Autonomous Systems</h3>
+            <p>Reliable agentic and decision-making systems that operate safely under uncertainty.</p>
+            <div class="tags"><span class="tag">agents</span><span class="tag">reliability</span></div>
+          </div>
+          <div class="card">
+            <h3>AI Safety</h3>
+            <p>Guardrails, red-teaming, and explainable safety layers that keep LLM deployments aligned and robust.</p>
+            <div class="tags"><span class="tag">safety</span><span class="tag">red-teaming</span></div>
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:28px;">
+          <a href="research.html" class="btn btn-ghost">Explore projects &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
