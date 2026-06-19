@@ -74,6 +74,12 @@ p  { margin: 0 0 1em; }
 
 .nav-toggle { display: none; background: none; border: 0; font-size: 1.6rem; color: var(--navy); cursor: pointer; line-height: 1; }
 
+/* language switch */
+.nav-lang { display: flex; align-items: center; gap: 6px; margin-left: 4px; padding-left: 14px; border-left: 1px solid var(--line); font-size: .9rem; }
+.nav-lang .cur { color: var(--navy); font-weight: 600; }
+.nav-lang a { color: var(--muted); font-weight: 500; }
+.nav-lang a:hover { color: var(--navy); text-decoration: none; }
+
 /* ---------- Hero ---------- */
 .hero { padding: 64px 0 40px; }
 .hero-grid {
@@ -179,4 +185,5 @@ p  { margin: 0 0 1em; }
   }
   .nav-links.open { display: flex; }
   .nav-links a { padding: 10px 0; border-bottom: 1px solid var(--line); width: 100%; }
+  .nav-lang { border-left: none; padding-left: 0; margin-left: 0; padding-top: 10px; }
 }
