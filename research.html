@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Research — Cagri Temel</title>
-  <meta name="description" content="Research and projects by Cagri Temel: Neural Trees, Explainable AI, AI Safety, grounded RAG systems, and model-risk tooling." />
+  <meta name="description" content="Research and projects by Cagri Temel: explainable AI, safe Chain-of-Thought reasoning for autonomous robots, neural trees, and trustworthy AI systems." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
@@ -20,7 +20,7 @@
         <li><a href="research.html" class="active">Research</a></li>
         <li><a href="publications.html">Publications</a></li>
         <li><a href="patents.html">Patents</a></li>
-        <li><a href="speaking.html">Speaking</a></li>
+        <li><a href="speaking.html">Speaking &amp; Service</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -30,72 +30,75 @@
     <section class="section">
       <div class="container">
         <h1>Research &amp; Projects</h1>
-        <p class="lead">Building explainable, grounded, and safe machine-learning systems — research that ships.</p>
+        <p class="lead">Building explainable, safe, and trustworthy AI — research that ships into real systems.</p>
 
         <h2 style="margin-top:40px;">Focus Areas</h2>
         <div class="cards">
           <div class="card">
-            <h3>Neural Trees</h3>
-            <p>Interpretable model architectures that combine the expressiveness of neural networks with the transparency of decision trees — a core thread behind my startup work in model risk.</p>
-            <div class="tags"><span class="tag">interpretability</span><span class="tag">deep learning</span></div>
+            <h3>Explainable &amp; Trustworthy AI</h3>
+            <p>Frameworks that make AI decisions traceable and auditable — designed around emerging governance requirements such as the EU AI Act and ISO 13482.</p>
+            <div class="tags"><span class="tag">XAI</span><span class="tag">auditability</span></div>
           </div>
           <div class="card">
-            <h3>Explainable AI &amp; Model Risk</h3>
-            <p>Chain-of-thought auditing and governance tooling that lets regulated organizations understand <em>why</em> a model produced an output — aligned with SR 11-7 and the EU AI Act.</p>
-            <div class="tags"><span class="tag">XAI</span><span class="tag">MRM</span><span class="tag">compliance</span></div>
+            <h3>Safe Chain-of-Thought Reasoning</h3>
+            <p>Defense-in-depth verification (structural, physical, semantic, interpretability layers) that detects hallucinated or unsafe reasoning before a robot acts.</p>
+            <div class="tags"><span class="tag">LLM safety</span><span class="tag">robotics</span></div>
           </div>
           <div class="card">
-            <h3>Autonomous Systems</h3>
-            <p>Agentic systems and decision pipelines designed to operate reliably under uncertainty, with safety and observability built in.</p>
-            <div class="tags"><span class="tag">agents</span><span class="tag">reliability</span></div>
+            <h3>Interpretable Machine Learning</h3>
+            <p>Neural-tree ensembles and other hybrid architectures for robust, explainable prediction under sensor noise and missing data.</p>
+            <div class="tags"><span class="tag">neural trees</span><span class="tag">robustness</span></div>
           </div>
           <div class="card">
-            <h3>AI Safety</h3>
-            <p>Model-agnostic, explainable safety and security layers for LLMs — guardrails, red-teaming, and runtime protection.</p>
-            <div class="tags"><span class="tag">safety</span><span class="tag">security</span></div>
+            <h3>Applied LLM Systems (PropTech / LegalTech)</h3>
+            <p>Retrieval-grounded, compliance-aware LLM systems with citation-backed explanations and jurisdiction-aware safety guardrails.</p>
+            <div class="tags"><span class="tag">RAG</span><span class="tag">guardrails</span></div>
           </div>
         </div>
 
         <h2 style="margin-top:48px;">Selected Projects</h2>
         <ul class="entry-list">
           <li class="entry">
+            <div class="year">2020–</div>
+            <div>
+              <p class="title">Redditus — AI-driven PropTech &amp; LegalTech Platform</p>
+              <p class="meta">Co-Founder &amp; CTO, Hezarfen LLC</p>
+              <p class="desc">Leading the technical vision for an AI- and blockchain-based real-estate platform: an LLM + retrieval "AI-Lawyer" mediation module with citation-grounded, jurisdiction-aware guidance; compliance-aware safety guardrails; tokenized property workflows; and scalable cloud/MLOps infrastructure. Recognized with a 2025 Global Recognition Award (Real Estate Technology).</p>
+              <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">PropTech</span><span class="tag">blockchain</span></div>
+            </div>
+          </li>
+          <li class="entry">
             <div class="year">2026</div>
             <div>
-              <p class="title">Neural Trees — GenAI Model Risk Management</p>
-              <p class="meta">Founder / Research lead · for US mid-market banks</p>
-              <p class="desc">A bank model-risk-management module with a GenAI Model Risk component built on an explainable chain-of-thought approach (patent pending), targeting SR 11-7 and EU AI Act compliance.</p>
-              <div class="tags"><span class="tag">XAI</span><span class="tag">model risk</span><span class="tag">finance</span></div>
+              <p class="title">CT-SAFR — Safe &amp; Interpretable Chain-of-Thought for Robots</p>
+              <p class="meta">Research · presented at IEEE CAI 2026</p>
+              <p class="desc">A defense-in-depth, multi-layered verification framework addressing the faithfulness problem in Chain-of-Thought-enabled autonomous robots — reported 94% detection of unsafe/hallucinated reasoning at sub-500&nbsp;ms latency in a warehouse-robot case study. Covered by a pending U.S. provisional patent.</p>
+              <div class="tags"><span class="tag">CoT safety</span><span class="tag">verification</span></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2026</div>
+            <div>
+              <p class="title">TRACE — Transparent Reasoning Architecture for Autonomous Robots</p>
+              <p class="meta">Research · IEEE SoutheastCon 2026</p>
+              <p class="desc">A model-agnostic, four-layer decision framework that traces every autonomous action back to sensor evidence via documented causal chains, with high evidence-traceability and decision-reconstructability across simulated decision cycles.</p>
+              <div class="tags"><span class="tag">explainability</span><span class="tag">autonomy</span></div>
             </div>
           </li>
           <li class="entry">
             <div class="year">2025</div>
             <div>
-              <p class="title">LLMShield — Explainable LLM Security Layer</p>
-              <p class="meta">Creator · model-agnostic guardrail framework</p>
-              <p class="desc">A model-agnostic, explainable security shield for large language models — detecting and explaining unsafe inputs/outputs across providers. v0 in production use.</p>
-              <div class="links"><a href="https://github.com/cgrtml/llmshield" target="_blank" rel="noopener">GitHub &rarr;</a></div>
-            </div>
-          </li>
-          <li class="entry">
-            <div class="year">2025</div>
-            <div>
-              <p class="title">ml-books-rag — Grounded RAG over ML/DL Literature</p>
-              <p class="meta">Creator · zero-hallucination retrieval system</p>
-              <p class="desc">A retrieval-augmented generation system over ML, LLM, DL, and Python books with a faithfulness core and a zero-hallucination design goal.</p>
-              <div class="tags"><span class="tag">RAG</span><span class="tag">faithfulness</span></div>
-            </div>
-          </li>
-          <li class="entry">
-            <div class="year">2025</div>
-            <div>
-              <p class="title">AlimGPT — Clinical RAG for Dentistry</p>
-              <p class="meta">Creator · production retrieval platform</p>
-              <p class="desc">A retrieval-augmented assistant for dentistry, deployed on a Render + Supabase + Qdrant + VoyageAI stack.</p>
-              <div class="tags"><span class="tag">RAG</span><span class="tag">healthcare</span><span class="tag">vector search</span></div>
+              <p class="title">Explainable Neural Trees for Remaining-Useful-Life Prediction</p>
+              <p class="meta">Research · turbofan engine prognostics (NASA C-MAPSS)</p>
+              <p class="desc">An explainable neural-tree ensemble with "sensor-dropout augmentation" for robust remaining-useful-life prediction under sensor noise and missing data — strong accuracy with gradient-based feature-importance explanations and large gains in fault tolerance.</p>
+              <div class="tags"><span class="tag">prognostics</span><span class="tag">interpretability</span></div>
             </div>
           </li>
         </ul>
-        <p class="note">Tip: bu listeyi gerçek tarihler, linkler ve sonuçlarla güncelle. Her proje için 1 cümle "etki/sonuç" eklemek EB-1A dosyasında çok güçlü.</p>
+        <div class="btn-row" style="margin-top:24px;">
+          <a href="publications.html" class="btn btn-ghost">See full publications &rarr;</a>
+          <a href="patents.html" class="btn btn-ghost">See patents &rarr;</a>
+        </div>
       </div>
     </section>
   </main>
