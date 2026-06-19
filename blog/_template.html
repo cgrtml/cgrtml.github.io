@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+  YENİ BLOG YAZISI NASIL EKLENİR:
+  1) Bu dosyayı kopyala, anlamlı bir isimle kaydet, örn: blog/explainable-ai-2026.html
+     (Türkçe karakter/boşluk KULLANMA; küçük harf + tire kullan.)
+  2) Aşağıdaki <title>, açıklama (description), canonical, tarih ve başlığı güncelle.
+  3) <article> içindeki <p> paragraflarını kendi yazınla değiştir.
+  4) blog.html dosyasındaki "Posts" listesine bir <li class="entry"> satırı ekle
+     (oradaki örnek bloğu kopyalayıp linki bu dosyaya çevir).
+  5) Kaydet, commit + push:  git add -A && git commit -m "blog: yeni yazı" && git push
+  Not: İstersen yazıyı bana ver, ben yayınlarım.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POST TITLE · Cagri Temel</title>
+  <meta name="description" content="POST SUMMARY (1-2 cümle)." />
+  <link rel="canonical" href="https://cagritemel.com/blog/POST-SLUG.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">MONTH DAY, 2026</p>
+        <h1 style="margin-bottom:.4em;">POST TITLE</h1>
+
+        <p>İlk paragraf buraya...</p>
+        <p>İkinci paragraf...</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
