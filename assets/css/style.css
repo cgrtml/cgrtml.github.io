@@ -166,6 +166,9 @@ p  { margin: 0 0 1em; }
   padding: 12px 16px; font-size: .9rem; color: #6b5d1f; margin-bottom: 24px;
 }
 
+.shields { margin: 2px 0 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.shields img { height: 20px; }
+
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   background: var(--bg-alt); border: 1px solid var(--line); border-radius: 5px;
