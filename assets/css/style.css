@@ -166,6 +166,12 @@ p  { margin: 0 0 1em; }
   padding: 12px 16px; font-size: .9rem; color: #6b5d1f; margin-bottom: 24px;
 }
 
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--bg-alt); border: 1px solid var(--line); border-radius: 5px;
+  padding: 1px 6px; font-size: .88em; color: var(--navy-soft);
+}
+
 /* stats / by the numbers */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .stat { background: var(--bg-alt); border: 1px solid var(--line); border-radius: 12px; padding: 20px 14px; text-align: center; }
