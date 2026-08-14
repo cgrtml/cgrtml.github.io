@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRACE: Güvenilir Otonom Robotlara Doğru · Cagri Temel</title>
+  <meta name="description" content="TRACE, her otonom eylemi sensör kanıtından yeniden kurulabilir kılan dört katmanlı karar mimarisi. IEEE SoutheastCon 2026, s. 1-6. Özet, sonuçlar ve künye." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://cagritemel.com/tr/paper-trace.html" />
+  <link rel="alternate" hreflang="en" href="https://cagritemel.com/paper-trace.html" />
+  <link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/paper-trace.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="research.html">Araştırma</a></li>
+        <li><a href="publications.html" class="active">Yayınlar</a></li>
+        <li><a href="patents.html">Patentler</a></li>
+        <li><a href="teaching.html">Eğitim</a></li>
+        <li><a href="speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="contact.html">İletişim</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li class="nav-lang"><a href="../paper-trace.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <p class="crumb"><a href="publications.html">Yayınlar</a> / TRACE</p>
+        <h1>Güvenilir Otonom Robotlara Doğru: Açıklanabilir Yapay Zeka Tabanlı Bir Karar Çerçevesi</h1>
+        <p class="lead">TRACE, Transparent Reasoning Architecture for Credible Execution.</p>
+
+        <p class="paper-cite">
+          <span class="authors">C. Temel</span>, &ldquo;Towards Trustworthy Autonomous Robots: An Explainable AI-Based
+          Decision Framework,&rdquo; <em>SoutheastCon 2026</em>, IEEE, Şubat 2026, s. 1&ndash;6,
+          doi: 10.1109/SoutheastCon63549.2026.11476455.
+        </p>
+
+        <div class="paper-links">
+          <a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">IEEE Xplore</a>
+          <a href="https://doi.org/10.1109/SoutheastCon63549.2026.11476455" target="_blank" rel="noopener">DOI</a>
+        </div>
+
+        <details class="bib">
+          <summary>BibTeX</summary>
+<pre>@inproceedings{Temel2026TRACE,
+  title     = {Towards Trustworthy Autonomous Robots: An Explainable AI-Based
+               Decision Framework},
+  author    = {Temel, Cagri},
+  booktitle = {SoutheastCon 2026},
+  pages     = {1--6},
+  year      = {2026},
+  month     = feb,
+  publisher = {IEEE},
+  doi       = {10.1109/SoutheastCon63549.2026.11476455}
+}</pre>
+        </details>
+
+        <h2 style="margin-top:44px;">Problem</h2>
+        <p class="desc">
+          Bir depo robotu beklenmedik şekilde duruyor ve bir çalışan ona çarpıyor. Müfettişler robotun o eylemi
+          neden seçtiğini bilmek istiyor. Ağ, sensör verisini milyonlarca parametreden geçirip bir dur komutu
+          üretti, ama o karara götüren kanıt zinciri hiç saklanmadı; dolayısıyla cevap ancak tahminle
+          kurulabiliyor. Bu boşluğun üç pratik sonucu var: olay incelemesi tahmine dönüşüyor, ISO&nbsp;13482 gibi
+          standartlar altında güvenlik sertifikasyonu zorlaşıyor çünkü opak sistemler belgelenmiş risk
+          değerlendirmesi üretemiyor ve EU AI Act'in yüksek riskli sistemler için istediği "işleyişin izlenmesini
+          sağlayan kayıt" şartı sahadaki çoğu robotik sistemin karşılayamadığı bir şart.
+        </p>
+
+        <h2 style="margin-top:36px;">Yaklaşım</h2>
+        <p class="desc">
+          Sonradan açıklama (post-hoc) bu problem için yanlış biçim. LIME ve SHAP tek tek tahminleri açıklıyor ama
+          bir olaya götüren zamansal karar dizisini yeniden kuramıyor; dikkat ağırlıklarının da nedensel etkinin
+          güvenilir bir göstergesi olmadığı biliniyor. TRACE bu yüzden opak bir modelden açıklama çıkarmaya
+          çalışmıyor. Denetim gereksinimini doğrudan karar mimarisinin içine gömüyor; böylece her eylem zaten
+          belgelenmiş nedensel zincirlerle belirli sensör kanıtına kadar izlenebilir oluyor. Çerçeve modelden
+          bağımsız kalıyor: CNN'ler, transformerlar ve gelecekteki mimariler katmanların içinde durabiliyor,
+          denetlenebilirlik karar seviyesinde korunuyor.
+        </p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Katman</th><th>İşlev</th><th>Açıklama artefaktı</th></tr></thead>
+          <tbody>
+            <tr><td>1. Anlamsal Algı</td><td>Sensör füzyonundan varlık tanımaya; her varlık, kendisini destekleyen sensör kanıtına açık bağlar tutuyor</td><td>Kanıt Toplama Kaydı</td></tr>
+            <tr><td>2. İnanç Akıl Yürütme</td><td>Sahne grafiğinden olasılıksal durum kestirimine</td><td>Nedensel grafik</td></tr>
+            <tr><td>3. Eylem Sentezi</td><td>Kısıt farkındalıklı planlama ve karar seçimi; bir eylemin alternatiflerine karşı neden seçildiğini belgeliyor</td><td>Karşıolgusal Karar Ağacı</td></tr>
+            <tr><td>4. Yürütme Doğrulama</td><td>Komut çıkışı ve uyum izleme</td><td>Denetim izi</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          Artefaktlar [0,&nbsp;1] aralığında bir Güven Bileşik Skoru'nda birleşiyor. Karşıolgusal Karar Ağaçları,
+          olay incelemesinde "ya şöyle olsaydı" analizini mümkün kılan katkı; müfettişin gerçekten ihtiyaç duyduğu
+          da bu ve öznitelik ataması bunu veremiyor.
+        </p>
+
+        <h2 style="margin-top:36px;">Sonuçlar</h2>
+        <p class="desc">Depo robotu navigasyonunda 500 simüle karar döngüsü üzerinde değerlendirildi.</p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Metrik</th><th>Ne ölçüyor</th><th>Sonuç</th></tr></thead>
+          <tbody>
+            <tr><td>Kanıt İzlenebilirliği</td><td>Sensörden karara bağ</td><td>%98,6</td></tr>
+            <tr><td>Zamansal Süreklilik</td><td>Denetim izinin eksiksizliği</td><td>%99,0</td></tr>
+            <tr><td>Karar Yeniden Kurulabilirliği</td><td>Sonradan analiz kabiliyeti</td><td>%98,1</td></tr>
+            <tr><td>Hesaplama yükü</td><td>Denetim yapısını sürdürmenin maliyeti</td><td>milisaniyenin altında</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          Üç metrik katkının kendisinin parçası: bir kararın bağımsız bir müfettiş tarafından yeniden
+          kurulabilir olmasının ne demek olduğunu tanımlıyorlar. Açıklanabilir yapay zeka yazını bunu genellikle
+          gayriresmî bırakıyor.
+        </p>
+
+        <h2 style="margin-top:36px;">Bağlantılı kendi çalışmam</h2>
+        <p class="desc">
+          TRACE, olaydan sonraki denetlenebilirliği kapsıyor. <a href="paper-ct-safr.html">CT-SAFR</a> ise planı bir
+          dil modelinden gelen robotlar için eylemden önceki doğrulamayı. İkisi aynı taahhüdün iki yarısı: otonom
+          bir eylem önceden denetlenebilir, sonradan yeniden kurulabilir olmalı.
+        </p>
+
+        <div class="btn-row" style="margin-top:30px;">
+          <a href="publications.html" class="btn btn-ghost">&larr; Tüm yayınlar</a>
+          <a href="paper-ct-safr.html" class="btn btn-ghost">CT-SAFR &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

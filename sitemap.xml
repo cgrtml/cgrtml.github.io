@@ -97,4 +97,28 @@
     <lastmod>2026-08-13</lastmod>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://cagritemel.com/paper-ct-safr.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/paper-ct-safr.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/paper-ct-safr.html"/>
+    <lastmod>2026-08-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/tr/paper-ct-safr.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/paper-trace.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/paper-trace.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/paper-trace.html"/>
+    <lastmod>2026-08-13</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/tr/paper-trace.html</loc>
+    <lastmod>2026-08-13</lastmod>
+    <priority>0.6</priority>
+  </url>
 </urlset>

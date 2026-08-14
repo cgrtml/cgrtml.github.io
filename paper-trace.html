@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRACE: Towards Trustworthy Autonomous Robots · Cagri Temel</title>
+  <meta name="description" content="TRACE is a four-layer decision architecture that makes every autonomous action reconstructable from sensor evidence. IEEE SoutheastCon 2026, pp. 1-6. Summary, results, and citation." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="TRACE: Towards Trustworthy Autonomous Robots, An Explainable AI-Based Decision Framework" />
+  <meta property="og:description" content="A four-layer decision architecture that makes every autonomous action reconstructable from sensor evidence. IEEE SoutheastCon 2026." />
+  <meta property="og:url" content="https://cagritemel.com/paper-trace.html" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://cagritemel.com/paper-trace.html" />
+  <link rel="alternate" hreflang="en" href="https://cagritemel.com/paper-trace.html" />
+  <link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/paper-trace.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Towards Trustworthy Autonomous Robots: An Explainable AI-Based Decision Framework",
+    "author": { "@type": "Person", "name": "Cagri Temel", "url": "https://cagritemel.com" },
+    "isPartOf": { "@type": "PublicationEvent", "name": "SoutheastCon 2026" },
+    "pagination": "1-6",
+    "datePublished": "2026-02-20",
+    "identifier": "https://doi.org/10.1109/SoutheastCon63549.2026.11476455",
+    "url": "https://ieeexplore.ieee.org/document/11476455",
+    "publisher": { "@type": "Organization", "name": "IEEE" }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html" class="active">Publications</a></li>
+        <li><a href="patents.html">Patents</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="tr/paper-trace.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <p class="crumb"><a href="publications.html">Publications</a> / TRACE</p>
+        <h1>Towards Trustworthy Autonomous Robots: An Explainable AI-Based Decision Framework</h1>
+        <p class="lead">TRACE, a Transparent Reasoning Architecture for Credible Execution.</p>
+
+        <p class="paper-cite">
+          <span class="authors">C. Temel</span>, &ldquo;Towards Trustworthy Autonomous Robots: An Explainable AI-Based
+          Decision Framework,&rdquo; in <em>SoutheastCon 2026</em>, IEEE, Feb. 2026, pp. 1&ndash;6,
+          doi: 10.1109/SoutheastCon63549.2026.11476455.
+        </p>
+
+        <div class="paper-links">
+          <a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">IEEE Xplore</a>
+          <a href="https://doi.org/10.1109/SoutheastCon63549.2026.11476455" target="_blank" rel="noopener">DOI</a>
+        </div>
+
+        <details class="bib">
+          <summary>BibTeX</summary>
+<pre>@inproceedings{Temel2026TRACE,
+  title     = {Towards Trustworthy Autonomous Robots: An Explainable AI-Based
+               Decision Framework},
+  author    = {Temel, Cagri},
+  booktitle = {SoutheastCon 2026},
+  pages     = {1--6},
+  year      = {2026},
+  month     = feb,
+  publisher = {IEEE},
+  doi       = {10.1109/SoutheastCon63549.2026.11476455}
+}</pre>
+        </details>
+
+        <h2 style="margin-top:44px;">The problem</h2>
+        <p class="desc">
+          A warehouse robot stops unexpectedly and a worker collides with it. Investigators want to know why the
+          robot chose that action. The network processed sensor data through millions of parameters to produce a
+          stop command, but the chain of evidence leading to that choice was never preserved, so the answer can
+          only be reconstructed speculatively. This gap has three practical consequences: incident investigation
+          becomes guesswork, safety certification under standards such as ISO&nbsp;13482 becomes difficult because
+          opaque systems cannot produce documented risk assessment, and the EU AI Act requirement that high-risk
+          systems keep logs enabling their functioning to be traced is one most deployed robotic systems cannot
+          satisfy.
+        </p>
+
+        <h2 style="margin-top:36px;">The approach</h2>
+        <p class="desc">
+          Post-hoc explanation is the wrong shape for this problem. LIME and SHAP explain individual predictions
+          but cannot reconstruct the temporal sequence of decisions leading to an incident, and attention weights
+          are known to be an unreliable proxy for causal influence. TRACE therefore does not extract explanations
+          from an opaque model. It embeds the audit requirement into the decision architecture itself, so that
+          every action is already traceable through documented causal chains to specific sensor evidence. The
+          framework stays model-agnostic: CNNs, transformers, and future architectures can sit inside the layers
+          while auditability is preserved at the decision level.
+        </p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Layer</th><th>Function</th><th>Explanation artifact</th></tr></thead>
+          <tbody>
+            <tr><td>1. Semantic Perception</td><td>Sensor fusion into entity recognition, where each detected entity keeps explicit links to the sensor evidence supporting it</td><td>Evidence Aggregation Record</td></tr>
+            <tr><td>2. Belief Reasoning</td><td>Scene graph into probabilistic state estimation</td><td>Causal graph</td></tr>
+            <tr><td>3. Action Synthesis</td><td>Constraint-aware planning and decision selection, documenting why an action was chosen over the alternatives</td><td>Counterfactual Decision Tree</td></tr>
+            <tr><td>4. Execution Verification</td><td>Command issue with compliance monitoring</td><td>Audit trace</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          The artifacts combine into a Trust Composite Score in [0,&nbsp;1]. Counterfactual Decision Trees are the
+          contribution that makes &ldquo;what if&rdquo; analysis possible during incident review, which is what an
+          investigator actually needs and what feature attribution cannot give.
+        </p>
+
+        <h2 style="margin-top:36px;">Results</h2>
+        <p class="desc">Evaluated on warehouse robot navigation across 500 simulated decision cycles.</p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Metric</th><th>What it measures</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Evidence Traceability</td><td>Sensor-to-decision linkage</td><td>98.6%</td></tr>
+            <tr><td>Temporal Continuity</td><td>Audit trail completeness</td><td>99.0%</td></tr>
+            <tr><td>Decision Reconstructability</td><td>Post-hoc analysis capability</td><td>98.1%</td></tr>
+            <tr><td>Computational overhead</td><td>Cost of maintaining the audit structure</td><td>sub-millisecond</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          The three metrics are themselves part of the contribution: they define what it means for a decision to
+          be reconstructable by an independent investigator, which is a property the explainable-AI literature
+          usually leaves informal.
+        </p>
+
+        <h2 style="margin-top:36px;">Related work of mine</h2>
+        <p class="desc">
+          TRACE covers auditability after the fact. <a href="paper-ct-safr.html">CT-SAFR</a> covers verification
+          before the act, for robots whose plans come from a language model. Together they are the two halves of
+          the same commitment: an autonomous action should be checkable in advance and reconstructable afterwards.
+        </p>
+
+        <div class="btn-row" style="margin-top:30px;">
+          <a href="publications.html" class="btn btn-ghost">&larr; All publications</a>
+          <a href="paper-ct-safr.html" class="btn btn-ghost">CT-SAFR &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

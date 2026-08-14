@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for Autonomous Robots · Cagri Temel</title>
+  <meta name="description" content="CT-SAFR is a four-layer verification framework that checks Chain-of-Thought reasoning before an autonomous robot acts. IEEE CAI 2026, pp. 598-603. Summary, results, and citation." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for Autonomous Robots" />
+  <meta property="og:description" content="A four-layer verification framework for Chain-of-Thought reasoning in autonomous robots. IEEE CAI 2026." />
+  <meta property="og:url" content="https://cagritemel.com/paper-ct-safr.html" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://cagritemel.com/paper-ct-safr.html" />
+  <link rel="alternate" hreflang="en" href="https://cagritemel.com/paper-ct-safr.html" />
+  <link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/paper-ct-safr.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for Autonomous Robots: A Multi-Layered Verification Framework for Trustworthy AI-Driven Robotic Decision Making",
+    "author": { "@type": "Person", "name": "Cagri Temel", "url": "https://cagritemel.com" },
+    "isPartOf": { "@type": "PublicationEvent", "name": "2026 IEEE Conference on Artificial Intelligence (CAI)" },
+    "pagination": "598-603",
+    "datePublished": "2026-05-08",
+    "identifier": "https://doi.org/10.1109/CAI68641.2026.11536646",
+    "url": "https://ieeexplore.ieee.org/document/11536646",
+    "publisher": { "@type": "Organization", "name": "IEEE" }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html" class="active">Publications</a></li>
+        <li><a href="patents.html">Patents</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="tr/paper-ct-safr.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <p class="crumb"><a href="publications.html">Publications</a> / CT-SAFR</p>
+        <h1>CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for Autonomous Robots</h1>
+        <p class="lead">A multi-layered verification framework for trustworthy AI-driven robotic decision making.</p>
+
+        <p class="paper-cite">
+          <span class="authors">C. Temel</span>, &ldquo;CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for
+          Autonomous Robots: A Multi-Layered Verification Framework for Trustworthy AI-Driven Robotic Decision
+          Making,&rdquo; in <em>2026 IEEE Conference on Artificial Intelligence (CAI)</em>, IEEE, May 2026, pp. 598&ndash;603,
+          doi: 10.1109/CAI68641.2026.11536646.
+        </p>
+
+        <div class="paper-links">
+          <a href="https://ieeexplore.ieee.org/document/11536646" target="_blank" rel="noopener">IEEE Xplore</a>
+          <a href="https://doi.org/10.1109/CAI68641.2026.11536646" target="_blank" rel="noopener">DOI</a>
+          <a href="https://www.ieeesmc.org/cai-2026/detailed-schedule/" target="_blank" rel="noopener">Conference program</a>
+        </div>
+
+        <details class="bib">
+          <summary>BibTeX</summary>
+<pre>@inproceedings{Temel2026CTSAFR,
+  title     = {CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for
+               Autonomous Robots: A Multi-Layered Verification Framework for
+               Trustworthy AI-Driven Robotic Decision Making},
+  author    = {Temel, Cagri},
+  booktitle = {2026 IEEE Conference on Artificial Intelligence (CAI)},
+  pages     = {598--603},
+  year      = {2026},
+  month     = may,
+  publisher = {IEEE},
+  doi       = {10.1109/CAI68641.2026.11536646}
+}</pre>
+        </details>
+
+        <h2 style="margin-top:44px;">The problem</h2>
+        <p class="desc">
+          Chain-of-Thought prompting lets a language model plan a robot task in explicit steps, and those steps
+          look like an explanation of what the model is doing. Recent work shows they often are not. Reasoning
+          models verbalize their actual decision process only 25 to 39% of the time, and faithfulness degrades by
+          a further 44% on harder tasks, exactly the tasks where a robot most needs oversight. A robot that acts
+          on an unfaithful reasoning chain can damage equipment, the environment, or a person, and current
+          verification methods do not catch this failure mode.
+        </p>
+
+        <h2 style="margin-top:36px;">The approach</h2>
+        <p class="desc">
+          CT-SAFR treats a reasoning chain as an artifact to be checked rather than an explanation to be trusted.
+          It assumes no single technique can guarantee safety, so four independent layers run in sequence and any
+          one of them can send the robot to a fallback mode: conservative operation, reduced autonomy, a safe-state
+          transition, or human escalation.
+        </p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Layer</th><th>What it checks</th><th>Measured cost</th></tr></thead>
+          <tbody>
+            <tr><td>1. Structural verification</td><td>Logical coherence independent of meaning: circular dependencies, unsupported assertions, broken entailment, malformed reasoning</td><td>12&nbsp;ms median, catches ~15% of problematic chains</td></tr>
+            <tr><td>2. Physical constraint validation</td><td>Joint limits, velocities, accelerations, collision boundaries, force thresholds, operational envelopes, checked outside the language model so a persuasive but wrong chain cannot cross it</td><td>45&nbsp;ms at p95, 99.8% detection accuracy</td></tr>
+            <tr><td>3. Semantic consistency</td><td>Self-consistency decoding over k&nbsp;=&nbsp;5 sampled reasoning paths; agreement above 80% executes, 50 to 80% triggers conservative behavior, below 50% escalates to a human</td><td>part of the sub-500&nbsp;ms budget</td></tr>
+            <tr><td>4. Interpretability interface</td><td>Decision visualization, confidence reporting, and an audit log for the human operator</td><td>real-time monitoring and override</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          The design point worth noting is layer 2. It is deliberately independent of the reasoning process, which
+          means physical safety does not depend on the reasoning chain being faithful at all. That is how the
+          framework addresses the faithfulness problem without needing to solve it.
+        </p>
+
+        <h2 style="margin-top:36px;">Results</h2>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Measure</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>Unsafe reasoning detection (n&nbsp;=&nbsp;500)</td><td>94.2% (95% CI 91.8&ndash;96.6%)</td></tr>
+            <tr><td>False positive rate</td><td>3.1%</td></tr>
+            <tr><td>Verification latency</td><td>under 500&nbsp;ms</td></tr>
+            <tr><td>Reduction in unsafe reasoning outputs, warehouse robot case study</td><td>87% (p &lt; 0.001)</td></tr>
+            <tr><td>Task completion rate, across 1,000 operation hours</td><td>+3.5%</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          An ablation study quantifies each layer separately and shows that every layer contributes safety
+          benefits the others do not, which is the empirical argument for the defense-in-depth structure rather
+          than a single stronger checker.
+        </p>
+
+        <h2 style="margin-top:36px;">Related work of mine</h2>
+        <p class="desc">
+          CT-SAFR adapts verification techniques from
+          <a href="https://github.com/cgrtml/cognitest-framework" target="_blank" rel="noopener">CogniTest</a>, my
+          earlier multi-layered verification framework for LLM-assisted software testing, and applies them under
+          the physical grounding and real-time constraints of robotics. The auditability side of the same problem
+          is treated in <a href="paper-trace.html">TRACE</a>.
+        </p>
+
+        <div class="btn-row" style="margin-top:30px;">
+          <a href="publications.html" class="btn btn-ghost">&larr; All publications</a>
+          <a href="paper-trace.html" class="btn btn-ghost">TRACE &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

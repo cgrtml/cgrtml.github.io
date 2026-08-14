@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CT-SAFR: Otonom Robotlar için Güvenli ve Yorumlanabilir Chain-of-Thought · Cagri Temel</title>
+  <meta name="description" content="CT-SAFR, otonom bir robot harekete geçmeden önce Chain-of-Thought akıl yürütmesini denetleyen dört katmanlı doğrulama çerçevesi. IEEE CAI 2026, s. 598-603. Özet, sonuçlar ve künye." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://cagritemel.com/tr/paper-ct-safr.html" />
+  <link rel="alternate" hreflang="en" href="https://cagritemel.com/paper-ct-safr.html" />
+  <link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/paper-ct-safr.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="research.html">Araştırma</a></li>
+        <li><a href="publications.html" class="active">Yayınlar</a></li>
+        <li><a href="patents.html">Patentler</a></li>
+        <li><a href="teaching.html">Eğitim</a></li>
+        <li><a href="speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="contact.html">İletişim</a></li>
+        <li><a href="../blog.html">Blog</a></li>
+        <li class="nav-lang"><a href="../paper-ct-safr.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <p class="crumb"><a href="publications.html">Yayınlar</a> / CT-SAFR</p>
+        <h1>CT-SAFR: Otonom Robotlar için Güvenli ve Yorumlanabilir Chain-of-Thought Akıl Yürütme</h1>
+        <p class="lead">Güvenilir yapay zeka tabanlı robotik karar verme için çok katmanlı bir doğrulama çerçevesi.</p>
+
+        <p class="paper-cite">
+          <span class="authors">C. Temel</span>, &ldquo;CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for
+          Autonomous Robots: A Multi-Layered Verification Framework for Trustworthy AI-Driven Robotic Decision
+          Making,&rdquo; <em>2026 IEEE Conference on Artificial Intelligence (CAI)</em>, IEEE, Mayıs 2026, s. 598&ndash;603,
+          doi: 10.1109/CAI68641.2026.11536646.
+        </p>
+
+        <div class="paper-links">
+          <a href="https://ieeexplore.ieee.org/document/11536646" target="_blank" rel="noopener">IEEE Xplore</a>
+          <a href="https://doi.org/10.1109/CAI68641.2026.11536646" target="_blank" rel="noopener">DOI</a>
+          <a href="https://www.ieeesmc.org/cai-2026/detailed-schedule/" target="_blank" rel="noopener">Konferans programı</a>
+        </div>
+
+        <details class="bib">
+          <summary>BibTeX</summary>
+<pre>@inproceedings{Temel2026CTSAFR,
+  title     = {CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for
+               Autonomous Robots: A Multi-Layered Verification Framework for
+               Trustworthy AI-Driven Robotic Decision Making},
+  author    = {Temel, Cagri},
+  booktitle = {2026 IEEE Conference on Artificial Intelligence (CAI)},
+  pages     = {598--603},
+  year      = {2026},
+  month     = may,
+  publisher = {IEEE},
+  doi       = {10.1109/CAI68641.2026.11536646}
+}</pre>
+        </details>
+
+        <h2 style="margin-top:44px;">Problem</h2>
+        <p class="desc">
+          Chain-of-Thought yönlendirmesi, bir dil modelinin robot görevini açık adımlarla planlamasını sağlıyor ve
+          bu adımlar modelin ne yaptığının açıklaması gibi duruyor. Son çalışmalar çoğu zaman öyle olmadığını
+          gösteriyor: akıl yürütme modelleri gerçek karar süreçlerini yalnızca %25 ila %39 oranında sözelleştiriyor
+          ve zor görevlerde sadakat %44 daha düşüyor, yani tam da robotun denetime en çok ihtiyaç duyduğu yerde.
+          Sadakatsiz bir akıl yürütme zincirine göre hareket eden bir robot ekipmana, çevreye veya bir insana zarar
+          verebilir; mevcut doğrulama yöntemleri bu hata tipini yakalamıyor.
+        </p>
+
+        <h2 style="margin-top:36px;">Yaklaşım</h2>
+        <p class="desc">
+          CT-SAFR, akıl yürütme zincirini güvenilecek bir açıklama olarak değil, denetlenecek bir artefakt olarak
+          ele alıyor. Hiçbir tek tekniğin güvenliği garanti edemeyeceğini varsayıyor: dört bağımsız katman sırayla
+          çalışıyor ve herhangi biri robotu geri çekilme moduna gönderebiliyor (muhafazakâr çalışma, düşürülmüş
+          otonomi, güvenli duruma geçiş veya insana devretme).
+        </p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Katman</th><th>Ne denetliyor</th><th>Ölçülen maliyet</th></tr></thead>
+          <tbody>
+            <tr><td>1. Yapısal doğrulama</td><td>Anlamdan bağımsız mantıksal tutarlılık: döngüsel bağımlılıklar, dayanaksız iddialar, kopan çıkarım, bozuk akıl yürütme biçimi</td><td>12&nbsp;ms medyan, sorunlu zincirlerin ~%15'ini yakalıyor</td></tr>
+            <tr><td>2. Fiziksel kısıt doğrulama</td><td>Eklem limitleri, hızlar, ivmeler, çarpışma sınırları, kuvvet eşikleri, çalışma zarfı; dil modelinin dışında denetleniyor, böylece ikna edici ama yanlış bir zincir bu sınırı geçemiyor</td><td>p95'te 45&nbsp;ms, %99,8 tespit doğruluğu</td></tr>
+            <tr><td>3. Anlamsal tutarlılık</td><td>k&nbsp;=&nbsp;5 farklı akıl yürütme yolu üzerinde öz-tutarlılık kod çözme; %80 üzeri uzlaşma yürütülüyor, %50-80 muhafazakâr davranışı tetikliyor, %50 altı insana çıkıyor</td><td>500&nbsp;ms altı bütçenin içinde</td></tr>
+            <tr><td>4. Yorumlanabilirlik arayüzü</td><td>Karar görselleştirmesi, güven raporlaması ve insan operatör için denetim kaydı</td><td>gerçek zamanlı izleme ve müdahale</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          Tasarımın kilit noktası 2. katman: akıl yürütme sürecinden kasıtlı olarak bağımsız. Yani fiziksel
+          güvenlik, akıl yürütme zincirinin sadık olmasına hiç bağlı değil. Çerçeve sadakat problemini çözmek
+          zorunda kalmadan böyle karşılıyor.
+        </p>
+
+        <h2 style="margin-top:36px;">Sonuçlar</h2>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Ölçüm</th><th>Sonuç</th></tr></thead>
+          <tbody>
+            <tr><td>Güvensiz akıl yürütme tespiti (n&nbsp;=&nbsp;500)</td><td>%94,2 (%95 GA 91,8&ndash;96,6)</td></tr>
+            <tr><td>Yanlış pozitif oranı</td><td>%3,1</td></tr>
+            <tr><td>Doğrulama gecikmesi</td><td>500&nbsp;ms altı</td></tr>
+            <tr><td>Depo robotu senaryosunda güvensiz çıktı azalması</td><td>%87 (p &lt; 0,001)</td></tr>
+            <tr><td>1.000 çalışma saati boyunca görev tamamlama oranı</td><td>+%3,5</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="desc">
+          Ablasyon çalışması her katmanın katkısını ayrı ayrı ölçüyor ve her katmanın diğerlerinin sağlamadığı bir
+          güvenlik faydası getirdiğini gösteriyor. Tek bir güçlü denetleyici yerine derinlemesine savunma
+          kurmanın deneysel gerekçesi bu.
+        </p>
+
+        <h2 style="margin-top:36px;">Bağlantılı kendi çalışmam</h2>
+        <p class="desc">
+          CT-SAFR, LLM destekli yazılım testi için yazdığım çok katmanlı doğrulama çerçevesi
+          <a href="https://github.com/cgrtml/cognitest-framework" target="_blank" rel="noopener">CogniTest</a>'in
+          tekniklerini robotiğin fiziksel dayanak ve gerçek zaman kısıtlarına uyarlıyor. Aynı problemin
+          denetlenebilirlik tarafı <a href="paper-trace.html">TRACE</a>'te ele alınıyor.
+        </p>
+
+        <div class="btn-row" style="margin-top:30px;">
+          <a href="publications.html" class="btn btn-ghost">&larr; Tüm yayınlar</a>
+          <a href="paper-trace.html" class="btn btn-ghost">TRACE &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
