@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teaching &amp; Outreach · Cagri Temel</title>
+  <meta name="description" content="Teaching and outreach by Cagri Temel: ML Academy (mltraining.org), a free 123-lesson interactive machine-learning curriculum, university workshops, and open educational software." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Teaching &amp; Outreach · Cagri Temel" />
+  <meta property="og:description" content="ML Academy (mltraining.org): a free, open-source, 123-lesson interactive curriculum that teaches machine learning by asking students to prove what they claim." />
+  <meta property="og:url" content="https://cagritemel.com/teaching.html" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://cagritemel.com/teaching.html" />
+  <link rel="alternate" hreflang="en" href="https://cagritemel.com/teaching.html" />
+  <link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/teaching.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "ML Academy",
+    "url": "https://mltraining.org",
+    "description": "A free, open-source interactive curriculum of 123 lessons that teaches machine learning, deep learning, and large language models entirely in the browser.",
+    "inLanguage": ["en", "tr"],
+    "isAccessibleForFree": true,
+    "provider": { "@type": "Person", "name": "Cagri Temel", "url": "https://cagritemel.com" },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT60H"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="patents.html">Patents</a></li>
+        <li><a href="teaching.html" class="active">Teaching</a></li>
+        <li><a href="speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="tr/teaching.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <h1>Teaching &amp; Outreach</h1>
+        <p class="lead">I teach machine learning the way I do research: a claim only counts once someone has tested it. Everything below is free, open, and built for people who are starting from zero.</p>
+
+        <h2 style="margin-top:44px;">ML Academy &middot; <a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a></h2>
+        <p class="desc">
+          ML Academy is a complete, free interactive curriculum that teaches machine learning, deep learning, and
+          large language models entirely in the browser. There are no videos, no installation, no accounts required
+          to start, and no payment. I designed the pedagogy, wrote all 123 lessons, and implemented every algorithm
+          engine and visualization behind them. The whole project is open source under the MIT license and runs in
+          both English and Turkish.
+        </p>
+
+        <div class="stats" style="margin-top:24px;">
+          <a class="stat" href="https://mltraining.org" target="_blank" rel="noopener"><div class="num">123</div><div class="lbl">Lessons across 5 tracks</div></a>
+          <a class="stat" href="https://mltraining.org" target="_blank" rel="noopener"><div class="num">401</div><div class="lbl">Interactive steps</div></a>
+          <a class="stat" href="https://mltraining.org" target="_blank" rel="noopener"><div class="num">165</div><div class="lbl">Custom visualizations</div></a>
+          <a class="stat" href="https://mltraining.org" target="_blank" rel="noopener"><div class="num">387</div><div class="lbl">Academic references cited</div></a>
+        </div>
+
+        <h3 style="margin-top:34px;">Why it exists</h3>
+        <p class="desc">
+          There are excellent interactive resources for machine learning: TensorFlow Playground, Distill, Seeing
+          Theory, the Poloclub explainers. They share one gap. They show you things, but nothing ever checks whether
+          you learned anything. You drag a slider, think "neat", and move on. ML Academy is built to close exactly
+          that gap, and the mechanism comes straight from my research background in statistical model comparison:
+          <strong>other courses show machine learning, this one makes you prove it</strong>.
+        </p>
+
+        <div class="cards" style="margin-top:22px;">
+          <div class="card">
+            <h3>Predict before you see</h3>
+            <p>Before any animation runs, the student commits to an answer. The hit rate becomes a calibration score, which is the one number that shows where intuition is unreliable.</p>
+            <div class="tags"><span class="tag">generation effect</span><span class="tag">calibration</span></div>
+          </div>
+          <div class="card">
+            <h3>Feel the need before the tool</h3>
+            <p>Nobody is told that significance testing matters. The student builds a model, trusts the number, then re-splits the data with a new random seed and watches the ranking flip. Only then does the test appear.</p>
+            <div class="tags"><span class="tag">5&times;2cv F-test</span><span class="tag">McNemar</span></div>
+          </div>
+          <div class="card">
+            <h3>Prove it by running it</h3>
+            <p>Lessons end with the algorithm itself, not a question about it. The student fills the blanks and presses RUN. Wrong answers are not rejected, they are executed: write a plus instead of a minus and you watch gradient ascent blow the loss up on screen.</p>
+            <div class="tags"><span class="tag">executable</span><span class="tag">Pyodide</span></div>
+          </div>
+          <div class="card">
+            <h3>No number without a test</h3>
+            <p>Every figure quoted in a lesson is re-derived by a verification script before release. <code>./dogrula.sh</code> checks the numeric claims, the structure of every lesson, and renders all visualizations against a mock canvas to catch drawing errors.</p>
+            <div class="tags"><span class="tag">reproducible</span><span class="tag">verified</span></div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:34px;">Curriculum</h3>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="year">Track 0</div>
+            <div>
+              <p class="title">Start from zero (15 lessons)</p>
+              <p class="desc">Algorithms, data, what learning is, memorization and overfitting, metrics, data leakage, and statistical evidence.</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">Track 1</div>
+            <div>
+              <p class="title">Classical machine learning (37 lessons)</p>
+              <p class="desc">k-NN, decision trees, random forests, boosting, logistic regression, SVM, soft decision trees, clustering, PCA and manifold methods.</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">Track 2</div>
+            <div>
+              <p class="title">Deep learning (22 lessons)</p>
+              <p class="desc">Neurons, backpropagation, optimizers, activations, regularization, batch normalization, CNNs, embeddings, and transfer learning.</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">Track 3</div>
+            <div>
+              <p class="title">Large language models (29 lessons)</p>
+              <p class="desc">Tokenization, attention, the transformer block, sampling, pre-training and RLHF, hallucination, retrieval-augmented generation, and the KV cache.</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">Track 4</div>
+            <div>
+              <p class="title">Using AI (20 lessons)</p>
+              <p class="desc">Prompting, evaluation sets and confidence intervals, Elo comparison, debugging a RAG pipeline, agents, LLM-as-judge, red teaming, and cost.</p>
+            </div>
+          </li>
+        </ul>
+
+        <p class="desc" style="margin-top:18px;">
+          Alongside the lessons there is a catalogue of 25 models. Each entry states what the model does, how it
+          works, when to use it, <strong>when not to use it</strong>, working code, the key hyperparameters, and the
+          classic pitfall. Every algorithm in the site was written from scratch in plain JavaScript: CART with Gini
+          gain, random forests with bootstrap and feature subsampling, gradient boosting, an MLP with
+          backpropagation, linear SVM, soft decision trees, k-means, PCA with Jacobi eigendecomposition, a BPE
+          tokenizer, skip-gram word2vec with negative sampling, and Elo ratings. No libraries, so every number a
+          student sees is produced live in their own browser.
+        </p>
+
+        <div class="btn-row" style="margin-top:26px;">
+          <a href="https://mltraining.org" class="btn btn-primary" target="_blank" rel="noopener">Open ML Academy</a>
+          <a href="https://github.com/cgrtml/ml-academy" class="btn btn-ghost" target="_blank" rel="noopener">Source on GitHub</a>
+        </div>
+
+        <h2 style="margin-top:52px;">University Workshops &amp; Instruction</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="year">2026</div>
+            <div>
+              <p class="title">Instructor, Data &amp; Analytics Breakout: Explainable Neural Trees</p>
+              <p class="meta">Washington State University · May 2026 · joint session with a security engineering leader from Expedia Group</p>
+              <p class="desc">Designed and led the hands-on half of a workshop: students trained their own neural tree, then attacked a deployed model with sensor drift, stuck-at faults, and injected noise to see how an interpretable model fails differently from a black box. The session closed with a contribution sprint in which students opened pull requests against the neural-trees library. All slides, notebooks, and datasets are public.</p>
+              <div class="links"><a href="https://github.com/cgrtml/wsu-workshop-may15" target="_blank" rel="noopener">Workshop materials</a></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2019&ndash;20</div>
+            <div>
+              <p class="title">Maker Engineer, hands-on STEM curriculum</p>
+              <p class="meta">Özyeğin University, Istanbul</p>
+              <p class="desc">Led maker-space initiatives and built hands-on engineering curricula, mentoring more than 100 students and organizing community showcase events.</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2018&ndash;19</div>
+            <div>
+              <p class="title">Educational platform engineering, Technology Transfer Office</p>
+              <p class="meta">Istanbul Aydın University</p>
+              <p class="desc">Built and tested web-based educational platforms with video streaming and student-tracking systems, which is where the interest in measuring learning rather than delivering content started.</p>
+            </div>
+          </li>
+        </ul>
+
+        <h2 style="margin-top:44px;">Mentorship</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="year">2025</div>
+            <div>
+              <p class="title">Industry Mentor, Penn &times; Anthropic Sprint Hackathon</p>
+              <p class="meta">University of Pennsylvania · 220+ participants, 130+ teams</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2025</div>
+            <div>
+              <p class="title">Mentor, Opportunity Hack / ASU Fall Hackathon</p>
+              <p class="meta">Tempe, AZ</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2020&ndash;</div>
+            <div>
+              <p class="title">Local Lead &amp; Mentor, NASA Space Apps Challenge</p>
+              <p class="meta">Istanbul · organized local editions across multiple cycles</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2020</div>
+            <div>
+              <p class="title">National Winner, InovaTIM AI &amp; Robotics High-School Program</p>
+              <p class="meta">Recognized by KOSGEB and the Turkish Exporters Assembly; represented Turkey at the European Entrepreneurship Promotion Awards</p>
+            </div>
+          </li>
+        </ul>
+        <p class="desc" style="color:var(--muted);">
+          Across university programs, maker spaces, hackathons, and national competitions I have taught or mentored
+          more than 500 students. Judging and program-committee service is listed on the
+          <a href="speaking.html">Speaking &amp; Service</a> page.
+        </p>
+
+        <h2 style="margin-top:44px;">Open Educational Software</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="year">Web</div>
+            <div>
+              <p class="title">ML Academy</p>
+              <p class="meta">123 lessons · MIT license · English and Turkish · no build step, no server</p>
+              <div class="links"><a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a><a href="https://github.com/cgrtml/ml-academy" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">PyPI</div>
+            <div>
+              <p class="title">neural-trees</p>
+              <p class="meta">Soft decision trees and hierarchical mixtures of experts, scikit-learn compatible, with 5&times;2cv F-test support</p>
+              <p class="desc">Used in my own coursework and workshops as the teaching vehicle for interpretable models, and open to student contributions.</p>
+              <div class="links"><a href="https://pypi.org/project/neural-trees/" target="_blank" rel="noopener">PyPI</a><a href="https://github.com/cgrtml/neural-trees" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">Web</div>
+            <div>
+              <p class="title">ML Playground</p>
+              <p class="meta">Side-by-side model comparison with significance testing</p>
+              <p class="desc">A classroom tool for comparing scikit-learn, XGBoost, LightGBM, CatBoost, TabNet, and neural-trees on the same split, with 5&times;2cv testing so students see when a difference is real.</p>
+              <div class="links"><a href="https://cgrtml-neural-trees-app-s4xaiy.streamlit.app" target="_blank" rel="noopener">Live demo</a><a href="https://github.com/cgrtml/ml-playground" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+        </ul>
+
+        <h2 style="margin-top:44px;">Courses I Am Prepared to Teach</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Introduction to Machine Learning</h3>
+            <p>Supervised and unsupervised learning, model selection, evaluation, and the statistical comparison of models. Undergraduate or first-year graduate.</p>
+          </div>
+          <div class="card">
+            <h3>Deep Learning</h3>
+            <p>Backpropagation, optimization, regularization, convolutional and sequence models, representation learning, and transfer.</p>
+          </div>
+          <div class="card">
+            <h3>Large Language Models and Their Evaluation</h3>
+            <p>Tokenization through transformers, alignment, retrieval-augmented generation, hallucination, evaluation design, and red teaming.</p>
+          </div>
+          <div class="card">
+            <h3>Explainable and Trustworthy AI</h3>
+            <p>Interpretability methods, auditability, safety verification for autonomous systems, and AI governance under the EU AI Act and related standards.</p>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:28px;">
+          <a href="research.html" class="btn btn-ghost">Research and projects &rarr;</a>
+          <a href="contact.html" class="btn btn-ghost">Get in touch &rarr;</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

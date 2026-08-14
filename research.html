@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
   <header class="site-header">
     <nav class="nav">
       <a href="index.html" class="nav-brand">Cagri Temel</a>
@@ -24,6 +25,7 @@
         <li><a href="research.html" class="active">Research</a></li>
         <li><a href="publications.html">Publications</a></li>
         <li><a href="patents.html">Patents</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
         <li><a href="speaking.html">Speaking &amp; Service</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="blog.html">Blog</a></li>
@@ -32,7 +34,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="section">
       <div class="container">
         <h1>Research &amp; Projects</h1>
@@ -88,6 +90,7 @@
               <p class="title">CT-SAFR: Safe &amp; Interpretable Chain-of-Thought for Robots</p>
               <p class="meta">Research · presented at IEEE CAI 2026</p>
               <p class="desc">A defense-in-depth, multi-layered verification framework addressing the faithfulness problem in Chain-of-Thought-enabled autonomous robots. It reported 94% detection of unsafe and hallucinated reasoning at sub-500&nbsp;ms latency in a warehouse-robot case study, and is covered by a pending U.S. provisional patent.</p>
+              <div class="links"><a href="https://ieeexplore.ieee.org/document/11536646" target="_blank" rel="noopener">IEEE Xplore</a></div>
               <div class="tags"><span class="tag">CoT safety</span><span class="tag">verification</span></div>
             </div>
           </li>
@@ -97,7 +100,18 @@
               <p class="title">TRACE: Transparent Reasoning Architecture for Autonomous Robots</p>
               <p class="meta">Research · IEEE SoutheastCon 2026</p>
               <p class="desc">A model-agnostic, four-layer decision framework that traces every autonomous action back to sensor evidence via documented causal chains, with high evidence-traceability and decision-reconstructability across simulated decision cycles.</p>
+              <div class="links"><a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">IEEE Xplore</a></div>
               <div class="tags"><span class="tag">explainability</span><span class="tag">autonomy</span></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2026</div>
+            <div>
+              <p class="title">ML Academy: an interactive curriculum that makes students prove what they learn</p>
+              <p class="meta">Creator · <a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a> · open source, English and Turkish</p>
+              <p class="desc">A free curriculum of 123 interactive lessons on machine learning, deep learning, and large language models, running entirely in the browser with no installation. Existing visual resources show models; this one asks the student to predict before seeing, to feel the need for a tool before it is introduced, and to prove a claim by executing the algorithm. Every algorithm engine (CART, random forests, boosting, MLP with backpropagation, SVM, soft decision trees, PCA, BPE, word2vec) was written from scratch, and a verification script re-derives every number quoted in every lesson.</p>
+              <div class="links"><a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a><a href="https://github.com/cgrtml/ml-academy" target="_blank" rel="noopener">GitHub</a><a href="teaching.html">Teaching page</a></div>
+              <div class="tags"><span class="tag">CS education</span><span class="tag">interactive</span><span class="tag">open source</span></div>
             </div>
           </li>
           <li class="entry">
@@ -113,10 +127,29 @@
         <h2 style="margin-top:48px;">Open-Source Software</h2>
         <ul class="entry-list">
           <li class="entry">
+            <div class="year">Web</div>
+            <div>
+              <p class="title">ml-academy</p>
+              <p class="meta">123-lesson interactive ML curriculum · 165 visualizations · 387 cited references · MIT · English and Turkish</p>
+              <p class="desc">The engine and the content behind <a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a>. Content is stored as data rather than code, so a new lesson is an object, not a component. Ships with a verification script that re-derives every numeric claim, checks lesson structure, and renders all visualizations against a mock canvas.</p>
+              <div class="links"><a href="https://mltraining.org" target="_blank" rel="noopener">Live site</a><a href="https://github.com/cgrtml/ml-academy" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">GitHub</div>
+            <div>
+              <p class="title">reasongate</p>
+              <p class="meta">Explainable security gate for LLM applications · Apache-2.0 · zero core dependencies</p>
+              <p class="desc">A self-hostable gate that inspects text going into and out of an LLM and returns an explainable allow, flag, or block decision with a machine-readable audit record for every call. It de-obfuscates common evasions before matching, scans retrieved context and tool output for indirect injection, and checks output for leaked secrets and a planted canary.</p>
+              <p class="shields"><img src="https://img.shields.io/github/stars/cgrtml/reasongate?label=stars&color=1a2b4a" alt="GitHub stars" loading="lazy" /></p>
+              <div class="links"><a href="https://github.com/cgrtml/reasongate" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+          <li class="entry">
             <div class="year">PyPI</div>
             <div>
               <p class="title">neural-trees</p>
-              <p class="meta">scikit-learn-compatible PyTorch · Soft Decision Trees, HMoE, 5×2cv F-test · MIT · 30★</p>
+              <p class="meta">scikit-learn-compatible PyTorch · Soft Decision Trees, HMoE, 5×2cv F-test · MIT</p>
               <p class="desc">A scikit-learn-compatible library of PyTorch implementations of soft decision trees and hierarchical mixtures of experts, with statistical model-comparison tests. Install with <code>pip install neural-trees</code>.</p>
               <p class="shields"><img src="https://img.shields.io/pypi/v/neural-trees?label=PyPI&color=1a2b4a" alt="PyPI version" loading="lazy" /><img src="https://img.shields.io/pepy/dt/neural-trees?label=downloads&color=1a2b4a" alt="PyPI downloads" loading="lazy" /><img src="https://img.shields.io/github/stars/cgrtml/neural-trees?label=stars&color=1a2b4a" alt="GitHub stars" loading="lazy" /></p>
               <div class="links"><a href="https://pypi.org/project/neural-trees/" target="_blank" rel="noopener">PyPI</a><a href="https://github.com/cgrtml/neural-trees" target="_blank" rel="noopener">GitHub</a><a href="https://cgrtml-neural-trees-app-s4xaiy.streamlit.app" target="_blank" rel="noopener">Live demo</a></div>

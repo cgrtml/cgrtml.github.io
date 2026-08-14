@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
   <header class="site-header">
     <nav class="nav">
       <a href="index.html" class="nav-brand">Cagri Temel</a>
@@ -24,6 +25,7 @@
         <li><a href="research.html">Araştırma</a></li>
         <li><a href="publications.html" class="active">Yayınlar</a></li>
         <li><a href="patents.html">Patentler</a></li>
+        <li><a href="teaching.html">Eğitim</a></li>
         <li><a href="speaking.html">Konuşmalar &amp; Hizmet</a></li>
         <li><a href="contact.html">İletişim</a></li>
         <li><a href="../blog.html">Blog</a></li>
@@ -32,21 +34,37 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="section">
       <div class="container">
         <h1>Yayınlar</h1>
-        <p class="lead">Açıklanabilir yapay zeka, LLM güvenliği ve güvenilir otonom sistemler alanında hakemli dergi ve konferans makaleleri. ORCID: <a href="https://orcid.org/0009-0003-3359-6939" target="_blank" rel="noopener">0009-0003-3359-6939</a>.</p>
+        <p class="lead">Açıklanabilir yapay zeka, uygulamalı LLM sistemleri ve güvenilir otonom sistemler alanında hakemli dergi ve konferans makaleleri.</p>
+        <p class="desc" style="color:var(--muted);">
+          ORCID: <a href="https://orcid.org/0009-0003-3359-6939" target="_blank" rel="noopener">0009-0003-3359-6939</a>.
+          Yayıncı sürümleri IEEE&nbsp;Xplore ve DOI üzerinden bağlanmıştır; IEEE ve Elsevier politikalarına uygun olarak
+          burada yazar kopyası barındırılmaz.
+        </p>
 
         <h2 style="margin-top:36px;">Dergi Makaleleri</h2>
         <ul class="entry-list">
           <li class="entry">
             <div class="year">2026</div>
             <div>
-              <p class="title">Domain-Specific vs General-Purpose Large Language Models in Orthodontics: A Blinded Comparison of AlimGPT, GPT-4o, Gemini, and Llama</p>
-              <p class="meta">S. Aksakallı, B. Giray, C. Temel · Dentistry Journal (MDPI) · Q1 · Etki Faktörü 3.1 · PubMed</p>
-              <p class="desc">Alana özgü bir modeli (AlimGPT), genel amaçlı LLM'lerle (GPT-4o, Gemini ve Llama) ortodontik soru-yanıtlama üzerinde karşılaştıran kör, karşılaştırmalı bir çalışma.</p>
-              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: kabul edildi (Şubat 2026)</p>
+              <p class="title">Domain-Specific vs. General-Purpose Large Language Models in Orthodontics: A Blinded Comparison of AlimGPT, GPT-4o, Gemini, and Llama</p>
+              <p class="meta">S. Aksakallı, B. Giray, C. Temel · <em>Dentistry Journal</em>, cilt 14, sayı 4, mak. 219, Nisan 2026 · Q1 · Etki Faktörü 3.1 · PubMed ve Scopus dizinli · açık erişim</p>
+              <p class="desc">Alana özgü, kaynağa dayalı bir modeli (benim geliştirdiğim AlimGPT) genel amaçlı LLM'lerle (GPT-4o, Gemini ve Llama) ortodontik soru-yanıtlama üzerinde karşılaştıran, bağımsız klinisyenlerce puanlanan kör çalışma.</p>
+              <div class="links"><a href="https://doi.org/10.3390/dj14040219" target="_blank" rel="noopener">Yayıncı (açık erişim)</a><a href="https://doi.org/10.3390/dj14040219" target="_blank" rel="noopener">DOI: 10.3390/dj14040219</a></div>
+              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: yayımlandı</p>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2023</div>
+            <div>
+              <p class="title">The Mechanical Testing and Performance Analysis of Three-Dimensionally Produced Lingual Retainers</p>
+              <p class="meta">S. Aksakallı, U. Ok, C. Temel, D. Sezgin Mansuroğlu, Y. M. Şahin · <em>Journal of the World Federation of Orthodontists</em>, cilt 12, sayı 2, s. 64&ndash;71, Nisan 2023 · Elsevier · Scopus dizinli</p>
+              <p class="desc">Eklemeli imalatla (3B baskı) üretilen lingual retainerların üretim yöntemi ve malzeme açısından standart mekanik yük testleri altında karşılaştırıldığı deneysel çalışma. Katkım mühendislik tasarımı, üretim ve mekanik test metodolojisidir.</p>
+              <div class="links"><a href="https://doi.org/10.1016/j.ejwf.2022.12.003" target="_blank" rel="noopener">Yayıncı</a><a href="https://doi.org/10.1016/j.ejwf.2022.12.003" target="_blank" rel="noopener">DOI: 10.1016/j.ejwf.2022.12.003</a></div>
+              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: yayımlandı</p>
             </div>
           </li>
         </ul>
@@ -57,33 +75,52 @@
             <div class="year">2026</div>
             <div>
               <p class="title">CT-SAFR: Otonom Robotlar için Güvenli ve Yorumlanabilir Chain-of-Thought Akıl Yürütme</p>
-              <p class="meta">C. Temel · IEEE Conference on Artificial Intelligence (CAI 2026), Granada, İspanya</p>
+              <p class="meta">C. Temel · <em>2026 IEEE Conference on Artificial Intelligence (CAI)</em>, s. 598&ndash;603, Mayıs 2026 · tek yazar</p>
               <p class="desc">Chain-of-Thought destekli robotlardaki sadakat sorununu ele alan; yapısal, fiziksel, anlamsal ve yorumlanabilirlik katmanlarını kapsayan çok katmanlı bir doğrulama çerçevesi. 500&nbsp;ms altı gecikmeyle güvensiz ve halüsinasyon akıl yürütmenin %94,2'sini tespit eder ve bir depo robotu senaryosunda güvensiz akıl yürütme çıktılarında %87 azalma raporlar.</p>
-              <div class="links"><a href="../assets/papers/CT-SAFR-CAI2026.pdf" target="_blank" rel="noopener">Kabul edilmiş PDF</a><a href="https://www.ieeesmc.org/cai-2026/detailed-schedule/" target="_blank" rel="noopener">Program</a></div>
-              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: sunuldu</p>
+              <div class="links"><a href="https://ieeexplore.ieee.org/document/11536646" target="_blank" rel="noopener">IEEE Xplore</a><a href="https://doi.org/10.1109/CAI68641.2026.11536646" target="_blank" rel="noopener">DOI: 10.1109/CAI68641.2026.11536646</a><a href="https://www.ieeesmc.org/cai-2026/detailed-schedule/" target="_blank" rel="noopener">Program</a></div>
+              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: yayımlandı ve sunuldu</p>
             </div>
           </li>
           <li class="entry">
             <div class="year">2026</div>
             <div>
               <p class="title">Güvenilir Otonom Robotlara Doğru: Açıklanabilir Yapay Zeka Tabanlı Bir Karar Çerçevesi</p>
-              <p class="meta">C. Temel · IEEE SoutheastCon 2026</p>
-              <p class="desc">Her otonom eylemi sensör kanıtına geri bağlayan, modelden bağımsız dört katmanlı TRACE (Transparent Reasoning Architecture for Credible Execution) çerçevesini tanıtır. Simüle edilmiş karar döngülerinde yüksek kanıt izlenebilirliği, zamansal süreklilik ve karar yeniden kurulabilirliği raporlar; EU AI Act ve ISO 13482 denetlenebilirliğinden motive olur.</p>
-              <div class="links"><a href="../assets/papers/TRACE-Trustworthy-Autonomous-Robots-SoutheastCon2026.pdf" target="_blank" rel="noopener">Kabul edilmiş PDF</a></div>
-              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: kabul edildi</p>
+              <p class="meta">C. Temel · <em>SoutheastCon 2026</em> (IEEE), s. 1&ndash;6, Şubat 2026 · tek yazar</p>
+              <p class="desc">Her otonom eylemi sensör kanıtına geri bağlayan, modelden bağımsız dört katmanlı TRACE (Transparent Reasoning Architecture for Credible Execution) çerçevesini tanıtır. Simüle edilmiş karar döngülerinde yüksek kanıt izlenebilirliği, zamansal süreklilik ve karar yeniden kurulabilirliği raporlar; EU AI Act ve ISO 13482 denetlenebilirlik gereksinimlerinden motive olur.</p>
+              <div class="links"><a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">IEEE Xplore</a><a href="https://doi.org/10.1109/SoutheastCon63549.2026.11476455" target="_blank" rel="noopener">DOI: 10.1109/SoutheastCon63549.2026.11476455</a></div>
+              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: yayımlandı</p>
             </div>
           </li>
           <li class="entry">
             <div class="year">2026</div>
             <div>
-              <p class="title">Kabul edilen makale, IEEE International Conference on Systems, Man, and Cybernetics (SMC 2026)</p>
-              <p class="meta">C. Temel · IEEE SMC 2026</p>
-              <p class="desc">IEEE SMC 2026 programına kabul edilen makale. Başlık ve tam künye yayımlandığında eklenecektir.</p>
-              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: kabul edildi</p>
+              <p class="title">Robust and Uncertainty-Aware Remaining Useful Life Prediction with Temporal Neural Trees</p>
+              <p class="meta">C. Temel · <em>IEEE International Conference on Systems, Man, and Cybernetics (SMC 2026)</em> · tek yazar</p>
+              <p class="desc">GRU dizi kodlayıcısını, kanal düzeyinde sensör bırakma ile eğitilmiş yumuşak karar ağacı topluluğuyla birleştiren Temporal Neural Tree; NASA C-MAPSS kıyaslamasında kalibre belirsizlik ve sensör kaybına dayanıklılık sağlar. Sensörlerin %30'u eksikken RMSE artışı %17'de kalır, benzer temiz-veri doğruluğuna sahip LSTM'de ise %89'dur.</p>
+              <div class="links"><a href="https://github.com/cgrtml/turbofan-explainable-neural-trees" target="_blank" rel="noopener">Kod</a><a href="https://cgrtml-turbofan-explainable-neural-trees-app-wpwpsy.streamlit.app" target="_blank" rel="noopener">Canlı demo</a></div>
+              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: kabul edildi · IEEE Xplore bağlantısı yayımlanınca eklenecek</p>
             </div>
           </li>
         </ul>
 
+        <h2 style="margin-top:40px;">Ön Baskılar</h2>
+        <ul class="entry-list">
+          <li class="entry">
+            <div class="year">2025</div>
+            <div>
+              <p class="title">LLM-Assisted Test Automation: A Cognitive Software Testing Framework Using Generative AI</p>
+              <p class="meta">C. Temel · <em>TechRxiv</em>, Kasım 2025 · tek yazar</p>
+              <p class="desc">Bir büyük dil modelinin test senaryolarını önerdiği, önceliklendirdiği ve onardığı; test üretimini salt sözdizimsel değil bilişsel bir görev olarak ele alan çerçeve. Referans uygulaması açık kaynak cognitest-framework'tür.</p>
+              <div class="links"><a href="https://doi.org/10.36227/techrxiv.176315879.96821044/v1" target="_blank" rel="noopener">Ön baskı</a><a href="https://github.com/cgrtml/cognitest-framework" target="_blank" rel="noopener">Kod</a></div>
+              <p class="meta" style="font-style:normal;color:var(--navy-soft);">Durum: ön baskı</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="btn-row" style="margin-top:28px;">
+          <a href="research.html" class="btn btn-ghost">Araştırma ve projeler &rarr;</a>
+          <a href="patents.html" class="btn btn-ghost">Patentler &rarr;</a>
+        </div>
       </div>
     </section>
   </main>

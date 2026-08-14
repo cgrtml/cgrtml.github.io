@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
   <header class="site-header">
     <nav class="nav">
       <a href="index.html" class="nav-brand">Cagri Temel</a>
@@ -24,6 +25,7 @@
         <li><a href="research.html" class="active">Araştırma</a></li>
         <li><a href="publications.html">Yayınlar</a></li>
         <li><a href="patents.html">Patentler</a></li>
+        <li><a href="teaching.html">Eğitim</a></li>
         <li><a href="speaking.html">Konuşmalar &amp; Hizmet</a></li>
         <li><a href="contact.html">İletişim</a></li>
         <li><a href="../blog.html">Blog</a></li>
@@ -32,7 +34,7 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="section">
       <div class="container">
         <h1>Araştırma &amp; Projeler</h1>
@@ -88,6 +90,7 @@
               <p class="title">CT-SAFR: Robotlar için Güvenli &amp; Yorumlanabilir Chain-of-Thought</p>
               <p class="meta">Araştırma · IEEE CAI 2026'da sunuldu</p>
               <p class="desc">Chain-of-Thought destekli otonom robotlardaki sadakat sorununu ele alan, çok katmanlı, derinlemesine bir doğrulama çerçevesi. Bir depo robotu senaryosunda 500&nbsp;ms altı gecikmeyle güvensiz ve halüsinasyon akıl yürütmenin %94'ünü tespit etti ve beklemede olan bir ABD geçici patenti kapsamında.</p>
+              <div class="links"><a href="https://ieeexplore.ieee.org/document/11536646" target="_blank" rel="noopener">IEEE Xplore</a></div>
               <div class="tags"><span class="tag">CoT güvenliği</span><span class="tag">doğrulama</span></div>
             </div>
           </li>
@@ -97,7 +100,18 @@
               <p class="title">TRACE: Otonom Robotlar için Şeffaf Akıl Yürütme Mimarisi</p>
               <p class="meta">Araştırma · IEEE SoutheastCon 2026</p>
               <p class="desc">Her otonom eylemi belgelenmiş nedensel zincirler aracılığıyla sensör kanıtına geri bağlayan, modelden bağımsız dört katmanlı bir karar çerçevesi; simüle edilmiş karar döngülerinde yüksek kanıt izlenebilirliği ve karar yeniden kurulabilirliği sağlar.</p>
+              <div class="links"><a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">IEEE Xplore</a></div>
               <div class="tags"><span class="tag">açıklanabilirlik</span><span class="tag">otonomi</span></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">2026</div>
+            <div>
+              <p class="title">ML Academy: öğrenciye öğrendiğini kanıtlatan interaktif müfredat</p>
+              <p class="meta">Kurucu · <a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a> · açık kaynak, Türkçe ve İngilizce</p>
+              <p class="desc">Makine öğrenmesi, derin öğrenme ve büyük dil modelleri üzerine, tamamen tarayıcıda kurulum gerektirmeden çalışan 123 interaktif dersten oluşan ücretsiz müfredat. Mevcut görsel kaynaklar modelleri gösteriyor; bu müfredat öğrenciden görmeden önce tahmin etmesini, araç tanıtılmadan önce ona duyulan ihtiyacı hissetmesini ve iddiayı algoritmayı çalıştırarak kanıtlamasını istiyor. Bütün algoritma motorları (CART, rastgele orman, boosting, geri yayılımlı MLP, SVM, yumuşak karar ağaçları, PCA, BPE, word2vec) sıfırdan yazıldı ve bir doğrulama betiği derslerde geçen her sayıyı yeniden hesaplıyor.</p>
+              <div class="links"><a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a><a href="https://github.com/cgrtml/ml-academy" target="_blank" rel="noopener">GitHub</a><a href="teaching.html">Eğitim sayfası</a></div>
+              <div class="tags"><span class="tag">bilgisayar bilimi eğitimi</span><span class="tag">interaktif</span><span class="tag">açık kaynak</span></div>
             </div>
           </li>
           <li class="entry">
@@ -113,10 +127,29 @@
         <h2 style="margin-top:48px;">Açık Kaynak Yazılım</h2>
         <ul class="entry-list">
           <li class="entry">
+            <div class="year">Web</div>
+            <div>
+              <p class="title">ml-academy</p>
+              <p class="meta">123 derslik interaktif ML müfredatı · 165 görselleştirme · 387 akademik kaynak · MIT · Türkçe ve İngilizce</p>
+              <p class="desc"><a href="https://mltraining.org" target="_blank" rel="noopener">mltraining.org</a>'un arkasındaki motor ve içerik. İçerik koddan ayrı, veri olarak saklanıyor; yeni ders eklemek bir bileşen değil bir nesne yazmak demek. Her sayısal iddiayı yeniden hesaplayan, ders yapısını denetleyen ve bütün görselleri sahte tuval üzerinde çizen bir doğrulama betiğiyle geliyor.</p>
+              <div class="links"><a href="https://mltraining.org" target="_blank" rel="noopener">Canlı site</a><a href="https://github.com/cgrtml/ml-academy" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+          <li class="entry">
+            <div class="year">GitHub</div>
+            <div>
+              <p class="title">reasongate</p>
+              <p class="meta">LLM uygulamaları için açıklanabilir güvenlik kapısı · Apache-2.0 · çekirdekte sıfır bağımlılık</p>
+              <p class="desc">Bir LLM'e giren ve çıkan metni inceleyip her çağrı için makine okunur denetim kaydıyla birlikte açıklanabilir izin ver / işaretle / engelle kararı döndüren, kendi sunucunuzda çalıştırabileceğiniz bir kapı. Eşleştirmeden önce yaygın gizleme tekniklerini çözüyor, dolaylı enjeksiyona karşı getirilen bağlamı ve araç çıktısını tarıyor, çıktıda sızan sırları ve yerleştirilmiş kanarya belirtecini kontrol ediyor.</p>
+              <p class="shields"><img src="https://img.shields.io/github/stars/cgrtml/reasongate?label=yıldız&color=1a2b4a" alt="GitHub yıldız" loading="lazy" /></p>
+              <div class="links"><a href="https://github.com/cgrtml/reasongate" target="_blank" rel="noopener">GitHub</a></div>
+            </div>
+          </li>
+          <li class="entry">
             <div class="year">PyPI</div>
             <div>
               <p class="title">neural-trees</p>
-              <p class="meta">scikit-learn uyumlu PyTorch · Soft Decision Trees, HMoE, 5×2cv F-testi · MIT · 30★</p>
+              <p class="meta">scikit-learn uyumlu PyTorch · Soft Decision Trees, HMoE, 5×2cv F-testi · MIT</p>
               <p class="desc">Yumuşak karar ağaçları ve hiyerarşik uzman karışımlarının (HMoE) PyTorch implementasyonlarını ve istatistiksel model karşılaştırma testlerini içeren, scikit-learn uyumlu bir kütüphane. Kurulum: <code>pip install neural-trees</code>.</p>
               <p class="shields"><img src="https://img.shields.io/pypi/v/neural-trees?label=PyPI&color=1a2b4a" alt="PyPI sürümü" loading="lazy" /><img src="https://img.shields.io/pepy/dt/neural-trees?label=indirme&color=1a2b4a" alt="PyPI indirme" loading="lazy" /><img src="https://img.shields.io/github/stars/cgrtml/neural-trees?label=yıldız&color=1a2b4a" alt="GitHub yıldız" loading="lazy" /></p>
               <div class="links"><a href="https://pypi.org/project/neural-trees/" target="_blank" rel="noopener">PyPI</a><a href="https://github.com/cgrtml/neural-trees" target="_blank" rel="noopener">GitHub</a><a href="https://cgrtml-neural-trees-app-s4xaiy.streamlit.app" target="_blank" rel="noopener">Canlı demo</a></div>
