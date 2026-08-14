@@ -40,7 +40,44 @@
         <h1>Research &amp; Projects</h1>
         <p class="lead">Building explainable, safe, and trustworthy AI that ships into real systems.</p>
 
-        <h2 style="margin-top:40px;">Focus Areas</h2>
+        <h2 style="margin-top:40px;">Research Statement</h2>
+        <div class="prose">
+        <p>
+          My work starts from one commitment: a claim an AI system makes about itself should be checkable by
+          someone else.
+        </p>
+        <p>
+          That commitment came out of a practical problem. Chain-of-Thought reasoning made language models look
+          inspectable, and then measurement showed the traces verbalize the actual decision process only 25 to 39%
+          of the time, degrading further exactly where the task is hard. In <a href="paper-ct-safr.html">CT-SAFR</a>
+          I took the position that this is not a problem to be solved by making explanations more honest, but one
+          to be routed around: safety layers that do not depend on the reasoning being faithful at all. In
+          <a href="paper-trace.html">TRACE</a> I took the other half, building the audit requirement into the
+          decision architecture so an incident can be reconstructed from sensor evidence rather than guessed at.
+          In my work on soft decision trees the same commitment appears as model choice, where five interpretable
+          parameters matched what seventeen opaque splits achieved, and where the comparison only counted because
+          a 5&times;2cv F-test said the difference was real.
+        </p>
+        <p>Three questions follow from this.</p>
+        <p>
+          <strong>First, what can be verified about a reasoning system without trusting its explanation?</strong>
+          I want to characterize which safety properties survive an unfaithful trace, and which quietly do not.
+        </p>
+        <p>
+          <strong>Second, what does auditability cost?</strong> TRACE reports sub-millisecond overhead in
+          simulation, which is a beginning, not an answer. The real question is the frontier: how much
+          traceability can a system carry before it changes the behavior being traced.
+        </p>
+        <p>
+          <strong>Third, how do we know a safety claim is true?</strong> Safety results are reported the way
+          accuracy results were reported twenty years ago, as single numbers on single runs. A 94% detection rate
+          on 500 samples and a 94% rate on 50 are not the same claim, and our field mostly writes them the same
+          way. This is also why the teaching platform I built puts statistical evidence at its center rather than
+          at the end.
+        </p>
+        </div>
+
+        <h2 style="margin-top:48px;">Focus Areas</h2>
         <div class="cards">
           <div class="card">
             <h3>Explainable &amp; Trustworthy AI</h3>
@@ -70,7 +107,7 @@
             <div class="year">2020–</div>
             <div>
               <p class="title">Vardenus: AI-driven PropTech &amp; LegalTech Platform</p>
-              <p class="meta">Co-Founder &amp; CTO, Vardenus</p>
+              <p class="meta">Co-Founder &amp; CTO, Hezarfen LLC</p>
               <p class="desc">Leading the technical vision for an AI- and blockchain-based real-estate platform: an LLM and retrieval "AI-Lawyer" mediation module with citation-grounded, jurisdiction-aware guidance; compliance-aware safety guardrails; tokenized property workflows; and scalable cloud and MLOps infrastructure. Recognized with a 2025 Global Recognition Award (Real Estate Technology).</p>
               <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">PropTech</span><span class="tag">blockchain</span></div>
             </div>

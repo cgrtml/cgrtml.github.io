@@ -40,7 +40,44 @@
         <h1>Araştırma &amp; Projeler</h1>
         <p class="lead">Gerçek sistemlere uygulanan açıklanabilir, güvenli ve güvenilir yapay zeka geliştiriyorum.</p>
 
-        <h2 style="margin-top:40px;">Odak Alanları</h2>
+        <h2 style="margin-top:40px;">Araştırma Beyanı</h2>
+        <div class="prose">
+        <p>
+          Çalışmam tek bir taahhütten başlıyor: bir yapay zeka sisteminin kendisi hakkında ürettiği iddia, bir
+          başkası tarafından denetlenebilir olmalı.
+        </p>
+        <p>
+          Bu taahhüt pratik bir problemden çıktı. Chain-of-Thought akıl yürütmesi dil modellerini incelenebilir
+          gösterdi, sonra ölçüm şunu gösterdi: izler gerçek karar sürecini yalnızca %25 ila %39 oranında
+          sözelleştiriyor ve tam da görev zorlaştıkça daha da bozuluyor.
+          <a href="paper-ct-safr.html">CT-SAFR</a>'da tavrım şu oldu: bu, açıklamaları daha dürüst yaparak
+          çözülecek bir problem değil, etrafından dolaşılacak bir problem; yani akıl yürütmenin sadık olmasına
+          hiç bağlı olmayan güvenlik katmanları. <a href="paper-trace.html">TRACE</a>'te diğer yarısını aldım:
+          denetim gereksinimini karar mimarisinin içine kurup bir olayın tahmin edilmek yerine sensör kanıtından
+          yeniden kurulabilmesini sağladım. Yumuşak karar ağaçları üzerine çalışmamda aynı taahhüt model seçimi
+          olarak beliriyor: beş yorumlanabilir parametre, on yedi opak bölünmenin ulaştığı yere ulaştı ve bu
+          karşılaştırma ancak 5&times;2cv F-testi farkın gerçek olduğunu söylediği için sayıldı.
+        </p>
+        <p>Buradan üç soru çıkıyor.</p>
+        <p>
+          <strong>Bir: Bir akıl yürütme sisteminin açıklamasına güvenmeden onun hakkında ne doğrulanabilir?</strong>
+          Sadakatsiz bir izin altında hangi güvenlik özelliklerinin ayakta kaldığını, hangilerinin sessizce
+          çöktüğünü karakterize etmek istiyorum.
+        </p>
+        <p>
+          <strong>İki: Denetlenebilirliğin maliyeti nedir?</strong> TRACE simülasyonda milisaniye altı yük
+          raporluyor; bu bir başlangıç, cevap değil. Asıl soru sınır: bir sistem, izlediği davranışı değiştirmeye
+          başlamadan önce ne kadar izlenebilirlik taşıyabilir.
+        </p>
+        <p>
+          <strong>Üç: Bir güvenlik iddiasının doğru olduğunu nereden biliyoruz?</strong> Güvenlik sonuçları,
+          doğruluk sonuçlarının yirmi yıl önce raporlandığı gibi raporlanıyor: tek koşuda tek sayı. 500 örnekte
+          %94 tespit ile 50 örnekte %94 aynı iddia değil, ama alanımız ikisini çoğunlukla aynı şekilde yazıyor.
+          Kurduğum eğitim platformunun istatistiksel kanıtı sona değil merkeze koymasının sebebi de bu.
+        </p>
+        </div>
+
+        <h2 style="margin-top:48px;">Odak Alanları</h2>
         <div class="cards">
           <div class="card">
             <h3>Açıklanabilir &amp; Güvenilir Yapay Zeka</h3>
@@ -70,7 +107,7 @@
             <div class="year">2020–</div>
             <div>
               <p class="title">Vardenus: Yapay Zeka Destekli PropTech &amp; LegalTech Platformu</p>
-              <p class="meta">Kurucu Ortak &amp; CTO, Vardenus</p>
+              <p class="meta">Kurucu Ortak &amp; CTO, Hezarfen LLC</p>
               <p class="desc">Yapay zeka ve blokzincir tabanlı bir gayrimenkul platformunun teknik vizyonunu yönetiyorum: atıfa dayalı, yargı yetkisine duyarlı rehberlik sunan bir LLM ve geri getirim "AI-Lawyer" arabuluculuk modülü; uyumluluk farkındalıklı güvenlik korumaları; tokenize gayrimenkul iş akışları; ölçeklenebilir bulut ve MLOps altyapısı. 2025 Global Recognition Award (Gayrimenkul Teknolojisi) ile ödüllendirildi.</p>
               <div class="tags"><span class="tag">LLM</span><span class="tag">RAG</span><span class="tag">PropTech</span><span class="tag">blokzincir</span></div>
             </div>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cagri Temel - Curriculum Vitae</title>
+<style>
+  @page { size: Letter; margin: 0.7in 0.75in; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10.2pt; line-height: 1.42; color: #111; margin: 0;
+  }
+  a { color: #1f4e79; text-decoration: none; }
+  header { text-align: center; margin-bottom: 14px; }
+  h1 { font-size: 20pt; letter-spacing: .14em; margin: 0 0 4px; font-weight: 600; }
+  .contact { font-size: 9.4pt; color: #333; line-height: 1.6; }
+  .contact span { white-space: nowrap; }
+  .sep { color: #999; padding: 0 5px; }
+  h2 {
+    font-size: 10.4pt; letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+    border-bottom: 1px solid #444; padding-bottom: 2px; margin: 15px 0 8px;
+    page-break-after: avoid;
+  }
+  .row { display: flex; justify-content: space-between; gap: 14px; page-break-inside: avoid; }
+  .row .left { flex: 1; }
+  .row .right { white-space: nowrap; color: #333; font-size: 9.6pt; }
+  .item { margin-bottom: 9px; page-break-inside: avoid; }
+  .item .ttl { font-weight: 600; }
+  .item .sub { font-style: italic; color: #333; font-size: 9.7pt; }
+  .item p { margin: 2px 0 0; font-size: 9.7pt; color: #222; }
+  ul { margin: 3px 0 0; padding-left: 17px; }
+  li { margin-bottom: 2.5px; font-size: 9.7pt; }
+  ol.pubs { margin: 0; padding-left: 0; list-style: none; counter-reset: none; }
+  ol.pubs li { margin-bottom: 8px; padding-left: 38px; text-indent: -38px; font-size: 9.9pt; page-break-inside: avoid; }
+  .tag { font-weight: 600; display: inline-block; width: 38px; text-indent: 0; }
+  .note { font-size: 9.3pt; color: #444; font-style: italic; }
+  .compact li { margin-bottom: 1.5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>CAGRI TEMEL</h1>
+  <div class="contact">
+    <span>cagritemel@ieee.org</span><span class="sep">|</span>
+    <span>cagritemel.com</span><span class="sep">|</span>
+    <span>Redmond, WA, USA</span><br />
+    <span>ORCID 0009-0003-3359-6939</span><span class="sep">|</span>
+    <span>github.com/cgrtml</span><span class="sep">|</span>
+    <span>linkedin.com/in/cagritemel</span><span class="sep">|</span>
+    <span>IEEE Senior Member #101604066</span>
+  </div>
+</header>
+
+<h2>Research Interests</h2>
+<p style="margin:0;font-size:9.9pt;">
+  Explainable and trustworthy AI; safety verification of large-language-model reasoning; auditability of
+  autonomous decision systems; interpretable machine learning and statistical model comparison; evaluation
+  methodology for safety claims; computer-science education.
+</p>
+
+<h2>Education</h2>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">M.S., Computer Science</span><br />
+      <span class="sub">Grand Canyon University, Phoenix, AZ, USA</span></div>
+    <div class="right">Sep 2023 &ndash; Apr 2025</div>
+  </div>
+  <p>GPA 3.89/4.0. Alpha Chi National College Honor Society (top 10%). Specialization in advanced machine
+  learning and artificial intelligence.</p>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">B.S., Electrical and Electronic Engineering</span><br />
+      <span class="sub">Istanbul Aydin University, Istanbul, Turkey</span></div>
+    <div class="right">Sep 2013 &ndash; Jun 2018</div>
+  </div>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Space Studies Program</span><br />
+      <span class="sub">International Space University</span></div>
+    <div class="right">Jul 2017</div>
+  </div>
+  <p>Two-month intensive interdisciplinary program, selective admission.</p>
+</div>
+
+<h2>Publications</h2>
+<p class="note" style="margin:0 0 6px;">
+  Sole authorship on all first-authored conference papers. DOIs link to the publisher version.
+</p>
+
+<p style="margin:8px 0 4px;font-weight:600;font-size:9.9pt;">Peer-Reviewed Journal Articles</p>
+<ol class="pubs">
+  <li><span class="tag">[J2]</span>S. Aksakalli, B. Giray, and <strong>C. Temel</strong>,
+    &ldquo;Domain-specific vs. general-purpose large language models in orthodontics: A blinded comparison of
+    AlimGPT, GPT-4o, Gemini, and Llama,&rdquo; <em>Dentistry Journal</em>, vol. 14, no. 4, art. 219, Apr. 2026.
+    doi: 10.3390/dj14040219. <span class="note">(Q1, IF 3.1, PubMed and Scopus indexed, open access)</span></li>
+  <li><span class="tag">[J1]</span>S. Aksakalli, U. Ok, <strong>C. Temel</strong>, D. Sezgin Mansuroglu, and
+    Y. M. Sahin, &ldquo;The mechanical testing and performance analysis of three-dimensionally produced lingual
+    retainers,&rdquo; <em>Journal of the World Federation of Orthodontists</em>, vol. 12, no. 2, pp. 64&ndash;71,
+    Apr. 2023. doi: 10.1016/j.ejwf.2022.12.003. <span class="note">(Elsevier, Scopus indexed)</span></li>
+</ol>
+
+<p style="margin:10px 0 4px;font-weight:600;font-size:9.9pt;">Peer-Reviewed Conference Papers</p>
+<ol class="pubs">
+  <li><span class="tag">[C3]</span><strong>C. Temel</strong>, &ldquo;Robust and uncertainty-aware remaining useful
+    life prediction with temporal neural trees,&rdquo; <em>IEEE International Conference on Systems, Man, and
+    Cybernetics (SMC)</em>, 2026. <span class="note">(accepted)</span></li>
+  <li><span class="tag">[C2]</span><strong>C. Temel</strong>, &ldquo;CT-SAFR: Safe and interpretable
+    Chain-of-Thought reasoning for autonomous robots: A multi-layered verification framework for trustworthy
+    AI-driven robotic decision making,&rdquo; in <em>2026 IEEE Conference on Artificial Intelligence (CAI)</em>,
+    IEEE, May 2026, pp. 598&ndash;603. doi: 10.1109/CAI68641.2026.11536646.</li>
+  <li><span class="tag">[C1]</span><strong>C. Temel</strong>, &ldquo;Towards trustworthy autonomous robots: An
+    explainable AI-based decision framework,&rdquo; in <em>SoutheastCon 2026</em>, IEEE, Feb. 2026, pp. 1&ndash;6.
+    doi: 10.1109/SoutheastCon63549.2026.11476455.</li>
+</ol>
+
+<p style="margin:10px 0 4px;font-weight:600;font-size:9.9pt;">Preprints</p>
+<ol class="pubs">
+  <li><span class="tag">[P1]</span><strong>C. Temel</strong>, &ldquo;LLM-assisted test automation: A cognitive
+    software testing framework using generative AI,&rdquo; <em>TechRxiv</em>, Nov. 2025.
+    doi: 10.36227/techrxiv.176315879.96821044/v1.</li>
+</ol>
+
+<h2>Patents</h2>
+<ol class="pubs">
+  <li><span class="tag">[T3]</span>&ldquo;Safety-constrained Chain-of-Thought reasoning architecture for
+    autonomous systems,&rdquo; U.S. Provisional Patent Application No. 63/975,114, filed Feb. 3, 2026.
+    <span class="note">(sole inventor, pending)</span></li>
+  <li><span class="tag">[T2]</span>&ldquo;Methods and systems for performing a credibility assessment pertaining
+    to a stakeholder associated with an asset,&rdquo; U.S. Provisional Patent Application No. 63/819,250,
+    filed Jun. 25, 2025. <span class="note">(co-inventor, pending; applicant: Hezarfen LLC)</span></li>
+  <li><span class="tag">[T1]</span>&ldquo;Three-dimensional dental and medical pen,&rdquo; Turkish Patent
+    No. TR 2019 22779 B, granted Nov. 21, 2022 (priority Dec. 19, 2018).
+    <span class="note">(co-inventor, granted)</span></li>
+</ol>
+
+<h2>Research and Professional Experience</h2>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Co-Founder and Chief Technology Officer</span><br />
+      <span class="sub">Hezarfen LLC, Seattle, WA, USA</span></div>
+    <div class="right">Dec 2020 &ndash; present</div>
+  </div>
+  <ul>
+    <li>Lead the technical direction of <em>Vardenus</em>, an AI and blockchain real-estate and legal-technology
+      platform, including an LLM and retrieval mediation module with citation-grounded, jurisdiction-aware
+      guidance.</li>
+    <li>Design compliance-aware safety guardrails, tokenized property workflows, and the cloud and MLOps
+      infrastructure behind them.</li>
+    <li>Named inventor on the credibility-assessment patent application filed by the company.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Machine Learning Engineer</span><br />
+      <span class="sub">Hezarfen LLC, Seattle, WA, USA</span></div>
+    <div class="right">2025 &ndash; present</div>
+  </div>
+  <ul>
+    <li>Build LLM systems end to end: data pipelines, training, evaluation, and inference.</li>
+    <li>Retrieval-augmented generation with guardrails (FAISS, Pinecone); MLOps with MLflow and DVC, model
+      registry, CI/CD, canary and A/B releases, and drift monitoring.</li>
+    <li>Serving with FastAPI and Docker/Kubernetes, with latency and cost optimization.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Software Development Engineer in Test</span><br />
+      <span class="sub">Hezarfen LLC</span></div>
+    <div class="right">2020 &ndash; 2025</div>
+  </div>
+  <ul>
+    <li>Test automation with Java, Selenium WebDriver, TestNG, JUnit, and Cucumber; API testing with Postman and
+      REST Assured. This work became the empirical basis of the CogniTest framework and preprint [P1].</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Maker Engineer</span><br />
+      <span class="sub">Ozyegin University, Istanbul, Turkey</span></div>
+    <div class="right">Jan 2019 &ndash; Sep 2020</div>
+  </div>
+  <ul>
+    <li>Led maker-space initiatives and built hands-on engineering curricula; mentored 100+ students and
+      organized community showcase events.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Quality Assurance Engineer</span><br />
+      <span class="sub">Istanbul Aydin University, Technology Transfer Office</span></div>
+    <div class="right">Jul 2018 &ndash; Jan 2019</div>
+  </div>
+  <ul>
+    <li>Architected QA and test-automation frameworks for web-based educational platforms with video streaming
+      and student-tracking systems.</li>
+  </ul>
+</div>
+
+<h2>Teaching and Outreach</h2>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Creator and sole author, ML Academy (mltraining.org)</span><br />
+      <span class="sub">Open-source interactive curriculum, English and Turkish</span></div>
+    <div class="right">2026 &ndash; present</div>
+  </div>
+  <ul>
+    <li>123 lessons across five tracks (foundations, classical ML, deep learning, large language models, applied
+      AI) with 401 interactive steps, 165 custom visualizations, and 387 cited academic references.</li>
+    <li>Pedagogy built on predicting before seeing, meeting a tool only after feeling the need for it, and
+      proving a claim by executing the algorithm; every number in every lesson is re-derived by a verification
+      script before release.</li>
+    <li>All algorithm engines implemented from scratch (CART, random forests, gradient boosting, MLP with
+      backpropagation, SVM, soft decision trees, k-means, PCA, BPE, word2vec, Elo); runs entirely in the browser
+      with no installation and no cost to the learner.</li>
+  </ul>
+</div>
+<div class="item">
+  <div class="row">
+    <div class="left"><span class="ttl">Instructor, Data and Analytics Breakout: Explainable Neural Trees</span><br />
+      <span class="sub">Washington State University</span></div>
+    <div class="right">May 2026</div>
+  </div>
+  <ul>
+    <li>Designed and led the hands-on half of a joint workshop: students trained an interpretable model, attacked
+      a deployed model with sensor drift, stuck-at faults, and injected noise, then contributed pull requests to
+      the neural-trees library. All materials public.</li>
+  </ul>
+</div>
+<div class="item">
+  <p style="margin:0;">Cumulatively taught or mentored 500+ students across university programs, maker spaces,
+  hackathons, and national competitions.</p>
+</div>
+
+<h2>Professional Service</h2>
+<div class="item">
+  <ul class="compact">
+    <li><strong>Program Committee</strong>, AAAI/ACM Conference on AI, Ethics, and Society (AIES 2026), Malmo,
+      Sweden.</li>
+    <li><strong>Organizer</strong>, special session &ldquo;Trustworthy and Explainable AI for Telepresence and
+      Autonomous Robotic Systems,&rdquo; IEEE Telepresence 2026, Bristol, UK.</li>
+    <li><strong>Session Chair</strong>, &ldquo;AI and Predictive Modeling,&rdquo; IEEE SoutheastCon 2026.</li>
+    <li><strong>Reviewer</strong>, IEEE International Conference on Systems, Man, and Cybernetics (SMC 2026).</li>
+    <li><strong>Reviewer</strong>, IEEE Conference on Artificial Intelligence (CAI 2026).</li>
+    <li><strong>Reviewer</strong>, IEEE Energy Conversion Congress and Exposition (ECCE 2026).</li>
+    <li><strong>Program Committee / proposal reviewer</strong>, SciPy 2026.</li>
+    <li><strong>Advisory Board member</strong> (external stakeholder), Beykent University, Faculty of Economics,
+      2025 &ndash; present.</li>
+  </ul>
+</div>
+
+<h2>Judging and Mentorship</h2>
+<div class="item">
+  <ul class="compact">
+    <li>Industry Mentor, Penn &times; Anthropic Sprint Hackathon, University of Pennsylvania, 2025
+      (220+ participants, 130+ teams).</li>
+    <li>Judge, Vibe Space at SF Tech Week, San Francisco, 2025.</li>
+    <li>Mentor, Opportunity Hack / ASU Fall Hackathon, Tempe, AZ, 2025.</li>
+    <li>Jury Member, ANTSPARK Pre-Incubation Program, Istanbul Kultur University, 2025.</li>
+    <li>Local Lead and Mentor, NASA Space Apps Challenge, Istanbul, 2020 &ndash; present.</li>
+    <li>Referee, TUBITAK Robotics Competition, Turkey, 2016 &ndash; 2017.</li>
+  </ul>
+</div>
+
+<h2>Invited Talks and Presentations</h2>
+<div class="item">
+  <ul class="compact">
+    <li>Presenter, &ldquo;CT-SAFR: Safe and Interpretable Chain-of-Thought Reasoning for Autonomous Robots,&rdquo;
+      IEEE CAI 2026.</li>
+    <li>Speaker, &ldquo;AI That Matters: Trust Over Power,&rdquo; Louisville AI Week 2026.</li>
+    <li>Invited Speaker, &ldquo;Safe and Interpretable Chain-of-Thought Reasoning for Autonomous Robots,&rdquo;
+      IEEE New Era AI World Leaders Summit, Joint Symposium on Systems, Robotics and Aerospace, Seattle, 2025.</li>
+    <li>Speaker and Moderator, Turkey Innovation Week, Istanbul Congress Center, 2019 (audience 510,000+);
+      panel with NASA JPL astrophysicist Dr. Umut Yildiz.</li>
+    <li>Speaker, Turkey Innovation Week, Istanbul Congress Center, 2017 (audience 310,000+).</li>
+  </ul>
+</div>
+
+<h2>Open-Source Software</h2>
+<div class="item">
+  <ul class="compact">
+    <li><strong>neural-trees</strong> (PyPI, MIT): scikit-learn-compatible PyTorch implementations of soft
+      decision trees and hierarchical mixtures of experts, with 5&times;2cv F-test model comparison.</li>
+    <li><strong>ml-academy</strong> (MIT): the engine and content behind mltraining.org, including a verification
+      suite that re-derives every numeric claim in the curriculum.</li>
+    <li><strong>reasongate</strong> (Apache-2.0): a self-hostable, explainable gate for LLM applications that
+      returns an allow, flag, or block decision with a machine-readable audit record.</li>
+    <li><strong>ml-playground</strong>, <strong>cognitest-framework</strong>,
+      <strong>turbofan-explainable-neural-trees</strong>: research and teaching code accompanying [P1] and [C3].</li>
+  </ul>
+</div>
+
+<h2>Honors and Awards</h2>
+<div class="item">
+  <ul class="compact">
+    <li>Global Recognition Award, Real Estate Technology, 2025 (for Vardenus, Hezarfen LLC).</li>
+    <li>National Winner, InovaTIM AI and Robotics High-School Program, 2020; recognized by KOSGEB and the Turkish
+      Exporters Assembly, and represented Turkey at the European Entrepreneurship Promotion Awards 2020.</li>
+    <li>Best Space Project, Maker Faire San Francisco, 2019.</li>
+    <li>Second Place, CanSat Competition (AAS / NASA / JPL), 2015, team leader.</li>
+    <li>Second Place, CARDIN HeadHunter Hackathon.</li>
+    <li>Alpha Chi National College Honor Society (top 10% of graduate students).</li>
+  </ul>
+</div>
+
+<h2>Memberships</h2>
+<p style="margin:0;font-size:9.7pt;">
+  IEEE Senior Member &middot; IEEE Computational Intelligence Society, Senior Member &middot;
+  Association for the Advancement of Artificial Intelligence (AAAI) &middot; Google Developers Group, Seattle and
+  Bellevue &middot; AICamp, Bellevue &middot; International Space University Alumni Network &middot;
+  Alpha Chi National College Honor Society
+</p>
+
+<h2>Certifications</h2>
+<p style="margin:0;font-size:9.7pt;">
+  Machine Learning (MIT) &middot; Machine Learning Professional (IBM) &middot; Deep Learning and Neural Networks
+  with Keras (IBM) &middot; Generative AI with Large Language Models (AWS / DeepLearning.AI)
+</p>
+
+<h2>Technical Skills</h2>
+<p style="margin:0;font-size:9.7pt;">
+  <strong>Languages:</strong> Python, Java, C/C++, JavaScript, SQL.
+  <strong>ML:</strong> PyTorch, scikit-learn, XGBoost, LightGBM, CatBoost; explainable AI; statistical model
+  comparison (5&times;2cv F-test, McNemar).
+  <strong>LLM systems:</strong> retrieval-augmented generation, vector search (FAISS, Pinecone, Qdrant),
+  evaluation design, guardrails and red teaming.
+  <strong>Infrastructure:</strong> AWS (EC2, Lambda, S3, RDS), Docker, Kubernetes, MLflow, DVC, CI/CD
+  (Jenkins, GitHub Actions).
+  <strong>Testing:</strong> Selenium, TestNG, JUnit, Cucumber, TDD and BDD.
+</p>
+
+<p class="note" style="margin-top:18px;text-align:right;">Last updated: August 2026</p>
+
+</body>
+</html>
