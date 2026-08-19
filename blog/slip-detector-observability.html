@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Slip Detector Was Accurate. It Was Also Useless. · Cagri Temel</title>
-  <meta name="description" content="A slip detector that scored 0.869 accuracy and cut position error by 72 percent, and the ablations that showed the improvement came from driving slower. Then the measurement that explained it: wheel slip is not observable from wheel encoders and an IMU." />
+  <meta name="description" content="CORRECTED: the slip in this post came from a robot dragging its chassis, not from friction. Originally: a slip detector that scored 0.869 accuracy and cut position error by 72 percent, and the ablations that showed the improvement came from driving slower. Then the measurement that explained it: wheel slip is not observable from wheel encoders and an IMU." />
   <link rel="canonical" href="https://cagritemel.com/blog/slip-detector-observability.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,6 +36,30 @@
       <div class="container prose" style="max-width:720px;">
         <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">August 19, 2026</p>
         <h1 style="margin-bottom:.4em;">My Slip Detector Was Accurate. It Was Also Useless.</h1>
+
+        <div style="border:1px solid var(--line);border-left:4px solid var(--navy);
+                    background:var(--bg-alt);padding:16px 18px;margin:18px 0 26px;">
+          <p style="margin:0 0 10px;"><strong>Correction, August 19, 2026.</strong>
+          Everything below was measured on a robot that was tipping forward. The drive
+          wheels sat on the centre axle with the only caster at the rear, so nothing
+          carried the front half of the chassis. It rested on its front bottom edge at
+          13.30 degrees, which the ground-truth pose, the IMU orientation and the
+          accelerometer all reported, and which the geometry predicts at
+          atan(0.033 / 0.1435) = 12.96 degrees.</p>
+          <p style="margin:0 0 10px;">With a front caster added and the robot level,
+          the same world at the same commanded speed produces no slip at all. The robot
+          travels 9.64 m and the odometry reports 9.64 m, an error of 0.00 percent,
+          against 6.44 m travelled and 9.61 m reported before. The slip this post is
+          about was the chassis dragging, not the friction. The drag demanded traction
+          the surface could not supply, so the wheels turned while the body stayed
+          behind.</p>
+          <p style="margin:0;">I am leaving the post up rather than deleting it. The
+          reasoning about ablations still holds, and the way this was missed is the more
+          useful lesson: every control arm was run correctly, and all of them assumed
+          the rig was what it claimed to be. Nothing in phase 1 ever measured the
+          robot&rsquo;s own posture. The measurements are being repeated on a level
+          robot.</p>
+        </div>
 
         <p>I spent this summer on a small question. A wheeled robot drives onto a
         low-friction patch. The wheels turn, the robot barely moves, and the
