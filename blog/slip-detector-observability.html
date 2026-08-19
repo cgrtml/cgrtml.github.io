@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Slip Detector Was Accurate. It Was Also Useless. · Cagri Temel</title>
+  <meta name="description" content="A slip detector that scored 0.869 accuracy and cut position error by 72 percent, and the ablations that showed the improvement came from driving slower. Then the measurement that explained it: wheel slip is not observable from wheel encoders and an IMU." />
+  <link rel="canonical" href="https://cagritemel.com/blog/slip-detector-observability.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">August 19, 2026</p>
+        <h1 style="margin-bottom:.4em;">My Slip Detector Was Accurate. It Was Also Useless.</h1>
+
+        <p>I spent this summer on a small question. A wheeled robot drives onto a
+        low-friction patch. The wheels turn, the robot barely moves, and the
+        odometry keeps counting distance that was never travelled. Can the robot
+        notice, and can noticing help?</p>
+
+        <p>The first half went well. I built a detector over thirteen
+        proprioceptive features, wheel and IMU signals only, nothing that would
+        leak the answer. It reached 0.869 accuracy and stayed calibrated, with an
+        expected calibration error of 0.021. Then I wired it to a behaviour:
+        slow down in proportion to the probability of slipping. Position error
+        dropped by 72 percent.</p>
+
+        <p>That number was wrong, and the way it was wrong is the reason I am
+        writing this.</p>
+
+        <h2>The control arm I almost did not run</h2>
+
+        <p>The detector arm drove slower on average than the baseline. So I ran
+        the obvious control: no detector, constant speed, matched to the same
+        average. It did better. On the slippery terrain the detector arm made
+        0.179 error per metre and the constant arm 0.126. On grippy terrain it
+        was 0.020 against 0.001.</p>
+
+        <p>The 72 percent was real. It just did not belong to the detector. It
+        belonged to driving slower, which needs no model, no features, and no
+        training data. I rewrote the result.</p>
+
+        <p>The detector also turned out to be reading its training terrain rather
+        than the world. Across four friction levels it reported almost the same
+        probability everywhere, around 0.95, while the actual error per metre
+        ranged from 0.459 to 0.002.</p>
+
+        <h2>Fixing the detector, and losing again</h2>
+
+        <p>Training on four terrains fixed the transfer problem. Evaluated
+        leave-one-terrain-out, the new model beat the majority class on every
+        unseen terrain, and it finally responded to the ground under it: mean
+        probability 0.272 on the slippery patch against 0.163 on the grippy one.</p>
+
+        <p>Then I ran the ablation again. This time I could not use a single
+        matched speed, because matching the commanded speed does not match
+        progress. Under slip the same 0.28 m/s average moved the detector arm
+        3.40 m in 24 seconds and the constant arm 6.39 m. So I measured constant
+        speed as a curve, four speeds from 0.10 to 0.40 m/s, and placed the
+        detector on it. The question became simple: at the same distance
+        covered, does the detector make less error?</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Terrain</th><th>Detector</th><th>Best measured constant arm reaching the same distance</th></tr>
+          <tr><td>&mu; = 0.02</td><td>6.43 m, 0.3297 error/m</td><td>0.30 m/s: 6.40 m, <strong>0.0857</strong></td></tr>
+          <tr><td>&mu; = 0.02</td><td>3.51 m, 0.0068 error/m</td><td>0.20 m/s: 4.81 m, 0.0079 with 37% more ground covered</td></tr>
+          <tr><td>&mu; = 0.20</td><td>9.26 m, 0.0049 error/m</td><td>0.40 m/s: 9.49 m, <strong>0.0007</strong></td></tr>
+          <tr><td>&mu; = 0.20</td><td>7.89 m, 0.0041 error/m</td><td>0.40 m/s: 9.49 m, <strong>0.0007</strong></td></tr>
+        </table>
+        </div>
+
+        <p>Four comparisons, four losses, and the two test terrains were both in
+        the model&rsquo;s training set. The detector lost while running on its own
+        data.</p>
+
+        <p>One comparison looked like a win at first. My summary script
+        interpolated the constant-speed curve and reported the detector 19.9
+        percent ahead. The curve is nearly vertical at that point, because on
+        slippery ground going from 0.30 to 0.40 m/s buys 0.04 m of distance and
+        five times the error. The interpolated reference was an artefact of that
+        cliff. A real measured arm at the same distance was four times better.
+        The summary script is a measuring instrument too, and it needs checking
+        like any other.</p>
+
+        <h2>The question I should have asked first</h2>
+
+        <p>Before asking which model to use, I should have asked whether the
+        thing I wanted to estimate was visible at all. So I set up the sharpest
+        version of that test. Two states with opposite consequences:</p>
+
+        <p>Stuck on the patch, ground-truth speed near zero, wheels spinning at
+        0.4 m/s. Driving normally on solid ground at 0.4 m/s.</p>
+
+        <p>The feature called wheel speed reads 0.4000 in the first case and
+        0.3999 in the second. Across all thirteen features the largest effect
+        size is 0.56, which counts as weak. The best single feature separates
+        the two states at 0.552 balanced accuracy. A coin gets 0.500.</p>
+
+        <p>The reason is not subtle once you look at it. The features are built
+        on derivatives, mostly the residual between wheel acceleration and body
+        acceleration. A robot stuck at constant wheel speed has zero
+        acceleration everywhere. A robot cruising at constant speed also has
+        zero acceleration everywhere. The two states are the same measurement.</p>
+
+        <p>This also explains why slip detection worked at all. It was catching
+        the transient at the edge of the patch, the moment traction changed.
+        Transitions are observable. States are not. A policy needs the state.</p>
+
+        <h2>What I take from it</h2>
+
+        <p>Every intervention I tried lived downstream of a quantity that was
+        never observable: filter tuning, nonholonomic constraints, zero-velocity
+        updates, adaptive covariance, better features, better policy, better
+        generalisation. None of them could work, and measuring each one was the
+        only way to find that out.</p>
+
+        <p>The fix is not a better model. It is a channel that measures body
+        velocity without asking the wheels. The simulation has a lidar that this
+        entire phase never used. Scan matching gives exactly that. That is the
+        next measurement, and the first number I want is how much of the 279
+        percent odometry error it removes.</p>
+
+        <p>Two rules came out of this that need no detector at all. On slippery
+        ground, do not command above roughly 0.30 m/s: above it the robot gains
+        no distance and multiplies error by five. On grippy ground, do not slow
+        down: it multiplies error per metre by seventeen. Four rows of a table
+        outperformed a thirteen-feature model.</p>
+
+        <h2>Limits</h2>
+
+        <p>This is simulation only, one differential-drive robot, one nominal
+        speed of 0.4 m/s, and friction values chosen to make the effect large
+        rather than realistic. Three repetitions per arm. The observability
+        result is about this sensor set, wheel encoders and an IMU, and says
+        nothing about robots carrying anything else.</p>
+
+        <p>The code is in a private repository while a provisional patent
+        application and a journal review are open. If you want to read it, write
+        to me and I will give you access.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
