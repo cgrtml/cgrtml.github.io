@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Robot Was Tipping 13 Degrees. That Was the Whole Result. · Cagri Temel</title>
+  <meta name="description" content="A wheel-slip study invalidated by its own apparatus: the robot had been resting on its front edge at 13.3 degrees, which manufactured the slip being measured. How three sensors agreed, why every ablation missed it, and how slip was re-established on a controlled ramp." />
+  <link rel="canonical" href="https://cagritemel.com/blog/rig-fault-tipping-robot.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">August 21, 2026</p>
+        <h1 style="margin-bottom:.4em;">My Robot Was Tipping 13 Degrees. That Was the Whole Result.</h1>
+
+        <p>Yesterday I published a post about a wheel-slip detector that was accurate and
+        useless. Today I have to explain why that post now carries a correction at the top,
+        because the thing I spent months measuring was being manufactured by my own robot.</p>
+
+        <h2>It started with a sensor I had never used</h2>
+
+        <p>The study had ended on a wall. Wheel encoders and an IMU could not tell a robot
+        stuck with its wheels spinning from a robot driving normally, at 0.552 balanced
+        accuracy against 0.500 for a coin. The obvious next step was a channel that measures
+        body velocity without asking the wheels, and the simulation had a lidar that four
+        months of work had never touched.</p>
+
+        <p>So I probed it. In a world containing nothing but three flat ground boxes, the
+        scan came back with 168 of 360 rays hitting something 0.68&nbsp;m ahead.</p>
+
+        <p>I drove the robot forward 1.16&nbsp;m. The surface stayed at 0.70&nbsp;m.</p>
+
+        <h2>The rays were describing the floor</h2>
+
+        <p>The pattern was the tell. Straight ahead 0.68&nbsp;m, at 45 degrees 1.00&nbsp;m,
+        at 75 degrees 2.62&nbsp;m, and nothing at all at 90 degrees. That is not a wall. A
+        wall at constant distance would return finite ranges out to the sides. This is what
+        a scan plane grazing the ground produces, and the ratios give the angle: about 15
+        degrees below horizontal.</p>
+
+        <p>The lidar is bolted to the robot, so if the beam points down, the robot is
+        pitched. Three independent channels agreed, and they are not derived from each
+        other:</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Channel</th><th>Reading</th></tr>
+          <tr><td>Ground-truth pose from the simulator</td><td>pitch +13.30&deg;</td></tr>
+          <tr><td>IMU orientation</td><td>pitch +13.30&deg;</td></tr>
+          <tr><td>IMU accelerometer, x axis</td><td>&minus;2.25 m/s&sup2;, which is &minus;g&nbsp;sin(13.3&deg;)</td></tr>
+        </table>
+        </div>
+
+        <p>Constant to the second decimal, at rest, at 0.2&nbsp;m/s and at 0.4&nbsp;m/s.</p>
+
+        <p>Then the robot description explained it in one line of arithmetic. The drive
+        wheels sit on the centre axle. The only caster is at the rear. Nothing carries the
+        front half of the chassis, so it tips forward until the front bottom edge rests on
+        the ground, at an angle of atan(0.033 / 0.1435) = 12.96 degrees. Wheel radius over
+        half the chassis length. The measured 13.30 was the geometry, not a mystery.</p>
+
+        <p>A front caster fixes it. Ground truth and IMU orientation now read 0.000 degrees,
+        the accelerometer reads &minus;0.002&nbsp;m/s&sup2;, and the lidar returns nothing
+        at all in that world, which is the correct answer: three coplanar ground boxes
+        contain no vertical geometry. Every one of those 168 rays had been the floor.</p>
+
+        <h2>What it cost</h2>
+
+        <p>Same world, same commanded speed, the only change being a level robot:</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Robot</th><th>Distance travelled</th><th>Odometry reported</th><th>Error</th></tr>
+          <tr><td>Tipping 13.3&deg; (all earlier work)</td><td>6.44 m</td><td>9.61 m</td><td>49.4%</td></tr>
+          <tr><td>Level</td><td>9.64 m</td><td>9.64 m</td><td>0.00%</td></tr>
+        </table>
+        </div>
+
+        <p>The slip was gone. Not reduced, gone. A friction coefficient of 0.02 does not make
+        this robot slip at 0.4&nbsp;m/s. What made it slip was the chassis dragging: the drag
+        demanded more traction than the surface could supply, so the wheels turned while the
+        body stayed behind.</p>
+
+        <p>Everything downstream was measured in that state. The filter that recovered 13&nbsp;mm.
+        The detector that lost four ablations out of four. The observability result at 0.552.
+        All of it describes a robot ploughing the ground with its nose.</p>
+
+        <h2>Why no ablation caught it</h2>
+
+        <p>This is the part worth keeping. Every control arm was run correctly. Constant-speed
+        baselines, leave-one-terrain-out, a trade-off curve, a dominance test against measured
+        arms rather than interpolated ones. The discipline was fine.</p>
+
+        <p>It could not have caught this. An ablation compares two arms against each other, and
+        both arms ran on the same rig. When the fault is in the substrate that every arm shares,
+        comparisons between arms are blind to it by construction. Four months of careful
+        controls never once measured the robot's own posture, because nobody thinks to.</p>
+
+        <p>The tell was there the whole time, in a comment I had written myself: the contact
+        sensor reported "touching" in every run, and I had attributed that to sensor semantics.
+        The body was touching the ground. It was reporting correctly.</p>
+
+        <h2>Getting slip back, honestly</h2>
+
+        <p>With the robot level, flat ground would not produce slip at any friction I could set,
+        and the physics says why. A free-rolling robot at constant speed on level ground asks
+        almost nothing of the surface. No traction demand, no slip. The dragging chassis had
+        been supplying the demand by accident.</p>
+
+        <p>A slope demands traction continuously, and the threshold is known before you run
+        anything: the wheels break loose when tan(angle) exceeds the friction coefficient. For
+        0.02 that is 1.15 degrees. So I built ramps at 2, 5 and 10 degrees, and ran every one of
+        them twice, once at friction 0.02 and once at friction 1.00. The high-friction ramp is
+        the control. If the robot cannot climb that either, the problem is torque, not slip, and
+        nothing can be reported.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Slope</th><th>Low friction (0.02)</th><th>High-friction control (1.00)</th></tr>
+          <tr><td>2&deg;</td><td>2.79 m travelled, 245.2% odometry error</td><td>9.61 m travelled, <strong>0.34%</strong></td></tr>
+          <tr><td>5&deg;</td><td>3.76 m, 156.1%</td><td>7.35 m, 30.9%</td></tr>
+          <tr><td>10&deg;</td><td>3.60 m, 165.8%</td><td>6.67 m, 44.7%</td></tr>
+        </table>
+        </div>
+
+        <p>Only 2 degrees is a clean measurement. There the control ramp climbs perfectly, so
+        torque is sufficient and friction is the only variable left, which makes that 245% pure
+        slip. At 5 and 10 degrees the control arm degrades too, so torque limits are mixing in
+        and those numbers cannot be called slip. Without the high-friction arm I would have
+        reported all three.</p>
+
+        <p>One earlier result survived the move. On the clean ramp, wheel odometry is off by
+        6.852&nbsp;m and the IMU-fused filter is off by 6.843&nbsp;m. Nine millimetres out of
+        six and a half metres. Different rig, same answer: neither channel observes the slip,
+        so the filter has nothing to correct with.</p>
+
+        <h2>What I do differently now</h2>
+
+        <p>Measure the rig, not just the treatment. There is now a script that checks the
+        robot's posture, the gravity leak in the accelerometer and the lidar's view together,
+        and it runs before a measurement series rather than after a confusing result.</p>
+
+        <p>Distrust your own summaries. On the way to this, my summary script reported the
+        detector 19.9% ahead on one comparison. The number was computed correctly and it was an
+        artefact of interpolating across a near-vertical segment of the curve. A measured arm at
+        the same distance was four times better. The summariser is a measuring instrument too.</p>
+
+        <p>Correct in public. The previous post stays up with a correction at the top rather
+        than quietly disappearing, because the deletion would hide the only genuinely useful
+        part: a study can be run with good controls, honest ablations and careful statistics,
+        and still measure the wrong thing, if nobody checks what the apparatus is doing.</p>
+
+        <p style="margin-top:26px;"><a href="slip-detector-observability.html">The earlier post,
+        with its correction</a> &middot; <a href="../research.html">the project</a></p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
