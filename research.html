@@ -109,7 +109,7 @@
               <p class="title">safecot-ros2: Slip-Aware State Estimation and Safety Monitoring</p>
               <p class="meta">Research &middot; ROS 2 Jazzy, Gazebo Harmonic &middot; code in a private repository, available on request</p>
               <p class="desc">A measurement rig for wheel slip, ported from a ROS 1 Noetic and Gazebo Classic stack and containerized so every run is reproducible, with 22 unit tests and scripted experiment sweeps. Its first result did not survive: a rig fault found later had the robot resting on its front edge at 13.3 degrees, so the chassis dragged and manufactured the slip being measured. With the robot level, slip was re-established on a controlled low-friction ramp, where the robot travels 2.79&nbsp;m while its odometry reports 9.65&nbsp;m, against a high-friction control ramp that climbs the same slope with 0.34% error. Fusing an IMU with wheel odometry through <code>robot_localization</code> recovers 9&nbsp;mm of that 6.85&nbsp;m error. Every claim is measured against the simplest alternative before it is reported.</p>
-              <div class="links"><a href="blog/slip-detector-observability.html">What the measurements showed</a></div>
+              <div class="links"><a href="blog/rig-fault-tipping-robot.html">The rig fault that invalidated the first result</a><a href="blog/slip-detector-observability.html">What the measurements showed</a></div>
               <div class="tags"><span class="tag">ROS 2</span><span class="tag">state estimation</span><span class="tag">ablation</span><span class="tag">Gazebo</span></div>
             </div>
           </li>
