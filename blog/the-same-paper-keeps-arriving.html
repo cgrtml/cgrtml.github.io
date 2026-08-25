@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Reviewed for Five Conferences This Year. The Same Paper Keeps Arriving. · Cagri Temel</title>
+  <meta name="description" content="Most papers I score low are not wrong. They are unfalsifiable by the reader. I know the failure from the inside, because I published one and had to correct it." />
+  <link rel="canonical" href="https://cagritemel.com/blog/the-same-paper-keeps-arriving.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">August 25, 2026</p>
+        <h1 style="margin-bottom:.4em;">I Reviewed for Five Conferences This Year. The Same Paper Keeps Arriving.</h1>
+
+        <p>This week I accepted an invitation to join the program committee of IEEE BigData 2026,
+        in Phoenix this December. That makes six venues in a year: AIES, SMC, CAI, ECCE, SciPy,
+        and now BigData.</p>
+
+        <p>One boundary before anything else. Nothing here describes a submission I reviewed.
+        Review is confidential and it stays that way. Every number below comes from my own work,
+        which I published, and then had to correct in public two days later.</p>
+
+        <p>That is the honest reason I can write this post. The paper I keep declining is one
+        I wrote myself.</p>
+
+        <h2>The sentence I write most often</h2>
+
+        <p>It is not "this is wrong." I almost never know that a result is wrong. Sitting with
+        a PDF and no access to the authors' machine, I am not in a position to know. What I write
+        instead is closer to this: <em>I cannot tell whether this number would survive a change
+        you did not make.</em></p>
+
+        <p>Authors expect the first complaint and prepare for it. They arrive with more baselines,
+        more datasets, more ablations. The second complaint is not answered by any of that, and
+        that is the one that decides the score.</p>
+
+        <p>A weak paper and an unfalsifiable paper look identical from the outside. Both report
+        a win. Only one of them gives the reader a way to find out it is wrong.</p>
+
+        <h2>I did this to myself for four months</h2>
+
+        <p>I built a wheel-slip detector for a ROS 2 robot. It reached 0.869 accuracy and cut
+        position error by 72 percent. That is a publishable-looking abstract, and I believed it.</p>
+
+        <p>The first crack was a control arm. A robot driving slower with no detector at all did
+        better than my detector. Then a sharper measurement explained why: wheel encoders and an
+        IMU cannot distinguish a robot stuck with its wheels spinning from a robot driving
+        normally. Balanced accuracy 0.552, against 0.500 for a coin.</p>
+
+        <p>That was already a real finding, and I published it. Two days later I found the actual
+        result, and it invalidated the study that produced it.</p>
+
+        <p>The robot had never been level. It was resting on its front bottom edge, pitched forward
+        at 13.30 degrees, in every run I had ever done. Three independent channels agreed, and none
+        is derived from the others:</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Channel</th><th>Reading</th></tr>
+          <tr><td>Ground-truth pose from the simulator</td><td>pitch +13.30&deg;</td></tr>
+          <tr><td>IMU orientation</td><td>pitch +13.30&deg;</td></tr>
+          <tr><td>IMU accelerometer, x axis</td><td>&minus;2.25 m/s&sup2;, which is &minus;g&nbsp;sin(13.3&deg;)</td></tr>
+        </table>
+        </div>
+
+        <p>The robot's own description predicted it in one line. Drive wheels on the centre axle,
+        the only caster at the rear, nothing holding up the front half of the chassis. It tips until
+        the front edge touches, at atan(0.033 / 0.1435) = 12.96 degrees. Wheel radius over half the
+        chassis length. The measured 13.30 was geometry, not noise.</p>
+
+        <p>Add a front caster and the same world produces this:</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Robot</th><th>Distance travelled</th><th>Odometry reported</th><th>Error</th></tr>
+          <tr><td>Tipping 13.3&deg; (all earlier work)</td><td>6.44 m</td><td>9.61 m</td><td>49.4%</td></tr>
+          <tr><td>Level</td><td>9.64 m</td><td>9.64 m</td><td>0.00%</td></tr>
+        </table>
+        </div>
+
+        <p>The slip was gone. Not reduced, gone. The effect I had spent four months measuring was
+        being manufactured by the chassis ploughing the ground.</p>
+
+        <h2>The controls were fine. They were also blind.</h2>
+
+        <p>This is the part I now carry into every review.</p>
+
+        <p>My controls were not sloppy. Constant-speed baselines. Leave-one-terrain-out. A
+        trade-off curve. A dominance test against measured arms rather than interpolated ones.
+        Every one of them was run correctly, and not one of them could have caught this.</p>
+
+        <p>An ablation compares two arms against each other. Both of my arms ran on the same rig.
+        When the fault lives in the substrate that every arm shares, comparisons between arms are
+        blind to it by construction. This is not a discipline problem. More ablations would have
+        produced more confident wrong numbers.</p>
+
+        <p>So when a submission answers a methodological doubt with "we ran an ablation," that is
+        frequently not an answer. It tells me the arms differ. It tells me nothing about the ground
+        they all stand on.</p>
+
+        <p>And the tell was in my own repository the whole time. The contact sensor reported
+        "touching" in every single run, and I had written a comment attributing that to sensor
+        semantics. The body was touching the ground. The sensor was reporting correctly. I had
+        explained away my only direct evidence.</p>
+
+        <h2>What I look for now</h2>
+
+        <p>Five questions. I ask all of them, in this order, and the first one carries most of the
+        weight.</p>
+
+        <p><strong>What measurement, if it had come back differently, would have killed this
+        result?</strong> If the paper contains no such measurement, the result is not supported,
+        it is merely reported. Strong papers name this themselves. Most do not.</p>
+
+        <p><strong>Which numbers were measured, and which were interpolated?</strong> A curve drawn
+        through four measured points and a curve drawn through four assumed ones look the same in
+        print. Only one of them is evidence.</p>
+
+        <p><strong>Is there a condition where the proposed method should fail? Was it run?</strong>
+        A method that wins everywhere has usually not been tested where it loses. My high-friction
+        ramp exists for exactly this reason: if the robot cannot climb that either, the problem is
+        torque, not slip, and nothing can be reported at all.</p>
+
+        <p><strong>What did the apparatus itself report?</strong> Not the model, the rig. Sensor
+        health, orientation, dropped frames, the fields nobody plots. My whole correction came out
+        of a channel I had never looked at.</p>
+
+        <p><strong>Does the paper survive its own limitations section?</strong> Sometimes a paper
+        lists a limitation that, taken seriously, removes the contribution. Authors write these
+        sections last and honestly, and then do not reread the claims above them.</p>
+
+        <h2>If you are submitting</h2>
+
+        <p>Hand the reviewer the shot that could kill your paper, then show that it missed. Name the
+        condition under which your method should break, run it, and report what happened. A paper
+        that does this is much harder to reject than one that reports only wins, because it has
+        already done the reviewer's job in public.</p>
+
+        <p>The instinct runs the other way. Naming your weakest point feels like inviting the
+        rejection. In practice it is the difference between a reviewer who cannot verify your claim
+        and one who can. Only the second kind can argue for you.</p>
+
+        <p>I did not catch mine for four months. My controls were correct, I ran the experiments
+        myself, and I still published a result that the apparatus had manufactured. That is not a
+        failure of care, and I do not think reviewing is about catching people who were careless.
+        It is about asking the one question the author was too close to ask.</p>
+
+        <p style="margin-top:26px;"><a href="rig-fault-tipping-robot.html">The full correction,
+        with the ramp experiments that recovered the study</a>, and
+        <a href="slip-detector-observability.html">the original post it corrects</a>.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
