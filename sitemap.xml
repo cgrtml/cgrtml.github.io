@@ -136,4 +136,9 @@
     <lastmod>2026-08-19</lastmod>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://cagritemel.com/feed.xml</loc>
+    <lastmod>2026-08-25</lastmod>
+    <priority>0.3</priority>
+  </url>
 </urlset>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cagri Temel</title>
+    <link>https://cagritemel.com/blog.html</link>
+    <atom:link href="https://cagritemel.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Notes on explainable AI, AI safety, Chain-of-Thought reasoning, and building trustworthy AI products.</description>
+    <language>en</language>
+    <lastBuildDate>Tue, 25 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>I Reviewed for Five Conferences This Year. The Same Paper Keeps Arriving.</title>
+      <link>https://cagritemel.com/blog/the-same-paper-keeps-arriving.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/the-same-paper-keeps-arriving.html</guid>
+      <pubDate>Tue, 25 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Most submissions I score low are not wrong, they are unfalsifiable by the reader. Why correct ablations are blind to a fault in the substrate every arm shares, and the five questions I ask instead.</description>
+    </item>
+    <item>
+      <title>My Robot Was Tipping 13 Degrees. That Was the Whole Result.</title>
+      <link>https://cagritemel.com/blog/rig-fault-tipping-robot.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/rig-fault-tipping-robot.html</guid>
+      <pubDate>Fri, 21 Aug 2026 12:00:00 GMT</pubDate>
+      <description>A wheel-slip study invalidated by its own apparatus. Why four months of correct ablations could not catch it, and how slip was re-established on a controlled ramp.</description>
+    </item>
+    <item>
+      <title>My Slip Detector Was Accurate. It Was Also Useless.</title>
+      <link>https://cagritemel.com/blog/slip-detector-observability.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/slip-detector-observability.html</guid>
+      <pubDate>Wed, 19 Aug 2026 12:00:00 GMT</pubDate>
+      <description>A slip detector scored 0.869 accuracy and cut position error by 72 percent. The control arm, driving slower with no detector at all, did better.</description>
+    </item>
+    <item>
+      <title>Welcome: what I write about</title>
+      <link>https://cagritemel.com/blog/welcome.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/welcome.html</guid>
+      <pubDate>Thu, 18 Jun 2026 12:00:00 GMT</pubDate>
+      <description>Why I started this blog and the topics I will cover: trustworthy AI, explainable reasoning, and lessons from building real AI products.</description>
+    </item>
+  </channel>
+</rss>
