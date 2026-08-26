@@ -244,6 +244,16 @@ a.stat:hover { text-decoration: none; transform: translateY(-2px); border-color:
   .nav-lang { border-left: none; padding-left: 0; margin-left: 0; padding-top: 10px; }
 }
 
+/* ---------- Mobile overflow guards ----------
+   Grid/flex children default to min-width:auto, so one unbreakable
+   run of content (a social row that cannot wrap, a long DOI) widens
+   the whole column and pushes the page sideways. */
+.social { flex-wrap: wrap; row-gap: 6px; }
+.hero-grid > *, .entry > *, .cards > *, .stats > *,
+.contact-grid > *, .site-footer .container > * { min-width: 0; }
+.entry .links, .entry .meta, .paper-cite, .note { overflow-wrap: anywhere; }
+.entry .title, .entry .desc, .lead, .prose p { overflow-wrap: break-word; }
+
 /* ---------- Motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
