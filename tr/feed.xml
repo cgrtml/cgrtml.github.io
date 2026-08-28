@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/tr/feed.xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cagri Temel</title>
+    <link>https://cagritemel.com/tr/blog.html</link>
+    <atom:link href="https://cagritemel.com/tr/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Açıklanabilir yapay zeka, yapay zeka güvenliği, düşünce zinciri akıl yürütme ve güvenilir yapay zeka ürünleri geliştirme üzerine notlar.</description>
+    <language>tr</language>
+    <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Robot 100 metreyi Bolt'tan hızlı koştu. Sonra bariyere çarptı.</title>
+      <link>https://cagritemel.com/tr/blog/robot-kostu-sonra-bariyere-carpti.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/tr/blog/robot-kostu-sonra-bariyere-carpti.html</guid>
+      <pubDate>Thu, 27 Aug 2026 18:00:00 GMT</pubDate>
+      <description>Tiangong Ultra, Pekin'deki Dünya İnsansı Robot Oyunları'nda 100 metreyi 8.64 saniyede koştu ve şampiyon dahil birkaç robot bitişten sonra yastıklı bariyere çarptı. Zor olan yarı durmak: pistte sınırı geometri koyuyor, pist dışında sürtünme koyuyor ve tekerlek enkoderi ile IMU o büyüklüğü göremiyor.</description>
+    </item>
+    <item>
+      <title>Sinyal veride vardı. Sekiz saniye geç geldi.</title>
+      <link>https://cagritemel.com/tr/blog/sinyal-sekiz-saniye-gec.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/tr/blog/sinyal-sekiz-saniye-gec.html</guid>
+      <pubDate>Thu, 27 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Robot hâlâ kaygan yamadayken cevap vermesi gereken bir zemin sınıflandırıcı. Bilgi veride vardı, ama karar yaklaşık on saniyelik bir geçişin 8.3. saniyesinde geldi.</description>
+    </item>
+  </channel>
+</rss>
