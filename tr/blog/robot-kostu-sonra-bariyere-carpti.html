@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot 100 metreyi Bolt'tan hızlı koştu. Sonra bariyere çarptı. · Cagri Temel</title>
+  <meta name="description" content="Tiangong Ultra, Pekin'deki Dünya İnsansı Robot Oyunları'nda 100 metreyi 8.64 saniyede koştu; bir yıl önceki derece 21.50 saniyeydi. Şampiyon dahil birkaç robot bitişten sonra yastıklı bariyere çarptı. Durmanın neden daha zor yarı olduğu, pistte sınırın neden geometri, pist dışında neden sürtünme olduğu ve kendi kayma ölçümlerimin robotun göremediği kısım hakkında söyledikleri." />
+  <link rel="canonical" href="https://cagritemel.com/tr/blog/robot-kostu-sonra-bariyere-carpti.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="../research.html">Araştırma</a></li>
+        <li><a href="../publications.html">Yayınlar</a></li>
+        <li><a href="../patents.html">Patentler</a></li>
+        <li><a href="../teaching.html">Eğitim</a></li>
+        <li><a href="../speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="../contact.html">İletişim</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><a href="../../blog/robot-ran-faster-then-hit-the-barrier.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">27 Ağustos 2026</p>
+        <h1 style="margin-bottom:.4em;">Robot 100 metreyi Bolt'tan hızlı koştu. Sonra bariyere çarptı.</h1>
+
+        <p>İkinci Dünya İnsansı Robot Oyunları dün Pekin'de kapandı. Ulusal Hız Pateni Ovali'nde
+        beş gün, 666 takım, 16 ülkeden 2.056 robot, atletizm ile fabrika işi, otel hizmeti ve
+        acil müdahale gibi senaryo görevleri arasında bölünmüş 51 etkinlik.</p>
+
+        <p>Manşet sprintti. Beijing Innovation Center of Humanoid Robotics'in geliştirdiği
+        Tiangong Ultra 100 metreyi açılış günü 9.39, yarı finalde 8.86, finalde 8.64 saniyede
+        koştu. Bir yıl önce, bu oyunların ilk edisyonunda kazanan derece 21.50 saniyeydi.</p>
+
+        <p>Sayıyı karmaşıklaştırmadan önce şunu net söyleyeyim: bir sprint derecesini on iki ayda
+        yüzde 60 düşürmek gösteri değil. O hızda iki ayak üzerinde koşmak zor bir kontrol
+        problemi, ve takımlar denetleyicilerine, redüktörlerine ve ısıl sınırlarına ne yaptıysa
+        hızlı yaptılar. Bu kısım saygıyı hak ediyor ve ölçülebilir bir kısım.</p>
+
+        <h2>Aklımdan çıkmayan ayrıntı</h2>
+
+        <p>Associated Press, koşuculardan birkaçının, şampiyon dahil, bitiş çizgisini geçtikten
+        sonra yastıklı bariyere çarptığını, bazılarından kıvılcım çıktığını ve görevlilerin
+        yangın söndürücüyle koştuğunu bildirdi.</p>
+
+        <p>Bu bir yazılım hatası değil. Bu aritmetik, ve sonucun daha ilginç olan yarısı.</p>
+
+        <h2>Zor olan yarı durmak</h2>
+
+        <p>Hızlanmayı komut edersin. Yavaşlamayı zeminle pazarlık edersin, ve zemin senin
+        sahibi olduğun bir parametre değil.</p>
+
+        <p>8.64 saniye üzerinden ortalandığında 100 metre 11.6&nbsp;m/s eder. Bu hızdan
+        frenlemenin iki ayrı sınırı var ve ikisi de motor torku değil.</p>
+
+        <p>Birincisi sürtünme. Durma mesafesi kabaca hızın karesinin yavaşlamanın iki katına
+        bölümü, yani 1&nbsp;g'lik tam yavaşlamada bile, ki bu 1.0'a yakın bir sürtünme katsayısı
+        ister, yaklaşık 6.8&nbsp;m zemine ihtiyacın var. Sürtünmeyi yarıya indir, 13.6&nbsp;m
+        olur.</p>
+
+        <p>İkincisi geometri, ve iyi bir yüzeyde önce bu devreye giriyor. Yürüyen bir makine
+        ancak ayağını kendi kütle merkezinin önüne koyabildiği kadar sert yavaşlayabilir. Kütle
+        merkezi 0.8&nbsp;m yükseklikte olan ve fren adımını önüne 0.15&nbsp;m mesafeye basan bir
+        insansı düşünün: bu oran ortalama yavaşlamayı 0.19&nbsp;g civarında sınırlıyor ve
+        11.6&nbsp;m/s'yi söndürmek için 36&nbsp;m gibi bir mesafe gerekiyor. Daha uzağa hamle
+        yap, ayağı 0.4&nbsp;m öne bas, yaklaşık 0.5&nbsp;g ve kabaca 14&nbsp;m elde edersin. Bu
+        geometri sayıları bana ait, o robotun ölçümü değil, büyüklük mertebesi tahmini; gerçek
+        değerler onu yapan takımın elinde. Ama cevabın şekli ayrıntılara bağlı değil. Durma
+        mesafesi onlarca metre, 100 metrelik bitiş çizgisinin arkasındaki alan ise değil.</p>
+
+        <p>O yüzden yastıklı bir bariyer var. Bariyer, pistin en dürüst parçası. Düzenleyicilerin
+        sünger cinsinden şunu kabul etmesi: bu makineler geri alamayacakları bir hıza
+        ulaşabiliyor.</p>
+
+        <h2>Pist dışında sınır görünmez olanı</h2>
+
+        <p>Hız pateni ovalinde sürtünme yüksek, bilinen ve sabit. Dolayısıyla sınırı geometri
+        koyuyor ve mühendislik problemi iyi tanımlı. Depoda ise iş tersine dönüyor. Yükleme
+        kapısının yanında ıslak bir bölge var, cilalı betonun üstünde toz var, biri çelik bir
+        plaka bırakmış. Artık oynayan terim sürtünme, ve robotun fren adımına girişmeden önce o
+        değeri bilmesi gerekiyor.</p>
+
+        <p>Bu yıl çok daha yavaş bir robotta ölçtüğüm soru tam olarak buydu, ve cevap iç açıcı
+        değil. Tekerlek enkoderi ve IMU, zeminin sana ne vereceğini söylemiyor. Benim
+        düzeneğimde tekerlekleri boşa dönen sıkışmış robot ile düzgün giden robot 0.4000 ve
+        0.3999&nbsp;m/s tekerlek hızı üretiyor. On üç öznitelik boyunca iki durum arasındaki en
+        büyük etki büyüklüğü 0.56, ve en iyi tek öznitelik ikisini 0.552 dengeli doğrulukla
+        ayırıyor; yazı tura 0.500 veriyor. Öznitelikler türev tabanlı, iki durum da durağan, o
+        yüzden ikisi de sıfır okuyor.
+        <a href="sinyal-sekiz-saniye-gec.html">Zemin sınıflandırıcı da kurtarmadı</a>:
+        kullanılabilir sinyal ancak beş ve on saniyelik pencerelerde belirdi, karar ise yaklaşık
+        on saniye süren bir geçişin 8.3. saniyesinde geldi.</p>
+
+        <p>Etkinin büyüklüğünü açık yazmak lazım. 0.02 sürtünmeli iki derecelik rampada, tutuşlu
+        kontrol kolunda yüzde 0.34 odometri hatası üreten aynı hız komutu, kaygan kolda yüzde
+        245 üretti. Robot nerede olduğu konusunda biraz yanılmıyor. Kat ettiği mesafeden daha
+        fazlasıyla yanılıyor.</p>
+
+        <p>Koşan bir insansının ihtiyacı olan da aynı büyüklük, üstelik daha hızlı ve ayak
+        yere değdikten sonra değil değmeden önce.</p>
+
+        <h2>Bir sayı mekândan çıkınca ne oluyor</h2>
+
+        <p>8.64 saniye, Usain Bolt'un 9.58'inden hızlı, ve haftaya sunumlara girecek kısım büyük
+        ihtimalle bu karşılaştırma olacak. Girmemeli. Bir derece, onu üreten koşullarla birlikte
+        tanımlıdır ve burada koşulların neredeyse hiçbiri örtüşmüyor: yüzey, çıkış, kütle, enerji
+        bütçesi, ve koşunun herhangi bir parçasının makinenin hiç görmediği bir zemine
+        genellenmek zorunda olup olmadığı.</p>
+
+        <p>Yüksek atlama sonucu aynı şeyi daha keskin gösteriyor. Bir robot 2.88&nbsp;m'yi geçti;
+        geçen yılki oyunlarda bu 0.95&nbsp;m'ydi. Asıl içerik yıldan yıla değişim. Manşetlerde
+        yapılan karşılaştırma, Javier Sotomayor'un 2.45&nbsp;m'si ile kıyas, kategori hatası:
+        durarak atlama ile koşu mesafesi alarak atlama farklı fiziklere sahip farklı
+        etkinlikler.</p>
+
+        <p>Burada puan toplamıyorum. Kendi kayma sonucumu 0.869 doğruluk ve yüzde 72 hata azalması
+        ile yayımladım, sonra
+        <a href="../../blog/rig-fault-tipping-robot.html">bölümün tamamını geçersiz işaretlemek</a>
+        zorunda kaldım, çünkü robotum 13.3 derece burnu aşağı gidiyordu ve sürtünen gövdesi
+        ölçtüğümü sandığım etkiyi kendisi üretiyordu. O sayıyı bağlamından koparıp aktarmamı
+        kimse istemedi. Kendi kendime, herkesin gözü önünde yaptım. Ders tam da pahalı olduğu
+        için aklımda kaldı.</p>
+
+        <h2>Sırada görmek istediğim ölçüm</h2>
+
+        <p>Tek bir etkinlik alana bütün sprint programından daha fazlasını söylerdi, üstelik
+        ucuz.</p>
+
+        <p>Robotu tam hıza çıkar, dur komutu ver, durma mesafesini ve durduğu andaki yön sapmasını
+        raporla. İki kez koş: bir kez yarışma zemininde, bir kez robotun hiç görmediği ve
+        kendisine söylenmemiş bir yüzeyde. İkisini de yayımla, ve yalnızca tamamlanan koşumları
+        değil başarısızlıkları da yayımla.</p>
+
+        <p>O iki kol arasındaki fark, bir insansının insanların yanında çalışıp
+        çalışamayacağını öngören sayıdır. Oregon State Üniversitesi'nden Jonathan Hurst bunun
+        genel hâlini AP'ye söylemişti: gerçek ilerleme depolarda ve fabrikalarda, insansıların
+        saatlerce özerk çalışıp gerçek ekonomik değer ürettiği yerde ölçülecek. Durma sınavı, bunu
+        ölçmeye başlamanın somut bir yolu.</p>
+
+        <h2>Doğrulayamadığım kısım</h2>
+
+        <p>Özerklik kuralları bu derecelerin nasıl okunacağını belirliyor ve ben bunu tatmin edici
+        biçimde netleştiremedim. Doğrulayabildiğim kayıtlar 400&nbsp;m, 1.500&nbsp;m ve
+        4&times;100&nbsp;m bayrak yarışının uzaktan kumandasız, tam özerk kategoriler olarak
+        koşulduğunu söylüyor. Birkaç ikincil site aynısını 100 metre için de yazıyor ama bunu
+        güvendiğim bir kaynakta teyit edemedim, o yüzden şu ya da bu yönde iddia etmiyorum.
+        Sprintin herhangi bir kısmı teleoperasyonluysa rekor yine başka bir şey demektir, ve bu
+        tam olarak sayının yanında seyahat etmesi gereken türden bir koşul.</p>
+
+        <p>Kaynaklar: sonuçlar ve ölçek için
+        <a href="https://en.wikipedia.org/wiki/World_Humanoid_Robot_Games" target="_blank" rel="noopener">World Humanoid Robot Games</a>
+        kaydı ve
+        <a href="https://www.aljazeera.com/sports/2026/8/25/chinese-robot-tiangong-clocks-sub-9-second-100-metres-in-beijing" target="_blank" rel="noopener">Al Jazeera</a>;
+        bitiş çizgisindeki çarpışmalar, final derecesi ve Hurst alıntısı için
+        <a href="https://www.opb.org/article/2026/08/27/a-robot-sprinter-shatters-a-100-meter-record-again-as-sparks-fly-at-chinas-robot-competition/" target="_blank" rel="noopener">OPB'nin aktardığı</a>
+        AP haberi. Kendi sayılarım özel bir depoda duran bir ROS 2 çalışmasından geliyor; ölçüm
+        yazıları <a href="sinyal-sekiz-saniye-gec.html">burada</a> ve
+        <a href="../../blog/rig-fault-tipping-robot.html">burada</a>.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Bütün yazılara dön</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

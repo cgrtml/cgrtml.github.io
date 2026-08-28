@@ -6,7 +6,14 @@
     <atom:link href="https://cagritemel.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Notes on explainable AI, AI safety, Chain-of-Thought reasoning, and building trustworthy AI products.</description>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The Robot Ran 100 Metres Faster Than Bolt. Then It Hit the Barrier.</title>
+      <link>https://cagritemel.com/blog/robot-ran-faster-then-hit-the-barrier.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/robot-ran-faster-then-hit-the-barrier.html</guid>
+      <pubDate>Thu, 27 Aug 2026 18:00:00 GMT</pubDate>
+      <description>Tiangong Ultra ran 100 metres in 8.64 seconds in Beijing and several finishers crashed into a padded barrier. Why stopping is the harder half, and why the binding limit changes from geometry to friction the moment the robot leaves the track.</description>
+    </item>
     <item>
       <title>The Signal Was There. It Was Eight Seconds Late.</title>
       <link>https://cagritemel.com/blog/signal-eight-seconds-late.html</link>
