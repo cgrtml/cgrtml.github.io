@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Robot Ran 100 Metres Faster Than Bolt. Then It Hit the Barrier. · Cagri Temel</title>
-  <meta name="description" content="Tiangong Ultra ran 100 metres in 8.64 seconds at the World Humanoid Robot Games in Beijing, down from 21.50 seconds a year ago. Several finishers, the champion included, crashed into a padded barrier. Why stopping is the harder half, why the bound is geometry on a track and friction everywhere else, and what my own slip measurements say about the part a robot cannot see." />
+  <title>A Robot Ran 100 Metres in 8.64 Seconds in Beijing: So What Does That Number Mean? · Cagri Temel</title>
+  <meta name="description" content="The World Humanoid Robot Games by the numbers, the specifications of the record-setting Tiangong Ultra, the robots that hit the padded barrier after the finish line, and why stopping is harder than running. The two limits on braking, numbers from my own slip measurements, and the deceleration test I would like the Games to add." />
   <link rel="canonical" href="https://cagritemel.com/blog/robot-ran-faster-then-hit-the-barrier.html" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,142 +36,248 @@
     <article class="section">
       <div class="container prose" style="max-width:720px;">
         <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">August 27, 2026</p>
-        <h1 style="margin-bottom:.4em;">The Robot Ran 100 Metres Faster Than Bolt. Then It Hit the Barrier.</h1>
+        <h1 style="margin-bottom:.4em;">A Robot Ran 100 Metres in 8.64 Seconds in Beijing: So What Does That Number Mean?</h1>
 
-        <p>The second World Humanoid Robot Games closed in Beijing yesterday. Five days at the
-        National Speed Skating Oval, 666 teams, 2,056 robots from 16 countries, 51 events split
-        between athletics and scenario tasks like factory work, hotel service and emergency
-        response.</p>
+        <p>The second World Humanoid Robot Games closed in Beijing yesterday, and one number
+        made the headlines: 8.64 seconds, faster than Usain Bolt's 9.58. Let us go through
+        where that number came from, what it actually measures, and what happened right after
+        the finish line. The part after the finish line is at least as interesting as the
+        record.</p>
 
-        <p>The headline was the sprint. Tiangong Ultra, from the Beijing Innovation Center of
-        Humanoid Robotics, ran the 100 metres in 9.39 seconds on the opening day, 8.86 in the
-        semifinal, and 8.64 in the final. A year ago the winning time at the first edition of
-        these games was 21.50 seconds.</p>
+        <p>First, the names, because reports keep mixing them up. The event is the
+        <strong>World Humanoid Robot Games</strong>. The robot that set the record is
+        <strong>Tiangong Ultra</strong>. The organisation that built it is the
+        <strong>Beijing Humanoid Robot Innovation Center</strong>, which also goes by
+        X-Humanoid.</p>
 
-        <p>I want to be clear about that number before I complicate it. Cutting a sprint time by
-        60 percent in twelve months is not a stunt. Bipedal running at that speed is a hard
-        control problem, and whatever the teams did to their controllers, gearboxes and thermal
-        limits, they did it fast. That part deserves respect and it is measurable.</p>
+        <h2>The Games by the Numbers</h2>
 
-        <h2>The detail I keep thinking about</h2>
+        <p>The Games ran from 22 to 26 August 2026 at the National Speed Skating Oval in
+        Beijing, the building from the 2022 Winter Olympics that everyone calls the Ice
+        Ribbon.</p>
 
-        <p>The Associated Press reported that several of the runners, the champion included,
-        crashed into a padded barrier after crossing the finish line, that sparks came off some
-        of them, and that staff ran over with fire extinguishers.</p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Item</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td>Teams</td><td>666</td></tr>
+            <tr><td>Robots</td><td>2,056</td></tr>
+            <tr><td>Countries</td><td>16</td></tr>
+            <tr><td>Total events</td><td>51</td></tr>
+            <tr><td>Of those, competitive events</td><td>30</td></tr>
+            <tr><td>Scenario-based events</td><td>21</td></tr>
+          </tbody>
+        </table>
+        </div>
 
-        <p>That is not a bug in the software. That is arithmetic, and it is the more interesting
-        half of the result.</p>
+        <p>Do not skip past that last row, because those events answer the question people
+        actually care about. The robots are not doing athletics there. According to the
+        Associated Press they compete at real tasks: housework, hotel service, emergency
+        response. Whether a humanoid is useful shows up in that column, not in the 100
+        metres.</p>
 
-        <h2>Stopping is the harder half</h2>
+        <h2>The Robot That Set the Record: Tiangong Ultra</h2>
 
-        <p>Acceleration you command. Deceleration you negotiate with the ground, and the ground
-        is not a parameter you own.</p>
+        <p>Tiangong Ultra stands about 1.8 metres and its reported mass is 55 kilograms, so it
+        is the height of an adult and less than half the weight of one. Its published design
+        points are low-inertia legs and high-power integrated joints, both of which are choices
+        made for running long distances without shaking the structure apart.</p>
 
-        <p>Averaged over 8.64 seconds, 100 metres is 11.6&nbsp;m/s. Braking from that speed has
-        two separate limits and neither of them is motor torque.</p>
+        <p>The machine has a history worth knowing. On 19 April 2025 it won the world's first
+        humanoid robot half-marathon in Beijing, covering 21.0975 kilometres in 2 hours 40
+        minutes 42 seconds. The winning human in that same race finished in 1 hour 2 minutes,
+        and only four robots made it inside the four-hour cutoff.</p>
 
-        <p>The first is friction. Stopping distance is roughly the square of the speed over
-        twice the deceleration, so at a full 1&nbsp;g, which needs a friction coefficient near
-        1.0, you still need about 6.8&nbsp;m of floor. Halve the friction and it becomes
-        13.6&nbsp;m.</p>
+        <p>Here are the three sprint times from this week, side by side.</p>
 
-        <p>The second is geometry, and on a good surface it binds first. A walking machine can
-        only decelerate as hard as it can plant a foot ahead of its own centre of mass. Take a
-        humanoid with its centre of mass 0.8&nbsp;m up and a braking step landing 0.15&nbsp;m
-        in front of it: that ratio caps the average deceleration near 0.19&nbsp;g, and
-        11.6&nbsp;m/s then needs something like 36&nbsp;m to bleed off. Lunge harder, plant the
-        foot 0.4&nbsp;m ahead, and you get about 0.5&nbsp;g and roughly 14&nbsp;m. Those
-        geometry numbers are mine, an order-of-magnitude estimate rather than a measurement of
-        that robot, and the real figures belong to the team that built it. But the shape of the
-        answer does not depend on the details. The stopping distance is tens of metres and the
-        runoff behind a 100&nbsp;m finish line is not.</p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Round</th><th>Time</th><th>Average speed</th></tr></thead>
+          <tbody>
+            <tr><td>Opening day, 22 August</td><td>9.39&nbsp;s</td><td>38.3 km/h</td></tr>
+            <tr><td>Semifinal</td><td>8.86&nbsp;s</td><td>40.6 km/h</td></tr>
+            <tr><td>Final, 26 August</td><td>8.64&nbsp;s</td><td>41.7 km/h</td></tr>
+            <tr><td>Last year's winning time</td><td>21.50&nbsp;s</td><td>16.7 km/h</td></tr>
+          </tbody>
+        </table>
+        </div>
 
-        <p>So there is a padded barrier. The barrier is the honest part of the venue. It is the
-        organisers acknowledging, in foam, that the machines can reach a speed they cannot
-        undo.</p>
+        <p>Taking a time from 21.50 to 8.64 in twelve months is a 60 percent improvement and it
+        is not a stunt. Running on two legs at that speed is a hard control problem, because on
+        every stride the machine spends part of its time airborne and the rest balanced on one
+        foot at the edge of falling over. Whatever the teams did to their controllers, their
+        gearboxes and their thermal limits, they did it quickly.</p>
 
-        <h2>Off the track, the other limit is the invisible one</h2>
+        <h2>What Happened After the Finish Line</h2>
 
-        <p>On a speed-skating oval the friction is high, known and constant, so geometry is what
-        binds and the engineering problem is well posed. In a warehouse it inverts. There is a
-        wet patch by the loading door, dust on the polished concrete, a steel plate someone left
-        out. Now the friction term is the one that moves, and the robot has to know its value
-        before it commits to a braking step.</p>
+        <p>The Associated Press reported that several of the runners, the champion among them,
+        <strong>crashed into a padded barrier</strong> after crossing the line. Sparks came off
+        some of them, and staff ran over with fire extinguishers to spray the machines lying on
+        the ground.</p>
 
-        <p>That is the question I have spent this year measuring on a much slower robot, and the
-        answer is not encouraging. Wheel encoders and an IMU cannot tell you what the ground
-        will give you. In my setup a robot stuck with its wheels spinning and a robot driving
-        normally produce wheel speeds of 0.4000 and 0.3999&nbsp;m/s. Across thirteen features
-        the largest effect size between the two states is 0.56, and the best single feature
-        separates them at 0.552 balanced accuracy where a coin gets 0.500. The features are
-        derivatives, and both states are steady, so both states read zero.
-        <a href="signal-eight-seconds-late.html">A terrain classifier did not rescue it
-        either</a>: the usable signal only appeared in five and ten second windows, and the
-        decision arrived 8.3 seconds into a crossing that takes about ten.</p>
+        <p>This looks like a software failure and it is not one. As the arithmetic below shows,
+        the distance needed to stop from that speed is far longer than the run-off behind a
+        100&nbsp;metre finish line. The barrier is not an accident. It is part of the design.</p>
 
-        <p>The size of the effect is worth stating plainly. On a two degree ramp at 0.02
-        friction, the same speed command that produced a 0.34 percent odometry error on the
-        grippy control arm produced 245 percent on the slippery one. The robot is not slightly
-        wrong about where it is. It is wrong by more than the distance it travelled.</p>
+        <h2>Why Stopping Is Harder Than Running</h2>
 
-        <p>A sprinting humanoid needs that same quantity, faster, and needs it before the foot
-        lands rather than after.</p>
+        <p>Acceleration the robot produces for itself: the motors supply torque and the foot
+        pushes on the ground. Braking runs into two separate limits, and neither of them is
+        motor power.</p>
 
-        <h2>What happens to a number when it leaves the venue</h2>
+        <p><strong>The first limit is friction.</strong> The braking force comes from friction
+        between foot and floor. Stopping distance is roughly the square of the speed divided by
+        twice the deceleration. A robot covering 100 metres in 8.64 seconds averages
+        11.6&nbsp;m/s. If it can decelerate at a full 1&nbsp;g, which needs a friction
+        coefficient near 1.0, roughly what a running shoe gets on a tartan track, it still
+        needs about 6.8 metres of floor. Halve the friction and that becomes 13.7 metres.</p>
 
-        <p>8.64 seconds is faster than Usain Bolt's 9.58, and that comparison is the part most
-        likely to survive into next week's slide decks. It should not. A time is defined
-        together with the conditions that produced it, and here almost none of the conditions
-        match: the surface, the start, the mass, the energy budget, and whether anything about
-        the run has to generalise to a floor the machine has not seen.</p>
+        <p><strong>The second limit is geometry</strong>, and on good ground it is the one that
+        binds first. A walking machine can only decelerate as hard as it can plant a foot ahead
+        of its own centre of mass, because a foot planted too far forward converts the braking
+        force into a face-plant. Take a humanoid with its centre of mass 0.8 metres up, placing
+        a braking step 0.15 metres in front of it. That ratio caps the average deceleration near
+        0.19&nbsp;g, and killing 11.6&nbsp;m/s then needs something like 36 metres. Lunge
+        harder, land the foot 0.4 metres ahead, and you get 0.5&nbsp;g and roughly 14 metres.</p>
 
-        <p>The high jump result shows the same thing more sharply. A robot cleared 2.88&nbsp;m,
-        against 0.95&nbsp;m at last year's games. The year-on-year delta is the real content.
-        The comparison being made in headlines, against Javier Sotomayor's 2.45&nbsp;m, is a
-        category error, because a standing jump and a jump with a run-up are different events
-        with different physics.</p>
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Deceleration</th><th>Where it comes from</th><th>Stopping distance from 11.6&nbsp;m/s</th></tr></thead>
+          <tbody>
+            <tr><td>1.00&nbsp;g</td><td>friction limit, µ ≈ 1.0</td><td>6.8 m</td></tr>
+            <tr><td>0.50&nbsp;g</td><td>foot planted 0.4 m ahead</td><td>13.7 m</td></tr>
+            <tr><td>0.19&nbsp;g</td><td>foot planted 0.15 m ahead</td><td>36.4 m</td></tr>
+          </tbody>
+        </table>
+        </div>
 
-        <p>I am not scoring points here. I published a slip result of my own with 0.869 accuracy
-        and a 72 percent error reduction, and I later had to
-        <a href="rig-fault-tipping-robot.html">mark the whole section invalid</a> because my
-        robot had been driving nose down at 13.3 degrees and its dragging chassis was
-        manufacturing the effect I thought I was measuring. Nobody made me quote that number out
-        of context. I did it to myself, in public. The lesson stuck precisely because it was
-        expensive.</p>
+        <p>A warning about that table: the geometry figures are my assumption, not measurements
+        of Tiangong Ultra. The real ones belong to the team that built it. But the order of
+        magnitude does not depend on the details. The stopping distance is tens of metres and
+        the space behind a finish line is not. That is why there is a barrier.</p>
 
-        <h2>The measurement I would like to see next</h2>
+        <h2>Why the Arithmetic Changes Off the Track</h2>
 
-        <p>One event would tell the field more than the whole sprint programme, and it is
-        cheap.</p>
+        <p>On a speed-skating oval the friction is high, known and the same everywhere, so
+        geometry is what binds and the problem is well posed. The robot knows its own body and
+        it knows the floor.</p>
 
-        <p>Bring the robot to full speed, command a stop, and report the stopping distance and
-        the heading error at rest. Run it twice: once on the competition floor, once on a
-        surface the robot has never seen and has not been told about. Publish both, and publish
-        the failures rather than only the completed runs.</p>
+        <p>In a warehouse it inverts. There is a wet patch by the loading door, dust on the
+        polished concrete, a steel plate somebody left out. Now friction is the term that moves,
+        and the robot has to know its value <em>before</em> it commits to the braking step. So
+        can it?</p>
 
-        <p>The gap between those two arms is the number that predicts whether a humanoid can
-        work near people. Jonathan Hurst of Oregon State University made the general version of
-        this point to the AP: true progress will be measured in warehouses and factories, where
-        humanoids work autonomously for hours and generate real economic value. A stopping test
-        is one concrete way to start measuring it.</p>
+        <h2>I Measured That Question on My Own Robot</h2>
 
-        <h2>What I could not verify</h2>
+        <p>This year I measured exactly this on a much slower wheeled robot in ROS 2, and the
+        answer is not encouraging. The sensors available were wheel encoders and an IMU, that is
+        an accelerometer and a gyroscope. The question: can the robot work out what the ground
+        will give it from those two channels?</p>
 
-        <p>The autonomy rules matter for reading any of these times, and I could not pin them
-        down to my satisfaction. The reporting I can verify says the 400&nbsp;m, the
-        1,500&nbsp;m and the 4&times;100&nbsp;m relay ran as fully autonomous categories with no
-        remote control. Several secondary sites state the same for the 100&nbsp;m, but I could
-        not confirm it in a source I trust, so I am not claiming it either way. If the sprint
-        was teleoperated in any part, the record means something different again, and that is
-        exactly the kind of condition that should travel attached to the number.</p>
+        <p>I set the test up in its sharpest form, putting two states with opposite consequences
+        side by side. In one the robot is stuck on a slippery patch with its wheels spinning. In
+        the other it is driving normally on solid ground.</p>
 
-        <p>Sources: the results and scale from the
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Feature</th><th>Stuck</th><th>Driving normally</th></tr></thead>
+          <tbody>
+            <tr><td>Wheel speed</td><td>0.4000 m/s</td><td>0.3999 m/s</td></tr>
+            <tr><td>Wheel acceleration</td><td>0.0000</td><td>0.0118</td></tr>
+            <tr><td>Gyroscope standard deviation</td><td>0.0002</td><td>0.0002</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>I tried thirteen features. The best one had an effect size of 0.56, which counts as
+        weak, and separated the two states at 0.552 balanced accuracy. Tossing a coin gets
+        0.500.</p>
+
+        <p>The reason came out of the measurement itself. The features are derivative-based,
+        meaning they look at differences in acceleration. A robot stuck at constant wheel speed
+        has zero acceleration. A robot cruising at constant speed also has zero acceleration.
+        The two states look the same because the same thing is genuinely being measured. I then
+        tried a terrain classifier, and <a href="signal-eight-seconds-late.html">it answered 8.3
+        seconds into a crossing that takes about ten</a>, which is after the moment the decision
+        would have been useful.</p>
+
+        <p>The size of the effect is worth writing down, because this is not a small error. On
+        a two-degree ramp, the slippery arm at 0.02 friction produced a 245 percent odometry
+        error. The same command on the grippy control arm produced 0.34 percent. The robot is
+        not slightly confused about where it is. It is wrong by more than the distance it
+        covered.</p>
+
+        <p>A running humanoid needs that same quantity, faster, and before the foot lands rather
+        than after.</p>
+
+        <h2>What to Watch For When Comparing These Numbers</h2>
+
+        <p><strong>The Bolt comparison.</strong> 8.64 is smaller than 9.58, true. But a time
+        only means something together with the conditions that produced it, and almost none of
+        the conditions match here: the surface, the start, the mass, the energy budget, and
+        whether any of the run has to generalise to a floor the machine has never seen.</p>
+
+        <p><strong>The high jump comparison.</strong> A robot cleared 2.88 metres, against 0.95
+        metres at last year's games. The year-on-year jump is the real content. The comparison
+        made in headlines, against Javier Sotomayor's 2.45 metres, is a category error, because
+        a standing jump and a jump with a run-up are two different events with different
+        physics.</p>
+
+        <p><strong>And one inconsistency I could not resolve.</strong> The same brand was
+        running a half-marathon at an average of 7.9 km/h sixteen months ago. It now appears in
+        the 100 metres at an average of 41.7 km/h. These are different races and very probably
+        different configurations, since an endurance run and a sprint do not want the same
+        machine. Even so, I could not find a technical account of how that five-fold jump was
+        achieved in a source I trust. If I find one I will add it here.</p>
+
+        <p>None of this is me lecturing anyone. I published a slip result of my own at 0.869
+        accuracy with a 72 percent error reduction, and later had to
+        <a href="rig-fault-tipping-robot.html">mark the whole section invalid</a>. The reason
+        was that my robot had been driving nose down at 13.3 degrees, dragging the front edge of
+        its chassis, and that dragging was producing the slip I thought I was measuring. Nobody
+        asked me to quote that number out of context. I did that to myself.</p>
+
+        <h2>The Measurement I Would Like the Games to Add</h2>
+
+        <p>One event would tell the field more than the whole sprint programme, and it is cheap
+        to set up.</p>
+
+        <p>Bring the robot to full speed, command a stop, and report two things: the stopping
+        distance and the heading error once it is at rest. Then run the same test twice. Once on
+        the competition floor, once on a surface the robot has never seen and has not been told
+        about in advance. Publish both, the completed runs and the failed ones.</p>
+
+        <p>The gap between those two runs is the number that predicts whether a humanoid can
+        work near people. Jonathan Hurst, a robotics professor at Oregon State University, put
+        the general version of this to the AP: true progress will be measured in warehouses and
+        factories, where humanoids work autonomously for hours and generate real economic value.
+        A stopping test is one concrete way to start measuring it.</p>
+
+        <h2>What I Could Not Verify</h2>
+
+        <p>The autonomy rules decide how any of these times should be read, because a
+        teleoperated run and a fully autonomous run do not measure the same thing. The reporting
+        I can verify says the 400 metres, the 1,500 metres and the 4&times;100 metre relay ran as
+        fully autonomous categories with no remote control. Several secondary sites say the same
+        about the 100 metres, but I could not confirm that in a source I trust, so I am not
+        claiming it either way.</p>
+
+        <p>Tiangong Ultra's 55 kilogram mass and 1.8 metre height also come from manufacturer
+        material and secondary sources rather than an independent measurement.</p>
+
+        <h2>Sources</h2>
+
+        <p>Scale and results from the
         <a href="https://en.wikipedia.org/wiki/World_Humanoid_Robot_Games" target="_blank" rel="noopener">World Humanoid Robot Games</a>
-        record and from
-        <a href="https://www.aljazeera.com/sports/2026/8/25/chinese-robot-tiangong-clocks-sub-9-second-100-metres-in-beijing" target="_blank" rel="noopener">Al Jazeera</a>;
-        the finish-line crashes, the final time and the Hurst quote from the AP report as
+        record and
+        <a href="https://www.aljazeera.com/sports/2026/8/25/chinese-robot-tiangong-clocks-sub-9-second-100-metres-in-beijing" target="_blank" rel="noopener">Al Jazeera</a>.
+        The finish-line crashes, the final time, the scenario tasks and the Hurst quote from the
+        AP report as
         <a href="https://www.opb.org/article/2026/08/27/a-robot-sprinter-shatters-a-100-meter-record-again-as-sparks-fly-at-chinas-robot-competition/" target="_blank" rel="noopener">carried by OPB</a>.
-        My own numbers come from a ROS 2 study in a private repository; the measurement write-ups
+        The half-marathon time from
+        <a href="https://technode.com/2025/04/21/beijing-hosts-worlds-first-half-marathon-for-humanoid-robots-tiangong-ultra-wins-in-two-hours-40-minutes/" target="_blank" rel="noopener">TechNode</a>.
+        My own numbers come from a ROS 2 study in a private repository, held private while a
+        provisional patent application and a journal review are open; the measurement write-ups
         are <a href="signal-eight-seconds-late.html">here</a> and
         <a href="rig-fault-tipping-robot.html">here</a>.</p>
 

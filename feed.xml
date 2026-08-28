@@ -9,18 +9,18 @@
     <language>en</language>
     <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
     <item>
-      <title>The Robot Ran 100 Metres Faster Than Bolt. Then It Hit the Barrier.</title>
+      <title>A Robot Ran 100 Metres in 8.64 Seconds in Beijing: So What Does That Number Mean?</title>
       <link>https://cagritemel.com/blog/robot-ran-faster-then-hit-the-barrier.html</link>
       <guid isPermaLink="true">https://cagritemel.com/blog/robot-ran-faster-then-hit-the-barrier.html</guid>
       <pubDate>Thu, 27 Aug 2026 18:00:00 GMT</pubDate>
-      <description>Tiangong Ultra ran 100 metres in 8.64 seconds in Beijing and several finishers crashed into a padded barrier. Why stopping is the harder half, and why the binding limit changes from geometry to friction the moment the robot leaves the track.</description>
+      <description>The Games by the numbers, the specifications of the record-setting Tiangong Ultra, and the robots that hit the padded barrier after the finish line. Why stopping is harder than running, and why the binding limit changes from geometry to friction the moment the robot leaves the track.</description>
     </item>
     <item>
-      <title>The Signal Was There. It Was Eight Seconds Late.</title>
+      <title>Can My Robot Tell What Ground It Is On? I Measured It, and the Answer Came Eight Seconds Late</title>
       <link>https://cagritemel.com/blog/signal-eight-seconds-late.html</link>
       <guid isPermaLink="true">https://cagritemel.com/blog/signal-eight-seconds-late.html</guid>
       <pubDate>Thu, 27 Aug 2026 12:00:00 GMT</pubDate>
-      <description>A terrain classifier that had to answer while the robot was still on the slippery patch. The information was in the data, but the decision arrived 8.3 seconds into a crossing that takes about ten.</description>
+      <description>Three tests on the precondition for a terrain classifier: what it does on unseen ground, whether the information is in the data at all, and when the answer arrives. It arrived 8.3 seconds into a crossing that takes about ten.</description>
     </item>
     <item>
       <title>I Reviewed for Five Conferences This Year. The Same Paper Keeps Arriving.</title>
