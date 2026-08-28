@@ -6,7 +6,14 @@
     <atom:link href="https://cagritemel.com/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Notes on explainable AI, AI safety, Chain-of-Thought reasoning, and building trustworthy AI products.</description>
     <language>en</language>
-    <lastBuildDate>Tue, 25 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 12:00:00 GMT</lastBuildDate>
+    <item>
+      <title>The Signal Was There. It Was Eight Seconds Late.</title>
+      <link>https://cagritemel.com/blog/signal-eight-seconds-late.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/signal-eight-seconds-late.html</guid>
+      <pubDate>Thu, 27 Aug 2026 12:00:00 GMT</pubDate>
+      <description>A terrain classifier that had to answer while the robot was still on the slippery patch. The information was in the data, but the decision arrived 8.3 seconds into a crossing that takes about ten.</description>
+    </item>
     <item>
       <title>I Reviewed for Five Conferences This Year. The Same Paper Keeps Arriving.</title>
       <link>https://cagritemel.com/blog/the-same-paper-keeps-arriving.html</link>

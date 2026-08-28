@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Signal Was There. It Was Eight Seconds Late. · Cagri Temel</title>
+  <meta name="description" content="A terrain classifier that had to answer while the robot was still on the slippery patch. The information was in the data and a longer feature window kept raising the in-sample ceiling, from 0.082 to 0.222 above baseline, but the decision arrived 8.3 seconds into a crossing that takes about ten. The ceiling test, the transfer test, and the decision-time test I did not have." />
+  <link rel="canonical" href="https://cagritemel.com/blog/signal-eight-seconds-late.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="../tr/blog/sinyal-sekiz-saniye-gec.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">August 27, 2026</p>
+        <h1 style="margin-bottom:.4em;">The Signal Was There. It Was Eight Seconds Late.</h1>
+
+        <p>A week ago I wrote that my slip detector could not tell a robot stuck with its
+        wheels spinning from a robot driving normally. The idea that came out of that failure
+        was to stop estimating slip continuously and classify the ground instead: decide which
+        surface you are on, then pick a speed for it. Slow on the slippery patch, nominal on
+        grip. Two numbers instead of a probability.</p>
+
+        <p>This post is about measuring whether that was possible at all. It was not, and the
+        reason surprised me. The information was in the data. It was just slow, and a policy
+        does not get to wait.</p>
+
+        <h2>Terrain is a state, slip is an event</h2>
+
+        <p>The first thing that had to change was the label. The old one, <code>is_slipping</code>,
+        answers "am I losing traction right now", which is an event that lasts a moment. "Which
+        surface am I on" is a state that holds for four metres. One label cannot serve both
+        questions, and I had been using the event label to study the state.</p>
+
+        <p>So the experiment now records ground-truth position next to every sample, and the
+        label comes from that position against the patch boundaries, which the script reads out
+        of the world file rather than me typing them in. While setting that up I noticed the
+        worlds were already what I needed. Each one is grippy ground with a four-metre
+        low-friction patch from 2.5&nbsp;m to 6.5&nbsp;m, then grip again, so every run already
+        crosses both surfaces. I did not need a new world. I needed to read the one I had.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>World</th><th>Patch friction</th><th>Samples</th><th>On patch</th><th>Labelled slippery</th></tr></thead>
+          <tbody>
+            <tr><td>slip_mu02</td><td>0.02</td><td>867</td><td>616</td><td>0.710</td></tr>
+            <tr><td>slip_mu05</td><td>0.05</td><td>867</td><td>615</td><td>0.709</td></tr>
+            <tr><td>slip_mu12</td><td>0.12</td><td>867</td><td>397</td><td>0.000</td></tr>
+            <tr><td>slip_mu20</td><td>0.20</td><td>867</td><td>405</td><td>0.000</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Slippery here means on the patch and the patch friction is 0.05 or below, which is
+        where an earlier sweep found that slowing down actually pays. The two higher-friction
+        worlds contribute negative examples only.</p>
+
+        <h2>The transfer test failed below the baseline</h2>
+
+        <p>Leave one terrain out: train on three worlds, test on the fourth, so the model never
+        sees the friction value it is asked about.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Held out</th><th>Accuracy</th><th>Majority baseline</th><th>Gain</th></tr></thead>
+          <tbody>
+            <tr><td>0.02</td><td>0.448</td><td>0.710</td><td>&minus;0.263</td></tr>
+            <tr><td>0.05</td><td>0.409</td><td>0.709</td><td>&minus;0.300</td></tr>
+            <tr><td>0.12</td><td>0.897</td><td>1.000</td><td>&minus;0.103</td></tr>
+            <tr><td>0.20</td><td>0.844</td><td>1.000</td><td>&minus;0.156</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>On the two slippery worlds the classifier scored below the majority baseline.
+        Answering "slippery" for every sample without looking at a single sensor would have
+        beaten the model by 26 and 30 points. The bottom two rows have a majority of 1.000, so
+        any gain there is structurally at most zero and they carry no information about the
+        failure. The first two rows are the result.</p>
+
+        <h2>The ceiling test</h2>
+
+        <p>At this point there are three different diagnoses and they lead to three different
+        months of work: the model family is wrong, the training set is too small, or the
+        information is not in the sensors. A cheap test separates them. Train the model on data
+        that includes the test terrain and read the score. That is the ceiling, the best this
+        feature set could ever reach if transfer were free.</p>
+
+        <p>I ran it at four feature window lengths, against a majority baseline of 0.645.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Feature window</th><th>Ceiling accuracy</th><th>Ceiling gain</th><th>Mean transfer gain</th></tr></thead>
+          <tbody>
+            <tr><td>raw, 0.2 to 1.5&nbsp;s</td><td>0.727</td><td>+0.082</td><td>&minus;0.205</td></tr>
+            <tr><td>2&nbsp;s</td><td>0.785</td><td>+0.140</td><td>&minus;0.232</td></tr>
+            <tr><td>5&nbsp;s</td><td>0.855</td><td>+0.210</td><td>&minus;0.181</td></tr>
+            <tr><td>10&nbsp;s</td><td>0.867</td><td>+0.222</td><td>&minus;0.212</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Two things read at once. There is a state signal in the data, and it keeps growing
+        with the window, from 8 points above baseline to 22. And it does not transfer at any
+        window length: every mean transfer gain is negative, and widening the window does not
+        rescue it. Whatever part of the signal is real is a slow part.</p>
+
+        <h2>Slow is fatal when the decision has a deadline</h2>
+
+        <p>In an offline classifier a slow signal is fine. In a policy it is the whole problem,
+        because the robot has to act while it is still on the patch. The patch is four metres.
+        At the commanded 0.4&nbsp;m/s a crossing costs about ten seconds. Here is the five-second
+        window model on unseen terrain, after smoothing and hysteresis, which is what a policy
+        would actually consume.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>World</th><th>Patch covered</th><th>Delay before it fires</th><th>False alarm off patch</th></tr></thead>
+          <tbody>
+            <tr><td>0.02</td><td>51%</td><td>8.3&nbsp;s</td><td>0%</td></tr>
+            <tr><td>0.05</td><td>22%</td><td>13.2&nbsp;s</td><td>0%</td></tr>
+            <tr><td>0.12</td><td>n/a</td><td>n/a</td><td>7%</td></tr>
+            <tr><td>0.20</td><td>n/a</td><td>n/a</td><td>28%</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Eight and a half seconds to say the word, in a crossing that costs ten. On the
+        0.05 world it takes 13.2&nbsp;s, longer than the crossing itself, and coverage drops to
+        22 percent.</p>
+
+        <p>The 51 percent is worse than it looks, in two ways. It averages two command
+        profiles, 30 percent on the continuous run and 71 percent on the stop-and-go one. And
+        the run gets covered at all partly because the robot is stuck there, so it occupies the
+        patch far longer than a clean crossing would take. The detector is given more time in
+        exact proportion to how badly the robot is already failing. That is backwards from what
+        a controller needs.</p>
+
+        <p>It is not an artefact of the smoothing either. With raw features and no window at
+        all the delay is 8.0&nbsp;s, essentially the same. And buying coverage is not free: on
+        the 0.20 world the same settings fire 28 percent of the time off the patch, so the
+        robot would crawl for no reason a quarter of the way through a perfectly grippy
+        world.</p>
+
+        <h2>Why the fast part is missing</h2>
+
+        <p>The reason sits in the feature definitions and I <a href="slip-detector-observability.html">wrote
+        it up when I found it</a>. The features are derivatives, mostly the residual between
+        wheel acceleration and body acceleration. A robot stuck at constant wheel speed has
+        zero acceleration everywhere. A robot cruising at constant speed also has zero
+        acceleration everywhere. Wheel speed reads 0.4000 in the first case and 0.3999 in the
+        second, the largest effect size across thirteen features is 0.56, and the best single
+        feature separates the two states at 0.552 balanced accuracy where a coin gets
+        0.500.</p>
+
+        <p>Put next to the ceiling curve, that gives the shape of the whole problem. The fast
+        signal is the transition, the instant traction changes, and it is genuinely observable,
+        which is why slip detection appeared to work early on. The state is only visible in
+        slow statistics gathered over five and ten second windows. The policy needs the state,
+        and it needs it in the first second.</p>
+
+        <h2>What the rig fault did to these numbers</h2>
+
+        <p>Two days after this measurement I found that the robot had been driving nose down at
+        13.3 degrees for the entire study, dragging its front edge, and that the dragging was
+        manufacturing the slip I thought I was studying. Everything above was measured on that
+        rig, and the section it lives in is marked invalid in my results file. I am not going to
+        quietly reuse the numbers, so here is what survives and what does not.</p>
+
+        <p>The structural argument does not depend on the apparatus. Two constant-velocity
+        conditions produce the same derivative. That is arithmetic, and a level robot does not
+        change it.</p>
+
+        <p>The numbers do depend on it. The 0.552, the 8.3&nbsp;s, the ceiling curve: all of it
+        was measured on a tilted robot and none of it can be quoted for a level one until it is
+        run again.</p>
+
+        <p>One neighbouring result has already been re-measured. On the corrected rig, on a
+        two-degree ramp at 0.02 friction, the EKF removes 0.009&nbsp;m of 6.852&nbsp;m of
+        odometry error, about a tenth of a percent. Before the fix the same comparison was
+        13&nbsp;mm out of 4.11&nbsp;m, three tenths of a percent. Different apparatus, same
+        answer: fusing wheel odometry with an IMU does not repair slip error, because neither
+        channel sees slip.</p>
+
+        <p>The observability exam itself is queued and not yet run, and I expect the ramp to
+        give a different answer, which is the reason to run it. A robot stuck on a slope has a
+        gravity component in the accelerometer and a wheel-versus-body mismatch that move
+        together. That coupling is exactly what flat ground did not offer.</p>
+
+        <h2>The three tests I run before blaming the model</h2>
+
+        <p><strong>Ceiling.</strong> Let the model see the test terrain and read the score. If
+        the ceiling sits at the majority baseline, the information is not in the sensors and no
+        architecture will put it there.</p>
+
+        <p><strong>Transfer.</strong> If the ceiling is high and held-out performance is
+        negative, it is a transfer problem, and more terrains or better invariances are worth
+        the month.</p>
+
+        <p><strong>Decision time.</strong> This is the one I did not have, and it is the one
+        that decided this phase. Accuracy is scored over a whole run; a controller consumes the
+        answer at one instant. Ask when the answer arrives relative to the window in which it is
+        still worth having. A classifier that is right at second nine of a ten second crossing
+        is not slightly worse than one that is right at second one. It is useless in a different
+        way, and no amount of accuracy repairs it.</p>
+
+        <h2>Limits</h2>
+
+        <p>Simulation only, one differential-drive robot, one nominal speed of 0.4&nbsp;m/s, and
+        friction values chosen to make the effect measurable rather than realistic. Two command
+        profiles per world. The observability claim is about this sensor set, wheel encoders and
+        an IMU, and says nothing about a robot carrying anything else. And the rig caveat above
+        applies to every number in this post.</p>
+
+        <p>The code is in a private repository while a provisional patent application and a
+        journal review are open. If you want to read it, write to me and I will give you
+        access.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

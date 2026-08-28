@@ -141,4 +141,23 @@
     <lastmod>2026-08-25</lastmod>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://cagritemel.com/blog/signal-eight-seconds-late.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/signal-eight-seconds-late.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/sinyal-sekiz-saniye-gec.html"/>
+    <lastmod>2026-08-27</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/tr/blog.html</loc>
+    <lastmod>2026-08-27</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/tr/blog/sinyal-sekiz-saniye-gec.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/signal-eight-seconds-late.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/sinyal-sekiz-saniye-gec.html"/>
+    <lastmod>2026-08-27</lastmod>
+    <priority>0.6</priority>
+  </url>
 </urlset>

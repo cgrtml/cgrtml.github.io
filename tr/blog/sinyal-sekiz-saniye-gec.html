@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sinyal veride vardı. Sekiz saniye geç geldi. · Cagri Temel</title>
+  <meta name="description" content="Robot hâlâ kaygan yamadayken cevap vermesi gereken bir zemin sınıflandırıcı. Bilgi veride vardı, uzun öznitelik penceresiyle tavan taban çizgisinin 0.082 üstünden 0.222 üstüne çıktı, ama karar yaklaşık on saniyelik bir geçişin 8.3. saniyesinde geldi. Tavan sınavı, taşıma sınavı ve elimde olmayan karar zamanı sınavı." />
+  <link rel="canonical" href="https://cagritemel.com/tr/blog/sinyal-sekiz-saniye-gec.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="../research.html">Araştırma</a></li>
+        <li><a href="../publications.html">Yayınlar</a></li>
+        <li><a href="../patents.html">Patentler</a></li>
+        <li><a href="../teaching.html">Eğitim</a></li>
+        <li><a href="../speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="../contact.html">İletişim</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><a href="../../blog/signal-eight-seconds-late.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">27 Ağustos 2026</p>
+        <h1 style="margin-bottom:.4em;">Sinyal veride vardı. Sekiz saniye geç geldi.</h1>
+
+        <p>Bir hafta önce, kayma dedektörümün tekerlekleri boşa dönen sıkışmış bir robotla
+        düzgün giden bir robotu ayırt edemediğini yazmıştım. O başarısızlıktan çıkan fikir
+        şuydu: kaymayı sürekli kestirmeyi bırak, onun yerine zemini sınıflandır. Hangi
+        yüzeydeysen ona göre bir hız seç. Kaygan yamada yavaş, tutuşlu zeminde normal.
+        Olasılık yerine iki sayı.</p>
+
+        <p>Bu yazı, bunun mümkün olup olmadığını ölçmekle ilgili. Mümkün değildi, ve sebebi
+        beni şaşırttı. Bilgi veride vardı. Sadece yavaştı, ve bir politikanın bekleme lüksü
+        yok.</p>
+
+        <h2>Zemin bir durum, kayma bir olay</h2>
+
+        <p>Önce etiketin değişmesi gerekiyordu. Eskisi, <code>is_slipping</code>, "şu anda
+        tutuşu kaybediyor muyum" sorusunu cevaplıyor. Bu bir olay ve bir an sürüyor. "Hangi
+        yüzeydeyim" ise dört metre boyunca süren bir durum. Tek etiket iki soruya birden
+        bakamaz, ben de durumu incelemek için olay etiketini kullanıyormuşum.</p>
+
+        <p>Deney artık her örneğin yanına yer gerçeği konumunu yazıyor ve etiket, o konumun
+        yama sınırlarına göre nerede durduğundan geliyor. Sınırları da elle yazmıyorum, betik
+        dünya dosyasından okuyor. Bunu kurarken fark ettim ki dünyalar zaten ihtiyacım olan
+        şeydi: tutuşlu zemin, 2.5&nbsp;m ile 6.5&nbsp;m arasında dört metrelik düşük sürtünmeli
+        bir yama, sonra yine tutuş. Yani her koşum iki yüzeyden de geçiyor. Yeni bir dünyaya
+        ihtiyacım yokmuş, elimdekini okumaya ihtiyacım varmış.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Dünya</th><th>Yama sürtünmesi</th><th>Örnek</th><th>Yamada</th><th>Kaygan etiketli</th></tr></thead>
+          <tbody>
+            <tr><td>slip_mu02</td><td>0.02</td><td>867</td><td>616</td><td>0.710</td></tr>
+            <tr><td>slip_mu05</td><td>0.05</td><td>867</td><td>615</td><td>0.709</td></tr>
+            <tr><td>slip_mu12</td><td>0.12</td><td>867</td><td>397</td><td>0.000</td></tr>
+            <tr><td>slip_mu20</td><td>0.20</td><td>867</td><td>405</td><td>0.000</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Buradaki "kaygan" şu demek: yamadayım ve yamanın sürtünmesi 0.05 ya da altında.
+        Daha önceki bir tarama, yavaşlamanın karşılığını verdiği sınırın orası olduğunu
+        göstermişti. Yüksek sürtünmeli iki dünya sınıflandırmaya yalnızca negatif örnek
+        veriyor.</p>
+
+        <h2>Taşıma sınavı taban çizgisinin altında kaldı</h2>
+
+        <p>Bir zemini dışarıda bırak: üç dünyayla eğit, dördüncüsünde test et. Böylece model
+        kendisine sorulan sürtünme değerini hiç görmemiş oluyor.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Dışarıda</th><th>Doğruluk</th><th>Çoğunluk taban çizgisi</th><th>Kazanç</th></tr></thead>
+          <tbody>
+            <tr><td>0.02</td><td>0.448</td><td>0.710</td><td>&minus;0.263</td></tr>
+            <tr><td>0.05</td><td>0.409</td><td>0.709</td><td>&minus;0.300</td></tr>
+            <tr><td>0.12</td><td>0.897</td><td>1.000</td><td>&minus;0.103</td></tr>
+            <tr><td>0.20</td><td>0.844</td><td>1.000</td><td>&minus;0.156</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Kaygan iki dünyada sınıflandırıcı çoğunluk taban çizgisinin altında kaldı. Tek bir
+        sensöre bakmadan her örneğe "kaygan" demek modeli 26 ve 30 puan geçerdi. Alttaki iki
+        satırda çoğunluk 1.000 olduğu için oradaki kazanç yapısal olarak en fazla sıfır
+        olabilir; başarısızlık hakkında bilgi taşımıyorlar. Sonuç ilk iki satır.</p>
+
+        <h2>Tavan sınavı</h2>
+
+        <p>Bu noktada üç ayrı teşhis var ve üçü üç ayrı aya mal oluyor: model ailesi yanlış,
+        eğitim kümesi küçük, ya da bilgi sensörlerde yok. Ucuz bir sınav bunları ayırıyor.
+        Modeli, test zeminini de içeren veriyle eğit ve skoru oku. Bu tavan: taşıma bedava
+        olsaydı bu öznitelik kümesinin ulaşabileceği en iyi nokta.</p>
+
+        <p>Dört ayrı öznitelik penceresiyle koştum, çoğunluk taban çizgisi 0.645.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Öznitelik penceresi</th><th>Tavan doğruluk</th><th>Tavan kazancı</th><th>Ortalama taşıma kazancı</th></tr></thead>
+          <tbody>
+            <tr><td>ham, 0.2&ndash;1.5&nbsp;s</td><td>0.727</td><td>+0.082</td><td>&minus;0.205</td></tr>
+            <tr><td>2&nbsp;s</td><td>0.785</td><td>+0.140</td><td>&minus;0.232</td></tr>
+            <tr><td>5&nbsp;s</td><td>0.855</td><td>+0.210</td><td>&minus;0.181</td></tr>
+            <tr><td>10&nbsp;s</td><td>0.867</td><td>+0.222</td><td>&minus;0.212</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Aynı anda iki şey okunuyor. Veride bir durum sinyali var ve pencere uzadıkça
+        büyüyor, taban çizgisinin 8 puan üstünden 22 puan üstüne. Ve hiçbir pencerede
+        taşınmıyor: bütün ortalama taşıma kazançları negatif, pencereyi genişletmek bunu
+        kurtarmıyor. Sinyalin gerçek olan kısmı yavaş bir kısım.</p>
+
+        <h2>Karar anı gelince yavaşlık öldürücü</h2>
+
+        <p>Çevrimdışı bir sınıflandırıcıda yavaş sinyal sorun değil. Politikada ise sorunun
+        kendisi, çünkü robotun hâlâ yamadayken karar vermesi gerekiyor. Yama dört metre. Komut
+        edilen 0.4&nbsp;m/s ile bir geçiş yaklaşık on saniye. Aşağıdaki tablo, beş saniyelik
+        pencereli modelin görülmemiş zemindeki hâli: yumuşatma ve histerezisten sonra, yani
+        politikanın gerçekten tüketeceği biçimde.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <thead><tr><th>Dünya</th><th>Yamanın kapsanan kısmı</th><th>Kararın gecikmesi</th><th>Yama dışında yanlış alarm</th></tr></thead>
+          <tbody>
+            <tr><td>0.02</td><td>%51</td><td>8.3&nbsp;s</td><td>%0</td></tr>
+            <tr><td>0.05</td><td>%22</td><td>13.2&nbsp;s</td><td>%0</td></tr>
+            <tr><td>0.12</td><td>yok</td><td>yok</td><td>%7</td></tr>
+            <tr><td>0.20</td><td>yok</td><td>yok</td><td>%28</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>On saniyelik bir geçişte o kelimeyi söylemek sekiz buçuk saniye alıyor. 0.05
+        dünyasında 13.2&nbsp;s, yani geçişin kendisinden uzun, ve kapsama yüzde 22'ye
+        düşüyor.</p>
+
+        <p>Yüzde 51 de göründüğünden kötü, iki sebeple. Birincisi iki komut profilinin
+        ortalaması: sürekli koşumda yüzde 30, dur-kalk koşumunda yüzde 71. İkincisi, koşumun
+        kapsanabilmesinin bir sebebi robotun orada sıkışmış olması; temiz bir geçişin
+        süreceğinden çok daha uzun süre yamada kalıyor. Yani dedektöre verilen zaman, robotun
+        halihazırda ne kadar kötü battığıyla doğru orantılı artıyor. Bir denetleyicinin
+        ihtiyacının tam tersi.</p>
+
+        <p>Bu yumuşatmanın yan etkisi de değil. Ham özniteliklerle, hiç pencere olmadan gecikme
+        8.0&nbsp;s, neredeyse aynı. Kapsamayı satın almak da bedava değil: 0.20 dünyasında aynı
+        ayarlar yama dışında zamanın yüzde 28'inde tetikleniyor, yani robot kusursuz tutuşlu
+        bir dünyanın dörtte birinde sebepsiz yere sürünüyor.</p>
+
+        <h2>Hızlı kısım neden yok</h2>
+
+        <p>Sebep öznitelik tanımlarının içinde ve
+        <a href="../../blog/slip-detector-observability.html">bulduğumda yazmıştım</a>.
+        Öznitelikler türev tabanlı, çoğu tekerlek ivmesi ile gövde ivmesi arasındaki artık.
+        Sabit tekerlek hızıyla sıkışan robotta her yerde ivme sıfır. Sabit hızla giden robotta
+        da her yerde ivme sıfır. Tekerlek hızı birincide 0.4000, ikincide 0.3999 okuyor, on üç
+        özniteliğin en büyük etki büyüklüğü 0.56, ve en iyi tek öznitelik iki durumu 0.552
+        dengeli doğrulukla ayırıyor. Yazı tura 0.500 veriyor.</p>
+
+        <p>Tavan eğrisiyle yan yana konunca problemin şekli çıkıyor. Hızlı sinyal geçişin
+        kendisi, tutuşun değiştiği an, ve o gerçekten gözlenebilir. Kayma tespitinin başlangıçta
+        işe yaramış görünmesinin sebebi de bu. Durum ise ancak beş ve on saniyelik pencerelerde
+        toplanan yavaş istatistiklerde görünüyor. Politikanın ihtiyacı olan şey durum, ve ona
+        ilk saniyede ihtiyacı var.</p>
+
+        <h2>Düzenek hatası bu sayılara ne yaptı</h2>
+
+        <p>Bu ölçümden iki gün sonra, robotun çalışma boyunca 13.3 derece burnu aşağı durduğunu
+        ve gövdesinin ön kenarını zemine sürttüğünü buldum. İncelediğimi sandığım kaymayı
+        üreten şey o sürtünmeydi. Yukarıdakilerin tamamı o düzenekte ölçüldü ve bulundukları
+        bölüm sonuç dosyamda geçersiz işaretli. Sayıları sessizce yeniden kullanmayacağım, o
+        yüzden neyin ayakta kaldığını açık yazıyorum.</p>
+
+        <p>Yapısal argüman düzeneğe bağlı değil. Sabit hızdaki iki durum aynı türevi üretir.
+        Bu aritmetik, ve robotun düz olması onu değiştirmiyor.</p>
+
+        <p>Sayılar ise düzeneğe bağlı. 0.552, 8.3&nbsp;s, tavan eğrisi: hepsi eğik bir robotta
+        ölçüldü ve yeniden koşulmadan hiçbiri düz robot için alıntılanamaz.</p>
+
+        <p>Komşu bir sonuç bu arada yeniden ölçüldü. Düzeltilmiş düzenekte, 0.02 sürtünmeli iki
+        derecelik rampada EKF 6.852&nbsp;m'lik odometri hatasının 0.009&nbsp;m'sini düzeltiyor,
+        yani yüzde birin onda biri kadar. Düzeltmeden önce aynı karşılaştırma 4.11&nbsp;m'nin
+        13&nbsp;mm'siydi, yüzde üçte bir. Düzenek değişti, cevap değişmedi: tekerlek odometrisini
+        IMU ile kaynaştırmak kayma hatasını onarmıyor, çünkü iki kanal da kaymayı görmüyor.</p>
+
+        <p>Gözlenebilirlik sınavının kendisi sırada ve henüz koşulmadı. Rampada farklı bir cevap
+        bekliyorum, koşmanın sebebi de bu zaten. Eğimde sıkışan robotta ivmeölçerdeki yerçekimi
+        bileşeni ile tekerlek-gövde uyuşmazlığı birlikte değişiyor. Düz zeminin sunmadığı
+        bağlaşım tam olarak buydu.</p>
+
+        <h2>Modeli suçlamadan önce yaptığım üç sınav</h2>
+
+        <p><strong>Tavan.</strong> Modelin test zeminini görmesine izin ver ve skoru oku. Tavan
+        çoğunluk taban çizgisinde duruyorsa bilgi sensörlerde yoktur, hiçbir mimari onu oraya
+        koyamaz.</p>
+
+        <p><strong>Taşıma.</strong> Tavan yüksek ama dışarıda bırakılan zemindeki başarı negatifse
+        sorun taşımadadır. Daha fazla zemin ya da daha iyi değişmezlikler o aya değer.</p>
+
+        <p><strong>Karar zamanı.</strong> Elimde olmayan sınav buydu ve bu fazı bitiren de bu
+        oldu. Doğruluk bütün bir koşum üzerinden hesaplanıyor; denetleyici ise cevabı tek bir
+        anda tüketiyor. Sorulması gereken şu: cevap, hâlâ işe yarar olduğu pencereye göre ne
+        zaman geliyor. On saniyelik bir geçişin dokuzuncu saniyesinde haklı çıkan bir
+        sınıflandırıcı, birinci saniyesinde haklı çıkandan biraz daha kötü değildir. Başka türlü
+        işe yaramazdır, ve bunu hiçbir doğruluk artışı onarmaz.</p>
+
+        <h2>Sınırlar</h2>
+
+        <p>Yalnızca simülasyon, tek bir diferansiyel sürüşlü robot, tek bir nominal hız
+        (0.4&nbsp;m/s) ve etkiyi gerçekçi kılmak için değil ölçülebilir kılmak için seçilmiş
+        sürtünme değerleri. Dünya başına iki komut profili. Gözlenebilirlik iddiası bu sensör
+        kümesi için, yani tekerlek enkoderi ve IMU için geçerli; başka bir şey taşıyan robot
+        hakkında bir şey söylemiyor. Ve yukarıdaki düzenek uyarısı bu yazıdaki her sayı için
+        geçerli.</p>
+
+        <p>Kod, geçici patent başvurusu ve dergi değerlendirmesi açık olduğu için özel bir
+        depoda duruyor. Okumak isterseniz yazın, erişim veririm.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Bütün yazılara dön</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
