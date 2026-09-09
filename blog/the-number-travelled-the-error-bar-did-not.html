@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Put a Paper on arXiv. The Number Travelled and the Error Bar Did Not. · Cagri Temel</title>
+  <meta name="description" content="My own paper reports 98.6 percent evidence traceability. Six days after posting it, that figure was on sites I have never submitted to, without the standard deviation, the single seed, the fault model I invented, or the three baselines I never ran." />
+  <link rel="canonical" href="https://cagritemel.com/blog/the-number-travelled-the-error-bar-did-not.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">September 8, 2026</p>
+        <h1 style="margin-bottom:.4em;">I Put a Paper on arXiv. The Number Travelled and the Error Bar Did Not.</h1>
+
+        <p>On 2 September I posted the accepted version of a SoutheastCon paper to arXiv. Within a
+        few days it had appeared on sites I have never submitted anything to: an aggregator page on
+        Deep Learning Monitor, a bot account that reposts new cs.RO listings, an automated daily AI
+        briefing.</p>
+
+        <p>Not one of them said anything false. They copied the abstract, which is what abstracts
+        are for. That is the whole point of this post, and since the paper is mine I can be blunt
+        about what survived the trip and what did not.</p>
+
+        <p>What travelled: 98.6 percent evidence traceability, 99.0 percent temporal continuity,
+        98.1 percent decision reconstructability. The word <em>simulated</em> travelled too, which
+        is worth noting, because I had put it in the abstract.</p>
+
+        <p>What did not travel: a standard deviation of 7.0, one random seed, a fault model I
+        invented, and three baselines that were never implemented.</p>
+
+        <h2>First, what the thing is</h2>
+
+        <p>TRACE stands for Transparent Reasoning Architecture for Credible Execution. It is a
+        wrapper around a robot's decision loop that records, at every cycle, which sensor readings
+        supported a belief, which beliefs supported an action, and which alternative actions were
+        rejected and why. Four layers: semantic perception, belief reasoning, action synthesis,
+        execution verification. The claim is not that it makes better decisions. It is that after an
+        incident, an investigator can reconstruct the decision instead of guessing at it.</p>
+
+        <p>That is the claim I still stand behind. What follows is about the number attached to
+        it.</p>
+
+        <h2>What 98.6 percent actually measures</h2>
+
+        <p>The evaluation is a Python simulation of a 50 by 30 metre warehouse. The robot decides at
+        10 Hz. Five scenarios, 100 decision cycles each, 500 in total, one fixed random seed.</p>
+
+        <p>The simulation does not run clean. I injected failures, at rates I chose:</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Injected failure</th><th>Rate</th></tr>
+          <tr><td>LiDAR unavailable</td><td>2%</td></tr>
+          <tr><td>Camera unavailable</td><td>12%</td></tr>
+          <tr><td>Evidence link corruption</td><td>3%</td></tr>
+          <tr><td>Causal edge write failure</td><td>2%</td></tr>
+          <tr><td>Rationale truncation</td><td>2%</td></tr>
+          <tr><td>Counterfactual generation timeout</td><td>2.5%</td></tr>
+        </table>
+        </div>
+
+        <p>So the traceability figure is a measurement of how the architecture holds up under a
+        fault model that I wrote, at rates that I picked. Move camera dropout from 12 percent to 30
+        and the number moves with it. Nothing in the study tells you which rate is right, because
+        nothing in the study came off a robot.</p>
+
+        <p>Then there is the spread. The headline is 98.6 &plusmn; 7.0. On a metric bounded at 100,
+        a standard deviation of 7 means at least one scenario did noticeably worse than the average.
+        Which one, and why, is the most interesting question in the table, and it is the first thing
+        a card-sized summary drops.</p>
+
+        <h2>The baselines were never run</h2>
+
+        <p>The comparison table lists attention at 20 to 25, SHAP at 30 to 35, LIME at 25 to 30. The
+        paper states plainly what those are: <em>baseline comparison is based on the architectural
+        capabilities of each method rather than direct implementation</em>.</p>
+
+        <p>That sentence is in the paper. It is in none of the reposts, and it is not in the
+        abstract either. On an aggregator card, 98.6 sitting next to 25 to 30 reads as a
+        head-to-head result. It is not one. It is an argument about what each architecture can do in
+        principle.</p>
+
+        <p>I would defend the argument. Post-hoc attribution explains a single prediction. An audit
+        trail documents a sequence of decisions and the alternatives that were rejected. Those are
+        different objects, and no amount of tuning turns the first into the second. But <em>I have
+        an argument</em> and <em>I ran the comparison</em> are not the same claim, and putting both
+        in the same table with the same number formatting makes them look identical.</p>
+
+        <h2>What does survive</h2>
+
+        <p>I am not withdrawing anything. Three things in that paper measure what they say they
+        measure.</p>
+
+        <p>The overhead is real: 0.12 ms per decision cycle, roughly 1 percent of the budget at 10
+        Hz. That is a measurement of code, and code is exactly what it claims to be about.</p>
+
+        <p>The architectural distinction above holds on its own, independent of any number.</p>
+
+        <p>And the three metrics are defined so that someone else can compute them on their own
+        system. Evidence traceability, temporal continuity, decision reconstructability are
+        arithmetic over an audit log, not a score I award myself. A reader who disagrees with my
+        fault model can keep the metrics and throw out my rates.</p>
+
+        <h2>What it would take to earn the headline</h2>
+
+        <p>Four things, in the order I would do them.</p>
+
+        <ol>
+          <li>More than one seed. One seed with a fixed scenario set is a reproducibility guarantee,
+          not a sample.</li>
+          <li>A fault model taken from logged hardware rates instead of chosen by me. Camera dropout
+          on a real warehouse robot is a measurable quantity. I measured nothing; I assumed 12
+          percent.</li>
+          <li>The baselines implemented and run over the same 500 cycles, so the table compares
+          measurements to measurements.</li>
+          <li>A robot.</li>
+        </ol>
+
+        <p>Until those exist, the honest one-line summary is <em>under an injected fault model, the
+        architecture kept the trail intact</em>. It is not <em>auditability solved</em>.</p>
+
+        <h2>I have been here before</h2>
+
+        <p>Earlier this year I built a wheel-slip detector that reached 0.869 accuracy and cut
+        position error by 72 percent. What beat it was driving slower with no detector at all. The
+        lesson was not that the detector was bad. It was that a component scoring well on its own
+        metric is not evidence that it helps the system, and the only way to find out is to run the
+        dumbest alternative you can think of and see whether it wins.</p>
+
+        <p>TRACE has not had that test. The dumbest alternative to a four-layer audit architecture
+        is logging everything to a file and sorting it out afterwards. I do not know what that scores
+        on the three metrics, because I did not run it. That is the experiment I owe this line of
+        work, and it is more useful than another point of traceability.</p>
+
+        <h2>Where the burden sits</h2>
+
+        <p>I cannot ask aggregators to carry error bars. They are copying an abstract, automatically,
+        at volume, and they are doing it correctly.</p>
+
+        <p>The burden is on the author, and the mechanism is visible in what happened here. The word
+        <em>simulated</em> survived to every repost because I had put it in the abstract. <em>Under
+        an injected fault model</em> and <em>baselines not implemented</em> did not survive, because
+        I had left them in the body where an automated copy would never reach them.</p>
+
+        <p>Both sentences go in the next abstract. It costs about fifteen words, and it is the
+        difference between a number a reader can check and a number that merely gets repeated.</p>
+
+        <p style="margin-top:26px;">The paper:
+        <a href="https://arxiv.org/abs/2609.02861" target="_blank" rel="noopener">arXiv:2609.02861</a>
+        (free full text) and
+        <a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">IEEE
+        Xplore</a>. The slip-detector story is in
+        <a href="slip-detector-observability.html">the original post</a> and
+        <a href="rig-fault-tipping-robot.html">the correction that followed it</a>.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
