@@ -100,64 +100,79 @@
         <h2>Kaydı Sonradan Kurtarmak Yerine Baştan Üretmek</h2>
 
         <p>TRACE, Transparent Reasoning Architecture for Credible Execution'ın kısaltması. Fikir tek
-        cümleyle söylenecek kadar basit: kapalı bir sistemden sonradan açıklama çıkarmaya çalışmayı
-        bırakın, karar hattı kanıtı çalışırken üretsin.</p>
+        cümleyle söylenecek kadar kısa: kapalı bir sistemden sonradan açıklama çıkarmaya çalışmayı
+        bırakın, karar hattı gerekçelerini çalışırken yazsın.</p>
 
         <p>Bu bir sarmalayıcı, yerine geçen bir şey değil. Algı modülü evrişimli ağ olarak kalabilir,
         tahminci transformer olarak kalabilir. Mimarinin istediği tek şey, her aşamanın ürettiği ara
-        ürünü belgelenmiş bir biçimde dışarı vermesi. Dört katman, her biri bir kayıt üretiyor.</p>
+        ürünü belgelenmiş biçimde dört katman boyunca teslim etmesi. Bunun ne kazandırdığını görmenin
+        en açık yolu, tek bir kararı dört katmanın tamamında takip etmek.</p>
 
-        <p><strong>Anlamsal algı.</strong> Alışıldık bir hat şunu üretir: yaya, 3.2 metre ileride,
-        güven 0.87. Bu katman tespiti kanıt kümesiyle birlikte üretiyor: hangi sensör katkı yaptı,
-        katkının ağırlığı neydi, hangi uzamsal bölgeden geldi. Fark sonradan ortaya çıkıyor; soru
-        "robot bir insan mı gördü yoksa bir yansıma mı" hâline geldiğinde.</p>
+        <p>Çarpışmadan önceki ana dönelim. Robot saniyede 1.2 metre hızla ilerliyor ve koridorun
+        kenarında bir şey beliriyor.</p>
 
-        <p><strong>İnanç muhakemesi.</strong> Algının üstünde, robotun doğrudan gözleyemediği şeyleri
-        tutan olasılıksal bir sahne grafiği var: yayanın karşıya geçme niyeti, koridorun kapalı olup
-        olmadığı gibi. Türetilmiş durumlar grafiğe, onları üreten gözlemlere açık kenarlarla bağlı
-        çocuk düğümler olarak giriyor. Robot koridorun kapalı olduğuna inandığında grafik bundan
-        sorumlu okumaları adlandırıyor, ve inanç bir iddia olmaktan çıkıp ebeveyni olan bir sav
-        hâline geliyor.</p>
+        <p><strong>Birinci katman neyin görüldüğünü ve neye dayanarak görüldüğünü yazıyor.</strong>
+        Alışıldık bir hat şunu üretir: insan, 3.2 metre ileride, güven 0.87. İnceleme yapan kişinin
+        eline geçen tek şey bu satır, ve doğrulanabilir değil. Bu katman aynı tespiti kanıtıyla
+        birlikte üretiyor: mesafeyi veren LiDAR dönüşü, sınıflandırmayı üreten kamera bölgesi, ve her
+        birinin katkı payı. Sonradan soru "robot bir işçiyi mi gördü yoksa palet streçinden yansıyan
+        ışığı mı" hâline geldiğinde, cevabın tamamı bu farkta.</p>
 
-        <p><strong>Eylem sentezi.</strong> En çok savunacağım katman bu. Planlayıcı yalnızca
-        verdiği komutu kaydetmiyor. Değerlendirdiği alternatifleri, seçim gerekçesini ve farklı bir
-        seçim doğuracak karşıolgusal koşulları da kaydediyor. Yapının adı Karşıolgusal Karar Ağacı ve
-        varlık sebebi, inceleme yapan kişinin gerçekten sorduğu iki soruya cevap vermek: robot neden
-        durdu, ve devam etmesini ne sağlardı.</p>
+        <p><strong>İkinci katman robotun bundan ne sonuç çıkardığını yazıyor.</strong> Tespit inanç
+        değildir. Koridor ağzında duran bir insandan yola çıkarak robot doğrudan gözleyemediği bir
+        şeyi çıkarsıyor: bu kişi şeride adım atmak üzere. Bu katman çıkarımları bir grafikte tutuyor
+        ve her türetilmiş durum, onu üreten gözlemlere bağlı duruyor. Yani inanç, kayıtta öylece
+        duran bir iddia olmuyor. Ebeveyni olan bir sav oluyor, ve inceleyen kişi "robot birinin
+        çıkacağını bekliyordu" cümlesinden onu düşündüren iki kareye kadar yürüyebiliyor.</p>
 
-        <p><strong>Yürütme doğrulaması.</strong> Son katman amaçlanan davranışla makinenin yaptığını
-        karşılaştırıyor, çevrimin tamamını tek bir denetim kaydına zaman damgasıyla yazıyor, ve ikisi
-        uyuşmadığında sapmayı işaretliyor.</p>
+        <p><strong>Üçüncü katman başka ne yapabileceğini yazıyor.</strong> En çok savunacağım katman
+        bu, ve kimsenin kurmadığı katman da bu. Planlayıcı üç seçenek değerlendirdi: hızını koru,
+        saniyede 0.4 metreye düş, dur. Durmayı seçti. Sıradan bir kayıt seçimi tutar, diğer ikisini
+        atar. Bu katman üçünü birden tutuyor; durmanın neden kazandığını ve hangi koşulda
+        kazanmayacağını da: öngörülen niyet eşiğin altında kalsaydı robot durmak yerine yavaşlayacaktı.
+        Bir kaydı incelemeye dönüştüren şey işte bu son madde, çünkü raporun cevaplamak zorunda olduğu
+        soruyu cevaplıyor. O soru "ne yaptı" değil, "başka bir şey yapmasını ne sağlardı".</p>
+
+        <p><strong>Dördüncü katman robotun karar verdiği şeyi yapıp yapmadığını yazıyor.</strong> Son
+        katman niyetle sonucu karşılaştırıyor, çevrimin tamamını tek bir kayda damgalıyor ve ikisi
+        uyuşmadığında aradaki farkı işaretliyor. Modellenenden 400 ms geç gerçekleşen bir durma
+        komutu, hiç verilmemesi gereken bir durma komutundan bambaşka bir olaydır; ikisini
+        birbirinden ayırabilen tek yer de burası.</p>
+
+        <p>Dördü bir araya gelince ortaya biçimi olan bir kayıt çıkıyor. İnceleyen kişi ham sensör
+        akışlarını ipucu arayarak taramıyor. 14:22:07'deki çevrimi açıyor ve robotun ne gördüğünü, ne
+        sonuç çıkardığını, neyi tarttığını, neden seçtiğini ve gerçekte ne olduğunu okuyor.</p>
 
         <h2>Dışarıdan Bir Mühendisin Hesaplayabileceği Üç Sayı</h2>
 
-        <p>Kendi kendine not veren bir çerçevenin değeri azdır, o yüzden ölçütler kayıt altına alınan
-        veriler üzerinde aritmetik olarak tanımlandı. Beni hiç tanımayan biri üçünü de kendi
-        sisteminin kayıtlarından hesaplayabilir.</p>
+        <p>Kendi kendine not veren bir çerçevenin değeri azdır, o yüzden üç ölçüt de kayıt üzerinde
+        aritmetik olarak tanımlı. Beni hiç tanımayan biri üçünü de kendi sisteminde hesaplayabilir.
+        Her biri sade bir soruyu cevaplıyor.</p>
 
-        <p><strong>Kanıt izlenebilirliği</strong>, bir kararın arkasındaki etkenlerden kaçının
-        belgelenmiş bir zincirle belirli bir sensör okumasına kadar takip edilebildiğini veriyor. Bir
-        de kulağa geldiğinden daha önemli olan kısmi sürümü var: zincir eksik olduğunda belgelemenin
-        ne kadar derine indiğini bildiriyor. 3 üzerinden 2 derinlik, inceleyene doğrudan ve ikincil
-        nedenlerin kayıtlı olduğunu ama kök gözlemin eksik olduğunu söylüyor. Bu, "başarısız"
-        demekten çok daha faydalı bir cevap.</p>
+        <p><strong>Her etken bir okumaya kadar takip edilebiliyor mu?</strong> Kanıt izlenebilirliği,
+        bir kararın arkasındaki etkenlerden kaçının belgelenmiş bir zincirle belirli bir sensör
+        gözlemine ulaştığını veriyor. Bir de kulağa geldiğinden önemli olan kısmi sürümü var: zincir
+        koptuğunda belgelemenin ne kadar aşağı indiğini bildiriyor. 3 üzerinden 2 derinlik, inceleyene
+        doğrudan ve ikincil nedenlerin kayıtlı olduğunu, asıl gözlemin eksik olduğunu söylüyor. Bu
+        kullanılabilir bir bulgudur. Kuru bir "izlenemedi" değildir.</p>
 
-        <p><strong>Zamansal süreklilik</strong>, inceleme penceresinde hiç karar kaydı olmayan
-        aralıkların oranının bir eksiği. İzde delik olup olmadığını ölçüyor, ki yük altında ilk bozulan
-        şey de budur.</p>
+        <p><strong>Kayıtta delik var mı?</strong> Zamansal süreklilik, inceleme penceresinde hiç
+        karar kaydı bulunmayan aralıkların oranının bir eksiği. Sistem yük altına girdiğinde ilk
+        beliren şey deliklerdir, ve yanlış saniyedeki bir delik izin geri kalanını değersiz kılar.</p>
 
-        <p><strong>Karar yeniden kurulabilirliği</strong> ise sert olanı. Bir çevrimi ancak üç koşul
-        birlikte sağlandığında sayıyor: yapılan eylem geri getirilebiliyor, değerlendirilen
-        alternatifler geri getirilebiliyor, ve seçilen eylemin neden tercih edildiği geri
-        getirilebiliyor. Üçte iki sıfır alıyor, çünkü üçte iki kimsenin bir şeyi yeniden kurmasına
+        <p><strong>Bağımsız bir mühendis kararı yeniden kurabilir mi?</strong> Karar yeniden
+        kurulabilirliği sert olanı. Bir çevrim ancak üçü birden sağlandığında sayılıyor: eylem geri
+        getirilebiliyor, alternatifler geri getirilebiliyor, ve seçilen eylemin neden tercih edildiği
+        geri getirilebiliyor. Üçte iki sıfır alıyor, çünkü üçte iki kimsenin olanı yeniden kurmasına
         yetmiyor.</p>
 
         <h2>Ne Ölçüldü</h2>
 
         <p>Değerlendirme 50 metreye 30 metrelik bir depo benzetimi; kararlar 10 Hz'de, beş senaryo,
-        her biri 100 çevrim. Senaryolar boş koridordan çarpışma rotasındaki forklifte kadar gidiyor
-        ve benzetim temiz koşmuyor: sensör kopmaları, bozulan kanıt bağları, kırpılan gerekçeler ve
-        karşıolgu zaman aşımları enjekte ediliyor.</p>
+        her biri 100 çevrim, boş koridordan çarpışma rotasındaki forklifte kadar. Benzetim temiz
+        koşmuyor, ve asıl mesele de bu: sensör kopmaları, bozulan kanıt bağları, kırpılan gerekçeler
+        ve zaman aşımları enjekte ediliyor. Çünkü yalnızca hiçbir şey ters gitmediğinde ayakta kalan
+        bir kayıt, denetim izi değildir.</p>
 
         <div class="table-wrap">
         <table class="result-table">
@@ -169,55 +184,56 @@
         </table>
         </div>
 
-        <p>En çok önemsediğim sayı ek yük, çünkü mimarinin kabul edilip edilmeyeceğine o karar
-        veriyor. 10 Hz'de çevrim başına bütçe 100 ms; denetim izi bunun yaklaşık yüzde 1'ine mal
-        oluyor. Bu fiyata denetlenebilirlik, kimsenin uzun uzun düşünmesi gereken bir takas
-        değil.</p>
+        <p>Mimarinin benimsenip benimsenmeyeceğine karar veren sayı ek yük, ve ben onu başa koyardım.
+        10 Hz'de bir karar çevriminin bütçesi 100 ms; denetim izi bunun yaklaşık yüzde 1'ine mal
+        oluyor. Bu fiyata kimsenin denetlenebilirlikle başarımı tartmasına gerek kalmıyor.</p>
 
-        <p>Makaledeki karşılaştırma tablosuyla ilgili dürüst bir not. Sonradan açıklama yöntemleri
-        oraya, benim koştuğum deneylere göre değil, her mimarinin ilkesel olarak neyi yapabildiğine
-        göre yerleştirildi. Bu makalede yazıyor, burada da tekrar ediyorum; çünkü kurduğum ayrım
-        mimari bir ayrım ve ölçülmüş bir yarış olarak değil, bir argüman olarak okunmalı.</p>
+        <p>Makaledeki karşılaştırma tablosuyla ilgili bir not. Sonradan açıklama yöntemleri oraya,
+        benim koştuğum deneylere göre değil, her mimarinin ilkesel olarak neyi yapabildiğine göre
+        yerleştirildi. Makale bunu söylüyor, ben de burada tekrar ediyorum; çünkü kurduğum iddia
+        mimari bir iddia: bir öznitelik atfı yöntemi ile bir denetim izi farklı soruları cevaplamak
+        üzere kurulmuştur, ve bu ikisinin nasıl ayarlandığından bağımsız olarak geçerlidir.</p>
 
-        <h2>Bunu Kimin Çalıştırabileceğine Karar Veren Kısım</h2>
+        <h2>Bir Filonun Bunu Çalıştırıp Çalıştıramayacağına Karar Veren Kısım</h2>
 
-        <p>Bu alandaki makaleler genelde ölçütlerde duruyor. Sahaya çıkıp çıkamayacağını asıl
-        belirleyen soru ise bütün bunları nereye koyacağınız.</p>
+        <p>Bu alandaki çalışmalar genelde ölçütlerde duruyor. Sahaya çıkışı asıl belirleyen şey ise
+        bütün bunların nereye gideceği.</p>
 
-        <p>Tam denetim izleri karar çevrimi başına 2 ila 5 KB tutuyor. 10 Hz'de bu saatte 70-175 MB,
-        yani robot başına günde 1.7-4.2 GB demek. Şimdi yüz bin robotluk bir filo alın ve AB Yapay
-        Zeka Yasası'nın 19. maddesinin istediği altı aylık saklama süresini ekleyin: ham ihtiyaç 30
-        petabaytı geçiyor.</p>
+        <p>Tam bir denetim izi karar çevrimi başına 2 ila 5 KB tutuyor. 10 Hz'de bu saatte 70-175 MB,
+        robot başına günde 1.7-4.2 GB demek. Yüz bin robotluk bir filo alın ve AB Yapay Zeka
+        Yasası'nın 19. maddesinin istediği altı aylık saklamayı ekleyin: ham ihtiyaç 30 petabaytı
+        geçiyor.</p>
 
-        <p>Bu sayı, depolama katmanlanmadıkça fikri öldürür; o yüzden tasarım katmanlıyor. Sıcak
-        depolama son 24 saati tam ayrıntısıyla tutuyor, ki olayların fiilen incelendiği pencere de o.
-        Ilık depolama işaretlenmiş kararları eksiksiz, geri kalanı özet olarak saklıyor. Soğuk
-        depolama düzenleyici için sıkıştırılmış bir arşiv tutuyor.</p>
+        <p>Böyle bir sayı, depolama katmanlanmadıkça konuşmayı bitirir; o yüzden tasarım katmanlıyor.
+        Son 24 saat tam ayrıntısıyla duruyor, ki olayların fiilen incelendiği pencere de o. Ötesinde
+        işaretlenmiş kararlar eksiksiz kalıyor, rutin olanlar özete iniyor. Daha eskisi düzenleyici
+        için sıkıştırılıp arşivleniyor.</p>
 
-        <p>Sıkıştırma burada başka yerlerde olduğundan daha çok işe yarıyor, çünkü nedensel grafikler
-        kendini tekrar ediyor. Aynı yapılar çevrim çevrim yineleniyor; bu yüzden sözlük kodlamasının
-        3-5 kat azaltma, ardışık çevrimler arasındaki fark kodlamasının da inanç durumunun neredeyse
-        hiç oynamadığı rutin işleyişte yüzde 60-80 ek azaltma vermesi bekleniyor. Bu iki rakam
-        ölçüm değil, ön analizden gelen projeksiyon; ve ölçülmelerini isterim.</p>
+        <p>Sıkıştırma burada alışılmadık biçimde iyi çalışıyor, çünkü nedensel grafikler kendini
+        tekrar ediyor. Aynı yapılar çevrim çevrim yineleniyor; sözlük kodlamasının 3-5 kat azaltma,
+        yalnızca ardışık çevrimler arasındaki değişimi kodlamanın da inanç durumunun neredeyse hiç
+        oynamadığı rutin işleyişte yüzde 60-80 ek azaltma vermesi bekleniyor. Bu iki rakam ön
+        analizden gelen projeksiyon. Ölçülmeleri listede.</p>
 
-        <h2>Kapanmamış Olanlar</h2>
+        <h2>Sınırlar ve Sonraki Adım</h2>
 
-        <p>Hepsi benzetimde koştu; modellenmiş sensör gürültüsü ve modellenmiş arızalarla. Kimsenin
-        sahaya dair bir sonuç çıkarabilmesi için gerçek sensörlerle, fiziksel donanımda doğrulama
-        gerekiyor, ve makale bunu bu sözlerle söylüyor.</p>
+        <p>Değerlendirme benzetimde koştu; modellenmiş sensör gürültüsü ve modellenmiş arızalarla.
+        Mimarinin arıza koşulları altında izini koruduğunu ortaya koymak için doğru aşama budur, ve
+        sahaya dair bir iddia için yeterli değildir. Gerçek sensörlerle fiziksel donanımda doğrulama
+        sıradaki adım, ve makale bunu okura bırakmak yerine açıkça yazıyor.</p>
 
-        <p>Bir de bu işe borçlu olduğum bir deney var. Bu yılın başında bir tekerlek kayması
-        dedektörü yaptım; kendi ölçütünde iyi puan aldı ve onu hiç dedektör kullanmadan daha yavaş
-        sürmek yendi. Ders aklımda kaldı: tek başına iyi görünen bir bileşen, fayda sağladığının
-        kanıtı değildir; ve bunu öğrenmenin yolu aklınıza gelen en aptal alternatifi koşmaktır. Burada
-        en aptal alternatif, her şeyi bir dosyaya yazıp sonra ayıklamak. Üç ölçütte kaç aldığını
-        bilmiyorum, çünkü koşmadım; koşana kadar da dürüst iddia, mimarinin denetim izini koruduğu
-        olur, bunu yapabilecek tek şeyin o olduğu değil.</p>
+        <p>İki başlık daha açık. Depolama projeksiyonlarının tahmin değil ölçüm olması gerekiyor. Bir
+        de mimari, işi görebilecek en ucuz şeyle karşılaştırılmalı: her şeyi kaydedip sonradan
+        yeniden kurmakla. Çünkü apaçık alternatifi aynı ölçütlerde yenemeyen bir tasarım,
+        karmaşıklığını hak etmemiştir. Bu ölçütü kendi işime de uyguluyorum: bu yılın başında bir
+        tekerlek kayması dedektörünü yalnızca daha yavaş süren bir kontrol koluna karşı ölçtüm, ve
+        kontrol kolu kazandı.</p>
 
-        <p>Bugün savunacağım şey bir yüzdeden daha dar ve sanıyorum daha kalıcı: denetim izi bir
-        raporlama özelliği değil, bir tasarım gereğidir. Robot karar verirken mimaride yoksa,
-        sonradan geri getirilemez; ve ona ihtiyaç duyan inceleme bir bulgu değil, bir hikâye
-        olur.</p>
+        <p>Bugün savunacağım şey herhangi bir yüzdeden dar, ve sanıyorum daha kalıcı: denetim izi bir
+        raporlama özelliği değil, bir tasarım gereğidir. Robot karar verirken yakalanmayan kanıt,
+        sonradan hiçbir araçla, ne kadar iyi olursa olsun geri getirilemez; ve ona ihtiyaç duyan
+        inceleme bir bulgu değil bir hikâye üretir. Dolayısıyla mühendislik sorusu, sona hangi
+        açıklama yöntemini ekleyeceğimiz değil. Sistemin çalışırken neyi yazmakla yükümlü olduğu.</p>
 
         <p style="margin-top:26px;">Makale:
         <a href="https://arxiv.org/abs/2609.02861" target="_blank" rel="noopener">arXiv:2609.02861</a>

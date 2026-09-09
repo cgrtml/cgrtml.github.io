@@ -97,67 +97,84 @@
         <h2>Building the record instead of recovering it</h2>
 
         <p>TRACE stands for Transparent Reasoning Architecture for Credible Execution. The idea is
-        simple enough to state in one line: stop trying to extract explanations out of an opaque
-        system afterwards, and make the decision pipeline emit the evidence as it runs.</p>
+        short enough to state in one line: stop trying to extract an explanation from a closed system
+        afterwards, and have the decision pipeline write down its reasons while it runs.</p>
 
         <p>It is a wrapper, not a replacement. The perception module can stay a convolutional
-        network, the predictor can stay a transformer. What the architecture requires is that each
-        stage expose its intermediate product in a documented form. Four layers, each producing one
-        artifact.</p>
+        network and the predictor can stay a transformer. What the architecture requires is that each
+        stage hand over its intermediate product in a documented form, through four layers. The
+        clearest way to see what that buys you is to follow one decision through all four.</p>
 
-        <p><strong>Semantic perception.</strong> A conventional pipeline outputs a detection:
-        pedestrian, 3.2 metres ahead, confidence 0.87. This layer outputs the detection together with
-        its evidence set, which records each sensor that contributed, the weight of its contribution,
-        and the spatial region it came from. The difference matters later, when the question is
-        whether the robot saw a person or saw a reflection.</p>
+        <p>Take the moment before the collision. The robot is moving at 1.2 m/s and something appears
+        at the edge of the aisle.</p>
 
-        <p><strong>Belief reasoning.</strong> Above perception sits a probabilistic scene graph
-        holding things the robot cannot observe directly, such as whether a pedestrian intends to
-        cross or whether an aisle is blocked. Derived states enter the graph as child nodes with
-        explicit edges to the observations that produced them. When the robot believes the aisle is
-        blocked, the graph names the readings responsible, and the belief stops being an assertion
-        and becomes a claim with parents.</p>
+        <p><strong>Layer one records what was seen and on what basis.</strong> A conventional
+        pipeline emits a detection: person, 3.2 metres ahead, confidence 0.87. That single line is
+        all an investigator gets, and it cannot be checked. This layer emits the same detection
+        together with its evidence: the LiDAR return that gave the range, the camera region that
+        produced the classification, and how much each contributed. Later, when the question is
+        whether the robot saw a worker or a reflection off a pallet wrapper, that difference is the
+        whole answer.</p>
 
-        <p><strong>Action synthesis.</strong> This is the layer I would defend hardest. The planner
-        does not only record the command it issued. It records the alternatives it considered, the
-        rationale for the selection, and the counterfactual conditions that would have produced a
-        different choice. The structure is a Counterfactual Decision Tree, and it exists to answer
-        the two questions an investigator actually asks: why did the robot stop, and what would have
-        made it continue.</p>
+        <p><strong>Layer two records what the robot concluded from it.</strong> Detection is not
+        belief. From a person standing near the aisle mouth, the robot infers something it cannot
+        observe: that the person is about to step into the lane. This layer keeps those inferences in
+        a graph, and every inferred state is attached to the observations that produced it. So the
+        belief is not a bare assertion in the log. It is a claim with parents, and an investigator
+        can walk from "the robot expected someone to step out" back to the two frames that suggested
+        it.</p>
 
-        <p><strong>Execution verification.</strong> The last layer compares intended behaviour with
-        what the machine did, timestamps the whole cycle into one audit record, and flags the
-        deviation when the two disagree.</p>
+        <p><strong>Layer three records what else it could have done.</strong> This is the layer I
+        would defend hardest, and it is the one nobody builds. The planner considered three options:
+        continue at speed, slow to 0.4 m/s, stop. It chose stop. A normal log keeps the choice and
+        throws away the other two. This layer keeps all three, the reason stop won, and the
+        conditions under which it would not have: if the predicted intent had been below a threshold,
+        the robot would have slowed instead of stopping. That last item is what turns a log into an
+        investigation, because it answers the question the report actually has to answer, which is
+        not "what did it do" but "what would have made it do something else".</p>
+
+        <p><strong>Layer four records whether the robot did what it decided.</strong> The final layer
+        compares intent with outcome, stamps the whole cycle into one record, and flags the gap when
+        the two disagree. A commanded stop that took 400 ms longer than modelled is a different
+        incident from a stop that should never have been commanded, and only this layer can tell them
+        apart.</p>
+
+        <p>Put together, the four produce a record with a shape. The investigator does not sift
+        through raw sensor streams looking for a clue. They open the cycle at 14:22:07 and read what
+        the robot saw, what it concluded, what it weighed, why it chose, and what actually
+        happened.</p>
 
         <h2>Three numbers an outside engineer can compute</h2>
 
-        <p>A framework that grades itself is not worth much, so the metrics are defined as arithmetic
-        over the logged artifacts. Someone who has never met me can compute all three from their own
-        system's logs.</p>
+        <p>A framework that grades itself is worth little, so the three metrics are arithmetic over
+        the logged record. Someone who has never met me can compute all three on their own system.
+        Each answers a plain question.</p>
 
-        <p><strong>Evidence traceability</strong> is the fraction of the factors behind a decision
-        that can be followed back to a specific sensor reading through a documented chain. There is
-        also a partial version, which matters more than it sounds: when a chain is incomplete, it
-        reports how deep the documentation goes. Depth 2 out of 3 tells the investigator that the
-        immediate and secondary causes are recorded and the root observation is missing, which is a
-        far more useful answer than a failure.</p>
+        <p><strong>Can every factor be traced back to a reading?</strong> Evidence traceability is the
+        share of the factors behind a decision that lead back to a specific sensor observation
+        through a documented chain. There is also a partial version, which matters more than it
+        sounds. When a chain is broken it reports how far down the documentation goes, so a depth of
+        2 out of 3 tells the investigator that the immediate and secondary causes are on record and
+        the original observation is missing. That is a usable finding. A bare "not traceable" is
+        not.</p>
 
-        <p><strong>Temporal continuity</strong> is one minus the proportion of the analysis window
-        with no recorded decision. It measures whether the trail has holes in it, which is the first
-        thing that goes wrong under load.</p>
+        <p><strong>Does the record have holes?</strong> Temporal continuity is one minus the share of
+        the analysis window with no decision recorded. Gaps are what appear first when the system is
+        under load, and a gap at the wrong second makes the rest of the trail worthless.</p>
 
-        <p><strong>Decision reconstructability</strong> is the strict one. It counts a cycle only
-        when all three conditions hold together: the action taken is recoverable, the alternatives
-        considered are recoverable, and the reason the selected action was preferred is recoverable.
-        Two out of three scores zero, because two out of three does not let anyone reconstruct
-        anything.</p>
+        <p><strong>Could an independent engineer reconstruct the decision?</strong> Decision
+        reconstructability is the strict one. A cycle counts only when all three hold at once: the
+        action is recoverable, the alternatives are recoverable, and the reason for preferring the
+        chosen action is recoverable. Two out of three scores zero, because two out of three does not
+        let anybody rebuild what happened.</p>
 
         <h2>What it measured</h2>
 
         <p>The evaluation is a warehouse simulation, 50 by 30 metres, decisions at 10 Hz, five
-        scenarios running 100 cycles each. The scenarios go from a clear aisle up to a forklift on a
-        collision course, and the simulation does not run clean: sensor dropouts, corrupted evidence
-        links, truncated rationales and counterfactual timeouts are all injected.</p>
+        scenarios of 100 cycles each, running from a clear aisle up to a forklift on a collision
+        course. The simulation does not run clean, which is the point: sensor dropouts, corrupted
+        evidence links, truncated rationales and timeouts are injected, because a record that only
+        holds when nothing goes wrong is not an audit trail.</p>
 
         <div class="table-wrap">
         <table class="result-table">
@@ -169,57 +186,59 @@
         </table>
         </div>
 
-        <p>The overhead is the number I care about most, because it is the one that decides whether
-        anybody will accept the architecture. At 10 Hz the budget per cycle is 100 ms, so the audit
-        trail costs about 1 percent of it. Auditability at that price is not a trade-off anyone has
-        to think hard about.</p>
+        <p>The overhead is the figure that decides whether the architecture is adoptable, and it is
+        the one I would put first. At 10 Hz the budget for a decision cycle is 100 ms, and the audit
+        trail costs roughly 1 percent of it. Nobody has to weigh auditability against performance at
+        that price.</p>
 
-        <p>One honest note on the comparison table in the paper. The post-hoc baselines are placed
-        there on the basis of what each architecture can do in principle, not on runs I performed.
-        That is stated in the paper and I will restate it here, because the distinction I am drawing
-        is architectural and it should be read as an argument rather than as a measured contest.</p>
+        <p>One note on the comparison table in the paper. The post-hoc baselines are placed there on
+        the basis of what each architecture can do in principle rather than on runs I performed. The
+        paper says so, and I repeat it here, because the claim I am making is architectural: an
+        attribution method and an audit trail are built to answer different questions, and that
+        holds regardless of how either one is tuned.</p>
 
-        <h2>The part that decides whether anyone can run it</h2>
+        <h2>The part that decides whether a fleet can run it</h2>
 
-        <p>Papers in this area tend to stop at the metrics. The question that actually determines
-        deployment is where you put all of this.</p>
+        <p>Work in this area usually stops at the metrics. What actually determines deployment is
+        where all of this goes.</p>
 
-        <p>Full audit trails run 2 to 5 KB per decision cycle. At 10 Hz that is 70 to 175 MB per
-        hour, or 1.7 to 4.2 GB per robot per day. Now take a fleet of a hundred thousand robots and
-        the six-month retention that Article 19 of the EU AI Act asks for, and the raw requirement
-        passes 30 petabytes.</p>
+        <p>A full audit trail runs 2 to 5 KB per decision cycle. At 10 Hz that is 70 to 175 MB per
+        hour, or 1.7 to 4.2 GB per robot per day. Take a fleet of a hundred thousand robots and the
+        six-month retention that Article 19 of the EU AI Act asks for, and the raw requirement passes
+        30 petabytes.</p>
 
-        <p>That number kills the idea unless the storage is tiered, so the design tiers it. Hot
-        storage keeps the past 24 hours in full detail, which covers the window where incidents are
-        actually investigated. Warm storage keeps flagged decisions complete and everything else as
-        summaries. Cold storage holds a compressed archive for the regulator.</p>
+        <p>A number like that ends the conversation unless the storage is tiered, so the design tiers
+        it. The past 24 hours stay in full detail, which is the window in which incidents are
+        actually investigated. Beyond that, flagged decisions stay complete and routine ones are kept
+        as summaries. Older material is compressed and archived for the regulator.</p>
 
-        <p>Compression helps more here than it would elsewhere, because causal graphs repeat
-        themselves. The same structures recur cycle after cycle, so dictionary encoding is projected
-        to give 3 to 5 times reduction, and delta encoding between consecutive cycles a further 60 to
-        80 percent on routine operation where the belief state barely moves. Those two figures are
-        projections from preliminary analysis rather than measurements, and I would like them
-        measured.</p>
+        <p>Compression works unusually well here because causal graphs repeat. The same structures
+        recur cycle after cycle, so dictionary encoding is projected to give a 3 to 5 times
+        reduction, and encoding only the change between consecutive cycles a further 60 to 80 percent
+        during routine operation, where the belief state barely moves. Those two figures are
+        projections from preliminary analysis. Measuring them is on the list.</p>
 
-        <h2>What is not settled</h2>
+        <h2>Limits, and what comes next</h2>
 
-        <p>All of it ran in simulation, with modelled sensor noise and modelled failures. Validation
-        on physical hardware with real sensors is necessary before anyone draws a deployment
-        conclusion, and the paper says so in as many words.</p>
+        <p>The evaluation ran in simulation, with modelled sensor noise and modelled failures. That
+        is the right stage for establishing that the architecture holds its trail under fault
+        conditions, and it is not sufficient for a deployment claim. Validation on physical hardware
+        with real sensors is the next step, and the paper states this plainly rather than leaving it
+        to the reader.</p>
 
-        <p>There is also an experiment I owe this work. Earlier this year I built a wheel-slip
-        detector that scored well on its own metric and was beaten by simply driving slower with no
-        detector at all. The lesson stuck: a component that looks good in isolation is not evidence
-        that it helps, and the way to find out is to run the dumbest alternative you can think of.
-        Here the dumbest alternative is logging everything to a file and sorting it out afterwards. I
-        do not know what that scores on the three metrics, because I have not run it, and until I do,
-        the honest claim is that the architecture keeps the trail intact rather than that it is the
-        only thing that could.</p>
+        <p>Two other items are open. The storage projections need to be measured rather than
+        estimated. And the architecture should be compared against the cheapest thing that could
+        possibly work, which is logging everything and reconstructing afterwards, because a design
+        that cannot beat the obvious alternative on the same metrics has not earned its complexity.
+        I hold that standard for my own work: earlier this year I measured a wheel-slip detector
+        against a control arm that simply drove slower, and the control arm won.</p>
 
-        <p>What I would defend today is narrower and, I think, more durable than a percentage: an
-        audit trail is a design requirement, not a reporting feature. If it is not in the
-        architecture while the robot is deciding, it is not recoverable afterwards, and the
-        investigation that needed it will be a story instead of a finding.</p>
+        <p>What I would defend today is narrower than any percentage, and I think more durable. An
+        audit trail is a design requirement, not a reporting feature. Evidence that is not captured
+        while the robot is deciding cannot be recovered afterwards by any tool, however good, and the
+        investigation that needed it ends up producing a story rather than a finding. The engineering
+        question is therefore not which explanation method to add at the end. It is what the system
+        is obliged to write down while it runs.</p>
 
         <p style="margin-top:26px;">The paper is
         <a href="https://arxiv.org/abs/2609.02861" target="_blank" rel="noopener">arXiv:2609.02861</a>
