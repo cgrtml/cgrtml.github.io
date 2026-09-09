@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Depo Robotu Durdu, Arkasındaki İşçi Ona Çarptı. Peki Neden Durduğunu Kim Bulabilir? · Cagri Temel</title>
+  <meta name="description" content="Sonradan açıklama yöntemleri tek bir tahmini açıklar; olay incelemesinin ihtiyacı olan şey karar dizisidir. TRACE denetim izini mimarinin içine koyuyor: kanıta bağlı algı, nedensel inanç grafiği, karşıolgusal karar ağaçları ve dışarıdan bir mühendisin kayıttan hesaplayabileceği üç ölçüt." />
+  <link rel="canonical" href="https://cagritemel.com/tr/blog/robot-neden-durdu.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="../research.html">Araştırma</a></li>
+        <li><a href="../publications.html">Yayınlar</a></li>
+        <li><a href="../patents.html">Patentler</a></li>
+        <li><a href="../teaching.html">Eğitim</a></li>
+        <li><a href="../speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="../contact.html">İletişim</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><a href="../../blog/why-did-the-robot-stop.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">8 Eylül 2026</p>
+        <h1 style="margin-bottom:.4em;">Depo Robotu Durdu, Arkasındaki İşçi Ona Çarptı. Peki Neden Durduğunu Kim Bulabilir?</h1>
+
+        <p>Sahneyle başlayalım, çünkü geri kalan her şey ondan çıkıyor. Bir mobil robot koridorda
+        ilerliyor. Uyarı vermeden duruyor. Arkasından yürüyen işçi duramıyor ve çarpışma oluyor.
+        Ciddi bir yaralanma yok ama birinin ne olduğunu anlatan bir rapor yazması gerekiyor.</p>
+
+        <p>İnceleyen kişinin elinde kayıtlar var. Robot sensör akışlarını ve motor komutlarını
+        kaydetmiş; 14:22:07'de komut "dur". Bu ikisinin arasında, kamera ve LiDAR okumalarını birkaç
+        milyon parametreden geçirip o komutu üreten bir sinir ağı duruyor. Kayıt robotun ne yaptığını
+        söylüyor. Neye inandığını, onun yerine ne yapabileceğini ya da hangi okumanın fikrini
+        değiştirdiğini söylemiyor.</p>
+
+        <p>Bu boşluk, SoutheastCon 2026'da yayımladığım makalenin konusu. Bu yazı da onun denklemsiz
+        hâli.</p>
+
+        <h2>Bu Neden Sadece Akademik Bir Şikâyet Değil</h2>
+
+        <p>Uluslararası Robotik Federasyonu'na göre hizmet robotu satışları 2023'te yüzde 30 büyüdü,
+        ve bu makineler artık kafeslerin içinde değil. Depo çalışanlarıyla aynı koridoru, yayalarla
+        aynı yolu, cerrahlarla aynı ameliyathaneyi paylaşıyorlar.</p>
+
+        <p>Denetlenebilirlik boşluğu, saha gerçek olur olmaz üç somut probleme dönüşüyor.</p>
+
+        <p>Olay incelemesi tahmine dayanır hâle geliyor. Yeniden kurulabilir bir kayıt olmadan rapor
+        bir bulgu değil, makul bir hikâye oluyor; peşinden gelen düzeltme de bir tahmini hedefliyor.</p>
+
+        <p>Güvenlik belgelendirmesi zorlaşıyor. ISO 13482 gibi standartlar belgelenmiş risk
+        değerlendirmesi istiyor, ve neden davrandığını söyleyemeyen bir sistem o belgeyi
+        üretemiyor.</p>
+
+        <p>Mevzuat uyumu ise doğrudan başarısız oluyor. AB Yapay Zeka Yasası, yüksek riskli yapay
+        zeka sistemlerinin sistemin işleyişinin izlenmesine olanak veren kayıtlar tutmasını
+        gerektiriyor. Bugün sahadaki robotik sistemlerin çoğu bu cümleyi karşılayamıyor, ve bu
+        geriye dönük karşılanabilecek bir cümle değil.</p>
+
+        <h2>Modeli Açıklamak Neden Çözmüyor</h2>
+
+        <p>Akla gelen ilk cevap açıklanabilir yapay zekaya uzanmak, ve bu cevap yanlış nesneyi
+        hedefliyor.</p>
+
+        <p>LIME, karmaşık bir modeli tek bir tahminin yakınında basit bir modelle yaklaşıklıyor.
+        SHAP, oyun kuramına dayanarak tahmini girdi özniteliklerine dağıtıyor. İkisi de faydalı ve
+        ikisi de tek bir çıktıyı açıklıyor. Oysa bir robot saniyede yüzlerce, birbirine bağlı karar
+        veriyor; her birini tek tek açıklamak onları birbirine bağlayan zinciri kaybediyor. İnceleme
+        yapan kişinin istediği tek şey de o zincirdi.</p>
+
+        <p>Dikkat ağırlıkları bir çıkış yolu gibi görünüyor, çünkü model size neye baktığını
+        söylüyormuş gibi duruyor. Jain ve Wallace, dikkat ağırlıklarının gerçek nedensel ilişkileri
+        çoğu zaman yansıtmadığını gösterdi. Güvenlik açısından kritik bir sistemde, kendinden emin
+        biçimde yanlış olan bir açıklama hiç açıklama olmamasından kötüdür; çünkü incelemeyi erken
+        bitirir.</p>
+
+        <p>Çalışma zamanı doğrulaması daha yakın duruyor. ModelPlex gibi sistemler sibernetik-fiziksel
+        bir sistemin doğrulanmış sınırların içinde kalıp kalmadığını denetliyor. Bu gerçekten
+        değerli, ama bir ihlal bayrağı size bir şeyin sınır dışına çıktığını söyler; denetleyicinin
+        oraya gitmeyi neden seçtiğini söylemez.</p>
+
+        <p>Bütün bunların merkezine koyacağım ayrım şu: sonradan açıklama yöntemleri bir model
+        çıktısını açıklar, oysa inceleme bir karar dizisine ihtiyaç duyar. Bunlar farklı nesneler, ve
+        hiçbir ayar birincisini ikincisine dönüştürmez.</p>
+
+        <h2>Kaydı Sonradan Kurtarmak Yerine Baştan Üretmek</h2>
+
+        <p>TRACE, Transparent Reasoning Architecture for Credible Execution'ın kısaltması. Fikir tek
+        cümleyle söylenecek kadar basit: kapalı bir sistemden sonradan açıklama çıkarmaya çalışmayı
+        bırakın, karar hattı kanıtı çalışırken üretsin.</p>
+
+        <p>Bu bir sarmalayıcı, yerine geçen bir şey değil. Algı modülü evrişimli ağ olarak kalabilir,
+        tahminci transformer olarak kalabilir. Mimarinin istediği tek şey, her aşamanın ürettiği ara
+        ürünü belgelenmiş bir biçimde dışarı vermesi. Dört katman, her biri bir kayıt üretiyor.</p>
+
+        <p><strong>Anlamsal algı.</strong> Alışıldık bir hat şunu üretir: yaya, 3.2 metre ileride,
+        güven 0.87. Bu katman tespiti kanıt kümesiyle birlikte üretiyor: hangi sensör katkı yaptı,
+        katkının ağırlığı neydi, hangi uzamsal bölgeden geldi. Fark sonradan ortaya çıkıyor; soru
+        "robot bir insan mı gördü yoksa bir yansıma mı" hâline geldiğinde.</p>
+
+        <p><strong>İnanç muhakemesi.</strong> Algının üstünde, robotun doğrudan gözleyemediği şeyleri
+        tutan olasılıksal bir sahne grafiği var: yayanın karşıya geçme niyeti, koridorun kapalı olup
+        olmadığı gibi. Türetilmiş durumlar grafiğe, onları üreten gözlemlere açık kenarlarla bağlı
+        çocuk düğümler olarak giriyor. Robot koridorun kapalı olduğuna inandığında grafik bundan
+        sorumlu okumaları adlandırıyor, ve inanç bir iddia olmaktan çıkıp ebeveyni olan bir sav
+        hâline geliyor.</p>
+
+        <p><strong>Eylem sentezi.</strong> En çok savunacağım katman bu. Planlayıcı yalnızca
+        verdiği komutu kaydetmiyor. Değerlendirdiği alternatifleri, seçim gerekçesini ve farklı bir
+        seçim doğuracak karşıolgusal koşulları da kaydediyor. Yapının adı Karşıolgusal Karar Ağacı ve
+        varlık sebebi, inceleme yapan kişinin gerçekten sorduğu iki soruya cevap vermek: robot neden
+        durdu, ve devam etmesini ne sağlardı.</p>
+
+        <p><strong>Yürütme doğrulaması.</strong> Son katman amaçlanan davranışla makinenin yaptığını
+        karşılaştırıyor, çevrimin tamamını tek bir denetim kaydına zaman damgasıyla yazıyor, ve ikisi
+        uyuşmadığında sapmayı işaretliyor.</p>
+
+        <h2>Dışarıdan Bir Mühendisin Hesaplayabileceği Üç Sayı</h2>
+
+        <p>Kendi kendine not veren bir çerçevenin değeri azdır, o yüzden ölçütler kayıt altına alınan
+        veriler üzerinde aritmetik olarak tanımlandı. Beni hiç tanımayan biri üçünü de kendi
+        sisteminin kayıtlarından hesaplayabilir.</p>
+
+        <p><strong>Kanıt izlenebilirliği</strong>, bir kararın arkasındaki etkenlerden kaçının
+        belgelenmiş bir zincirle belirli bir sensör okumasına kadar takip edilebildiğini veriyor. Bir
+        de kulağa geldiğinden daha önemli olan kısmi sürümü var: zincir eksik olduğunda belgelemenin
+        ne kadar derine indiğini bildiriyor. 3 üzerinden 2 derinlik, inceleyene doğrudan ve ikincil
+        nedenlerin kayıtlı olduğunu ama kök gözlemin eksik olduğunu söylüyor. Bu, "başarısız"
+        demekten çok daha faydalı bir cevap.</p>
+
+        <p><strong>Zamansal süreklilik</strong>, inceleme penceresinde hiç karar kaydı olmayan
+        aralıkların oranının bir eksiği. İzde delik olup olmadığını ölçüyor, ki yük altında ilk bozulan
+        şey de budur.</p>
+
+        <p><strong>Karar yeniden kurulabilirliği</strong> ise sert olanı. Bir çevrimi ancak üç koşul
+        birlikte sağlandığında sayıyor: yapılan eylem geri getirilebiliyor, değerlendirilen
+        alternatifler geri getirilebiliyor, ve seçilen eylemin neden tercih edildiği geri
+        getirilebiliyor. Üçte iki sıfır alıyor, çünkü üçte iki kimsenin bir şeyi yeniden kurmasına
+        yetmiyor.</p>
+
+        <h2>Ne Ölçüldü</h2>
+
+        <p>Değerlendirme 50 metreye 30 metrelik bir depo benzetimi; kararlar 10 Hz'de, beş senaryo,
+        her biri 100 çevrim. Senaryolar boş koridordan çarpışma rotasındaki forklifte kadar gidiyor
+        ve benzetim temiz koşmuyor: sensör kopmaları, bozulan kanıt bağları, kırpılan gerekçeler ve
+        karşıolgu zaman aşımları enjekte ediliyor.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Ölçüt</th><th>TRACE</th></tr>
+          <tr><td>Kanıt izlenebilirliği</td><td>%98.6 &plusmn; 7.0</td></tr>
+          <tr><td>Zamansal süreklilik</td><td>%99.0</td></tr>
+          <tr><td>Karar yeniden kurulabilirliği</td><td>%98.1</td></tr>
+          <tr><td>Karar çevrimi başına ek yük</td><td>0.12 ms</td></tr>
+        </table>
+        </div>
+
+        <p>En çok önemsediğim sayı ek yük, çünkü mimarinin kabul edilip edilmeyeceğine o karar
+        veriyor. 10 Hz'de çevrim başına bütçe 100 ms; denetim izi bunun yaklaşık yüzde 1'ine mal
+        oluyor. Bu fiyata denetlenebilirlik, kimsenin uzun uzun düşünmesi gereken bir takas
+        değil.</p>
+
+        <p>Makaledeki karşılaştırma tablosuyla ilgili dürüst bir not. Sonradan açıklama yöntemleri
+        oraya, benim koştuğum deneylere göre değil, her mimarinin ilkesel olarak neyi yapabildiğine
+        göre yerleştirildi. Bu makalede yazıyor, burada da tekrar ediyorum; çünkü kurduğum ayrım
+        mimari bir ayrım ve ölçülmüş bir yarış olarak değil, bir argüman olarak okunmalı.</p>
+
+        <h2>Bunu Kimin Çalıştırabileceğine Karar Veren Kısım</h2>
+
+        <p>Bu alandaki makaleler genelde ölçütlerde duruyor. Sahaya çıkıp çıkamayacağını asıl
+        belirleyen soru ise bütün bunları nereye koyacağınız.</p>
+
+        <p>Tam denetim izleri karar çevrimi başına 2 ila 5 KB tutuyor. 10 Hz'de bu saatte 70-175 MB,
+        yani robot başına günde 1.7-4.2 GB demek. Şimdi yüz bin robotluk bir filo alın ve AB Yapay
+        Zeka Yasası'nın 19. maddesinin istediği altı aylık saklama süresini ekleyin: ham ihtiyaç 30
+        petabaytı geçiyor.</p>
+
+        <p>Bu sayı, depolama katmanlanmadıkça fikri öldürür; o yüzden tasarım katmanlıyor. Sıcak
+        depolama son 24 saati tam ayrıntısıyla tutuyor, ki olayların fiilen incelendiği pencere de o.
+        Ilık depolama işaretlenmiş kararları eksiksiz, geri kalanı özet olarak saklıyor. Soğuk
+        depolama düzenleyici için sıkıştırılmış bir arşiv tutuyor.</p>
+
+        <p>Sıkıştırma burada başka yerlerde olduğundan daha çok işe yarıyor, çünkü nedensel grafikler
+        kendini tekrar ediyor. Aynı yapılar çevrim çevrim yineleniyor; bu yüzden sözlük kodlamasının
+        3-5 kat azaltma, ardışık çevrimler arasındaki fark kodlamasının da inanç durumunun neredeyse
+        hiç oynamadığı rutin işleyişte yüzde 60-80 ek azaltma vermesi bekleniyor. Bu iki rakam
+        ölçüm değil, ön analizden gelen projeksiyon; ve ölçülmelerini isterim.</p>
+
+        <h2>Kapanmamış Olanlar</h2>
+
+        <p>Hepsi benzetimde koştu; modellenmiş sensör gürültüsü ve modellenmiş arızalarla. Kimsenin
+        sahaya dair bir sonuç çıkarabilmesi için gerçek sensörlerle, fiziksel donanımda doğrulama
+        gerekiyor, ve makale bunu bu sözlerle söylüyor.</p>
+
+        <p>Bir de bu işe borçlu olduğum bir deney var. Bu yılın başında bir tekerlek kayması
+        dedektörü yaptım; kendi ölçütünde iyi puan aldı ve onu hiç dedektör kullanmadan daha yavaş
+        sürmek yendi. Ders aklımda kaldı: tek başına iyi görünen bir bileşen, fayda sağladığının
+        kanıtı değildir; ve bunu öğrenmenin yolu aklınıza gelen en aptal alternatifi koşmaktır. Burada
+        en aptal alternatif, her şeyi bir dosyaya yazıp sonra ayıklamak. Üç ölçütte kaç aldığını
+        bilmiyorum, çünkü koşmadım; koşana kadar da dürüst iddia, mimarinin denetim izini koruduğu
+        olur, bunu yapabilecek tek şeyin o olduğu değil.</p>
+
+        <p>Bugün savunacağım şey bir yüzdeden daha dar ve sanıyorum daha kalıcı: denetim izi bir
+        raporlama özelliği değil, bir tasarım gereğidir. Robot karar verirken mimaride yoksa,
+        sonradan geri getirilemez; ve ona ihtiyaç duyan inceleme bir bulgu değil, bir hikâye
+        olur.</p>
+
+        <p style="margin-top:26px;">Makale:
+        <a href="https://arxiv.org/abs/2609.02861" target="_blank" rel="noopener">arXiv:2609.02861</a>
+        (tam metin, ücretsiz),
+        <a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">SoutheastCon
+        2026, IEEE, s. 1-6</a>'da yayımlandı. Kayma dedektörü hikâyesi
+        <a href="sinyal-sekiz-saniye-gec.html">ölçümü anlattığım yazıda</a>.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Tüm yazılara dön</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

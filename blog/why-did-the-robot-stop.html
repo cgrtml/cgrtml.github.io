@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Warehouse Robot Stops and a Worker Walks Into It. Can Anyone Find Out Why? · Cagri Temel</title>
+  <meta name="description" content="Post-hoc explanation tells you what influenced one prediction. An incident investigation needs the decision sequence. TRACE builds the audit trail into the architecture: evidence-grounded perception, a causal belief graph, counterfactual decision trees, and three metrics an outside engineer can compute from the log." />
+  <link rel="canonical" href="https://cagritemel.com/blog/why-did-the-robot-stop.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="../tr/blog/robot-neden-durdu.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">September 8, 2026</p>
+        <h1 style="margin-bottom:.4em;">A Warehouse Robot Stops and a Worker Walks Into It. Can Anyone Find Out Why?</h1>
+
+        <p>Start with the scene, because everything else follows from it. A mobile robot is moving
+        down an aisle. It stops without warning. A worker walking behind it does not, and there is a
+        collision. Nobody is seriously hurt, but somebody now has to write a report explaining what
+        happened.</p>
+
+        <p>The investigator has the logs. The robot recorded its sensor streams and its motor
+        commands, and at 14:22:07 the command was stop. Between those two things sits a neural
+        network that turned camera and LiDAR readings into that command through several million
+        parameters. The log tells you what the robot did. It does not tell you what the robot
+        believed, or what it would have done instead, or which reading changed its mind.</p>
+
+        <p>That gap is the subject of a paper I published at SoutheastCon 2026, and this post is the
+        version without the equations.</p>
+
+        <h2>Why this is not only an academic complaint</h2>
+
+        <p>Service robot sales grew 30 percent in 2023 according to the International Federation of
+        Robotics, and these machines are not in cages any more. They share aisles with warehouse
+        staff, roads with pedestrians, and operating theatres with surgeons.</p>
+
+        <p>The auditability gap turns into three concrete problems as soon as deployment is real.</p>
+
+        <p>Incident investigation becomes speculative. Without a reconstructable record, the report
+        is a plausible story rather than a finding, and the fix that follows is aimed at a guess.</p>
+
+        <p>Safety certification becomes difficult. Standards such as ISO 13482 require documented
+        risk assessment, and a system that cannot say why it acted cannot supply the document.</p>
+
+        <p>Regulatory compliance fails outright. The EU AI Act requires high-risk AI systems to keep
+        logs that enable tracing of the system's functioning. Most deployed robotic systems today
+        cannot satisfy that sentence, and it is not a sentence you can satisfy retroactively.</p>
+
+        <h2>Why explaining the model does not solve it</h2>
+
+        <p>The obvious answer is to reach for explainable AI, and the obvious answer is aimed at the
+        wrong object.</p>
+
+        <p>LIME approximates a complex model with a simple one near a single prediction. SHAP
+        attributes a prediction to input features using game theory. Both are useful and both explain
+        one output. A robot makes hundreds of interdependent decisions per second, and explaining
+        each of them in isolation loses the chain that connects them, which is the only thing the
+        investigator wanted.</p>
+
+        <p>Attention weights look like a way out, since the model appears to be telling you what it
+        looked at. Jain and Wallace showed that attention weights often fail to reflect the actual
+        causal relationships. For a safety-critical system, an explanation that is confidently wrong
+        is worse than no explanation, because it ends the investigation early.</p>
+
+        <p>Runtime verification is closer. Systems like ModelPlex check that a cyber-physical system
+        stays inside verified bounds, which is genuinely valuable, but a violation flag says that
+        something went out of bounds and not why the controller chose to go there.</p>
+
+        <p>So the distinction I would put at the centre of all of this: post-hoc methods explain a
+        model output, and an investigation needs a decision sequence. Those are different objects,
+        and no amount of tuning turns the first into the second.</p>
+
+        <h2>Building the record instead of recovering it</h2>
+
+        <p>TRACE stands for Transparent Reasoning Architecture for Credible Execution. The idea is
+        simple enough to state in one line: stop trying to extract explanations out of an opaque
+        system afterwards, and make the decision pipeline emit the evidence as it runs.</p>
+
+        <p>It is a wrapper, not a replacement. The perception module can stay a convolutional
+        network, the predictor can stay a transformer. What the architecture requires is that each
+        stage expose its intermediate product in a documented form. Four layers, each producing one
+        artifact.</p>
+
+        <p><strong>Semantic perception.</strong> A conventional pipeline outputs a detection:
+        pedestrian, 3.2 metres ahead, confidence 0.87. This layer outputs the detection together with
+        its evidence set, which records each sensor that contributed, the weight of its contribution,
+        and the spatial region it came from. The difference matters later, when the question is
+        whether the robot saw a person or saw a reflection.</p>
+
+        <p><strong>Belief reasoning.</strong> Above perception sits a probabilistic scene graph
+        holding things the robot cannot observe directly, such as whether a pedestrian intends to
+        cross or whether an aisle is blocked. Derived states enter the graph as child nodes with
+        explicit edges to the observations that produced them. When the robot believes the aisle is
+        blocked, the graph names the readings responsible, and the belief stops being an assertion
+        and becomes a claim with parents.</p>
+
+        <p><strong>Action synthesis.</strong> This is the layer I would defend hardest. The planner
+        does not only record the command it issued. It records the alternatives it considered, the
+        rationale for the selection, and the counterfactual conditions that would have produced a
+        different choice. The structure is a Counterfactual Decision Tree, and it exists to answer
+        the two questions an investigator actually asks: why did the robot stop, and what would have
+        made it continue.</p>
+
+        <p><strong>Execution verification.</strong> The last layer compares intended behaviour with
+        what the machine did, timestamps the whole cycle into one audit record, and flags the
+        deviation when the two disagree.</p>
+
+        <h2>Three numbers an outside engineer can compute</h2>
+
+        <p>A framework that grades itself is not worth much, so the metrics are defined as arithmetic
+        over the logged artifacts. Someone who has never met me can compute all three from their own
+        system's logs.</p>
+
+        <p><strong>Evidence traceability</strong> is the fraction of the factors behind a decision
+        that can be followed back to a specific sensor reading through a documented chain. There is
+        also a partial version, which matters more than it sounds: when a chain is incomplete, it
+        reports how deep the documentation goes. Depth 2 out of 3 tells the investigator that the
+        immediate and secondary causes are recorded and the root observation is missing, which is a
+        far more useful answer than a failure.</p>
+
+        <p><strong>Temporal continuity</strong> is one minus the proportion of the analysis window
+        with no recorded decision. It measures whether the trail has holes in it, which is the first
+        thing that goes wrong under load.</p>
+
+        <p><strong>Decision reconstructability</strong> is the strict one. It counts a cycle only
+        when all three conditions hold together: the action taken is recoverable, the alternatives
+        considered are recoverable, and the reason the selected action was preferred is recoverable.
+        Two out of three scores zero, because two out of three does not let anyone reconstruct
+        anything.</p>
+
+        <h2>What it measured</h2>
+
+        <p>The evaluation is a warehouse simulation, 50 by 30 metres, decisions at 10 Hz, five
+        scenarios running 100 cycles each. The scenarios go from a clear aisle up to a forklift on a
+        collision course, and the simulation does not run clean: sensor dropouts, corrupted evidence
+        links, truncated rationales and counterfactual timeouts are all injected.</p>
+
+        <div class="table-wrap">
+        <table class="result-table">
+          <tr><th>Metric</th><th>TRACE</th></tr>
+          <tr><td>Evidence traceability</td><td>98.6% &plusmn; 7.0</td></tr>
+          <tr><td>Temporal continuity</td><td>99.0%</td></tr>
+          <tr><td>Decision reconstructability</td><td>98.1%</td></tr>
+          <tr><td>Overhead per decision cycle</td><td>0.12 ms</td></tr>
+        </table>
+        </div>
+
+        <p>The overhead is the number I care about most, because it is the one that decides whether
+        anybody will accept the architecture. At 10 Hz the budget per cycle is 100 ms, so the audit
+        trail costs about 1 percent of it. Auditability at that price is not a trade-off anyone has
+        to think hard about.</p>
+
+        <p>One honest note on the comparison table in the paper. The post-hoc baselines are placed
+        there on the basis of what each architecture can do in principle, not on runs I performed.
+        That is stated in the paper and I will restate it here, because the distinction I am drawing
+        is architectural and it should be read as an argument rather than as a measured contest.</p>
+
+        <h2>The part that decides whether anyone can run it</h2>
+
+        <p>Papers in this area tend to stop at the metrics. The question that actually determines
+        deployment is where you put all of this.</p>
+
+        <p>Full audit trails run 2 to 5 KB per decision cycle. At 10 Hz that is 70 to 175 MB per
+        hour, or 1.7 to 4.2 GB per robot per day. Now take a fleet of a hundred thousand robots and
+        the six-month retention that Article 19 of the EU AI Act asks for, and the raw requirement
+        passes 30 petabytes.</p>
+
+        <p>That number kills the idea unless the storage is tiered, so the design tiers it. Hot
+        storage keeps the past 24 hours in full detail, which covers the window where incidents are
+        actually investigated. Warm storage keeps flagged decisions complete and everything else as
+        summaries. Cold storage holds a compressed archive for the regulator.</p>
+
+        <p>Compression helps more here than it would elsewhere, because causal graphs repeat
+        themselves. The same structures recur cycle after cycle, so dictionary encoding is projected
+        to give 3 to 5 times reduction, and delta encoding between consecutive cycles a further 60 to
+        80 percent on routine operation where the belief state barely moves. Those two figures are
+        projections from preliminary analysis rather than measurements, and I would like them
+        measured.</p>
+
+        <h2>What is not settled</h2>
+
+        <p>All of it ran in simulation, with modelled sensor noise and modelled failures. Validation
+        on physical hardware with real sensors is necessary before anyone draws a deployment
+        conclusion, and the paper says so in as many words.</p>
+
+        <p>There is also an experiment I owe this work. Earlier this year I built a wheel-slip
+        detector that scored well on its own metric and was beaten by simply driving slower with no
+        detector at all. The lesson stuck: a component that looks good in isolation is not evidence
+        that it helps, and the way to find out is to run the dumbest alternative you can think of.
+        Here the dumbest alternative is logging everything to a file and sorting it out afterwards. I
+        do not know what that scores on the three metrics, because I have not run it, and until I do,
+        the honest claim is that the architecture keeps the trail intact rather than that it is the
+        only thing that could.</p>
+
+        <p>What I would defend today is narrower and, I think, more durable than a percentage: an
+        audit trail is a design requirement, not a reporting feature. If it is not in the
+        architecture while the robot is deciding, it is not recoverable afterwards, and the
+        investigation that needed it will be a story instead of a finding.</p>
+
+        <p style="margin-top:26px;">The paper is
+        <a href="https://arxiv.org/abs/2609.02861" target="_blank" rel="noopener">arXiv:2609.02861</a>
+        (free full text), published in
+        <a href="https://ieeexplore.ieee.org/document/11476455" target="_blank" rel="noopener">SoutheastCon
+        2026, IEEE, pp. 1-6</a>. The slip-detector story is in
+        <a href="slip-detector-observability.html">the original post</a> and
+        <a href="rig-fault-tipping-robot.html">the correction that followed it</a>.</p>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
