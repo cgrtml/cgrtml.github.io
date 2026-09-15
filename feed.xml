@@ -9,6 +9,13 @@
     <language>en</language>
     <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
     <item>
+      <title>What I Measured After Hacker News Broke My LLM Agent Gate</title>
+      <link>https://cagritemel.com/blog/hn-broke-my-llm-agent-gate.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/hn-broke-my-llm-agent-gate.html</guid>
+      <pubDate>Tue, 15 Sep 2026 18:00:00 GMT</pubDate>
+      <description>In July a Show HN produced a working bypass and two people saying signature matching was the wrong method. They were right. What the rule layer actually catches on real attacks (19.8%), why 59% of the misses cannot be caught by any input filter, a provenance gate measured on AgentDojo (97% to 9% attack success, at a measured price in utility), five changes each re-measured, a model that did not need the gate, and a policy judge for the 59%.</description>
+    </item>
+    <item>
       <title>A Warehouse Robot Stops and a Worker Walks Into It. Can Anyone Find Out Why?</title>
       <link>https://cagritemel.com/blog/why-did-the-robot-stop.html</link>
       <guid isPermaLink="true">https://cagritemel.com/blog/why-did-the-robot-stop.html</guid>
