@@ -58,6 +58,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://cagritemel.com/blog/neural-trees-ready-for-other-people.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/neural-trees-ready-for-other-people.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/neural-trees-hazir.html"/>
+    <lastmod>2026-09-28</lastmod>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/tr/blog/neural-trees-hazir.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/neural-trees-ready-for-other-people.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/neural-trees-hazir.html"/>
+    <lastmod>2026-09-28</lastmod>
+  </url>
+  <url>
     <loc>https://cagritemel.com/blog/hn-broke-my-llm-agent-gate.html</loc>
   </url>
   <url>

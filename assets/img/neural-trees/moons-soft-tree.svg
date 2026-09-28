@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1395pt" height="385pt" viewBox="0.00 0.00 1394.60 384.56">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 380.56)">
+<title>G</title>
+<!-- n0 -->
+<g id="node1" class="node">
+<title>n0</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M767.2,-376.56C767.2,-376.56 618.4,-376.56 618.4,-376.56 612.4,-376.56 606.4,-370.56 606.4,-364.56 606.4,-364.56 606.4,-334.92 606.4,-334.92 606.4,-328.92 612.4,-322.92 618.4,-322.92 618.4,-322.92 767.2,-322.92 767.2,-322.92 773.2,-322.92 779.2,-328.92 779.2,-334.92 779.2,-334.92 779.2,-364.56 779.2,-364.56 779.2,-370.56 773.2,-376.56 767.2,-376.56"></path>
+<text text-anchor="start" x="677.64" y="-362.44" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 0</text>
+<text text-anchor="start" x="666.92" y="-350.44" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+1.97 × x2</text>
+<text text-anchor="start" x="668.3" y="-338.44" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">-1.73 × x1</text>
+<text text-anchor="start" x="662.18" y="-329.14" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">100% of the data</text>
+</g>
+<!-- n1 -->
+<g id="node2" class="node">
+<title>n1</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M577.96,-264.92C577.96,-264.92 453.64,-264.92 453.64,-264.92 447.64,-264.92 441.64,-258.92 441.64,-252.92 441.64,-252.92 441.64,-223.28 441.64,-223.28 441.64,-217.28 447.64,-211.28 453.64,-211.28 453.64,-211.28 577.96,-211.28 577.96,-211.28 583.96,-211.28 589.96,-217.28 589.96,-223.28 589.96,-223.28 589.96,-252.92 589.96,-252.92 589.96,-258.92 583.96,-264.92 577.96,-264.92"></path>
+<text text-anchor="start" x="500.64" y="-250.8" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 1</text>
+<text text-anchor="start" x="489.92" y="-238.8" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+2.22 × x1</text>
+<text text-anchor="start" x="491.3" y="-226.8" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">-1.80 × x2</text>
+<text text-anchor="start" x="487.43" y="-217.5" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">58% of the data</text>
+</g>
+<!-- n0&#45;&gt;n1 -->
+<g id="edge1" class="edge">
+<title>n0-&gt;n1</title>
+<g id="a_edge1"><a xlink:title="left: mean probability 0.58">
+<path fill="none" stroke="#6b7680" stroke-width="2.33" d="M650.4,-322.48C625.32,-306.94 593.38,-287.15 566.91,-270.76"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="2.33" points="568.39,-268.8 561.15,-267.19 565.81,-272.96 568.39,-268.8"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="641.73" y="-299.26" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.58</text>
+</g>
+<!-- n2 -->
+<g id="node3" class="node">
+<title>n2</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M926.56,-264.92C926.56,-264.92 813.04,-264.92 813.04,-264.92 807.04,-264.92 801.04,-258.92 801.04,-252.92 801.04,-252.92 801.04,-223.28 801.04,-223.28 801.04,-217.28 807.04,-211.28 813.04,-211.28 813.04,-211.28 926.56,-211.28 926.56,-211.28 932.56,-211.28 938.56,-217.28 938.56,-223.28 938.56,-223.28 938.56,-252.92 938.56,-252.92 938.56,-258.92 932.56,-264.92 926.56,-264.92"></path>
+<text text-anchor="start" x="854.64" y="-250.8" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 2</text>
+<text text-anchor="start" x="843.92" y="-238.8" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+2.45 × x2</text>
+<text text-anchor="start" x="845.3" y="-226.8" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">-0.63 × x1</text>
+<text text-anchor="start" x="841.43" y="-217.5" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">42% of the data</text>
+</g>
+<!-- n0&#45;&gt;n2 -->
+<g id="edge2" class="edge">
+<title>n0-&gt;n2</title>
+<g id="a_edge2"><a xlink:title="right: mean probability 0.42">
+<path fill="none" stroke="#6b7680" stroke-width="1.87" d="M735.2,-322.48C760.5,-306.8 792.78,-286.81 819.38,-270.33"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="1.87" points="820.38,-272.6 825.04,-266.83 817.8,-268.43 820.38,-272.6"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="743.87" y="-299.26" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.42</text>
+</g>
+<!-- n3 -->
+<g id="node4" class="node">
+<title>n3</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M297.84,-153.28C297.84,-153.28 203.76,-153.28 203.76,-153.28 197.76,-153.28 191.76,-147.28 191.76,-141.28 191.76,-141.28 191.76,-111.64 191.76,-111.64 191.76,-105.64 197.76,-99.64 203.76,-99.64 203.76,-99.64 297.84,-99.64 297.84,-99.64 303.84,-99.64 309.84,-105.64 309.84,-111.64 309.84,-111.64 309.84,-141.28 309.84,-141.28 309.84,-147.28 303.84,-153.28 297.84,-153.28"></path>
+<text text-anchor="start" x="235.64" y="-139.16" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 3</text>
+<text text-anchor="start" x="224.92" y="-127.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+6.05 × x1</text>
+<text text-anchor="start" x="224.92" y="-115.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+2.24 × x2</text>
+<text text-anchor="start" x="222.43" y="-105.86" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">21% of the data</text>
+</g>
+<!-- n1&#45;&gt;n3 -->
+<g id="edge3" class="edge">
+<title>n1-&gt;n3</title>
+<g id="a_edge3"><a xlink:title="left: mean probability 0.36">
+<path fill="none" stroke="#6b7680" stroke-width="1.68" d="M452.33,-210.84C412.01,-194.16 359.87,-172.59 318.73,-155.56"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="1.68" points="319.88,-153.39 312.47,-152.98 318,-157.92 319.88,-153.39"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="440.5" y="-189.29" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.36</text>
+</g>
+<!-- n4 -->
+<g id="node5" class="node">
+<title>n4</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M570.4,-153.28C570.4,-153.28 461.2,-153.28 461.2,-153.28 455.2,-153.28 449.2,-147.28 449.2,-141.28 449.2,-141.28 449.2,-111.64 449.2,-111.64 449.2,-105.64 455.2,-99.64 461.2,-99.64 461.2,-99.64 570.4,-99.64 570.4,-99.64 576.4,-99.64 582.4,-105.64 582.4,-111.64 582.4,-111.64 582.4,-141.28 582.4,-141.28 582.4,-147.28 576.4,-153.28 570.4,-153.28"></path>
+<text text-anchor="start" x="500.64" y="-139.16" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 4</text>
+<text text-anchor="start" x="491.3" y="-127.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">-1.55 × x2</text>
+<text text-anchor="start" x="489.92" y="-115.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+1.28 × x1</text>
+<text text-anchor="start" x="487.43" y="-105.86" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">37% of the data</text>
+</g>
+<!-- n1&#45;&gt;n4 -->
+<g id="edge4" class="edge">
+<title>n1-&gt;n4</title>
+<g id="a_edge4"><a xlink:title="right: mean probability 0.64">
+<path fill="none" stroke="#6b7680" stroke-width="2.52" d="M515.8,-210.84C515.8,-196.87 515.8,-179.47 515.8,-164.18"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="2.52" points="518.25,-164.32 515.8,-157.32 513.35,-164.32 518.25,-164.32"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="503.18" y="-189.82" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.64</text>
+</g>
+<!-- n5 -->
+<g id="node6" class="node">
+<title>n5</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M905.32,-153.28C905.32,-153.28 834.28,-153.28 834.28,-153.28 828.28,-153.28 822.28,-147.28 822.28,-141.28 822.28,-141.28 822.28,-111.64 822.28,-111.64 822.28,-105.64 828.28,-99.64 834.28,-99.64 834.28,-99.64 905.32,-99.64 905.32,-99.64 911.32,-99.64 917.32,-105.64 917.32,-111.64 917.32,-111.64 917.32,-141.28 917.32,-141.28 917.32,-147.28 911.32,-153.28 905.32,-153.28"></path>
+<text text-anchor="start" x="854.64" y="-139.16" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 5</text>
+<text text-anchor="start" x="845.3" y="-127.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">-1.76 × x1</text>
+<text text-anchor="start" x="843.92" y="-115.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+1.02 × x2</text>
+<text text-anchor="start" x="843.68" y="-105.86" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">5% of the data</text>
+</g>
+<!-- n2&#45;&gt;n5 -->
+<g id="edge5" class="edge">
+<title>n2-&gt;n5</title>
+<g id="a_edge5"><a xlink:title="left: mean probability 0.12">
+<path fill="none" stroke="#6b7680" stroke-width="0.97" d="M869.8,-210.84C869.8,-196.19 869.8,-177.77 869.8,-161.97"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="0.97" points="872.25,-161.98 869.8,-154.98 867.35,-161.98 872.25,-161.98"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="882.42" y="-189.82" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.12</text>
+</g>
+<!-- n6 -->
+<g id="node7" class="node">
+<title>n6</title>
+<path fill="#ffffff" stroke="#2f7d5b" stroke-width="1.2" d="M1190.4,-153.28C1190.4,-153.28 1081.2,-153.28 1081.2,-153.28 1075.2,-153.28 1069.2,-147.28 1069.2,-141.28 1069.2,-141.28 1069.2,-111.64 1069.2,-111.64 1069.2,-105.64 1075.2,-99.64 1081.2,-99.64 1081.2,-99.64 1190.4,-99.64 1190.4,-99.64 1196.4,-99.64 1202.4,-105.64 1202.4,-111.64 1202.4,-111.64 1202.4,-141.28 1202.4,-141.28 1202.4,-147.28 1196.4,-153.28 1190.4,-153.28"></path>
+<text text-anchor="start" x="1120.64" y="-139.16" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">gate 6</text>
+<text text-anchor="start" x="1111.3" y="-127.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">-2.53 × x2</text>
+<text text-anchor="start" x="1109.92" y="-115.16" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">+1.02 × x1</text>
+<text text-anchor="start" x="1107.43" y="-105.86" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">37% of the data</text>
+</g>
+<!-- n2&#45;&gt;n6 -->
+<g id="edge6" class="edge">
+<title>n2-&gt;n6</title>
+<g id="a_edge6"><a xlink:title="right: mean probability 0.88">
+<path fill="none" stroke="#6b7680" stroke-width="3.23" d="M933.51,-210.84C971.95,-195 1021.1,-174.74 1061.32,-158.16"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="3.23" points="1062.09,-160.49 1067.63,-155.56 1060.22,-155.96 1062.09,-160.49"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="945.37" y="-189.3" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.88</text>
+</g>
+<!-- n7 -->
+<g id="node8" class="node">
+<title>n7</title>
+<path fill="#eaf4fb" stroke="#3498db" stroke-width="1.2" stroke-dasharray="5,2" d="M135.6,-41.64C135.6,-41.64 12,-41.64 12,-41.64 6,-41.64 0,-35.64 0,-29.64 0,-29.64 0,-12 0,-12 0,-6 6,0 12,0 12,0 135.6,0 135.6,0 141.6,0 147.6,-6 147.6,-12 147.6,-12 147.6,-29.64 147.6,-29.64 147.6,-35.64 141.6,-41.64 135.6,-41.64"></path>
+<text text-anchor="start" x="70.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">1</text>
+<text text-anchor="start" x="8.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="45.43" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">11% of the data</text>
+</g>
+<!-- n3&#45;&gt;n7 -->
+<g id="edge7" class="edge">
+<title>n3-&gt;n7</title>
+<g id="a_edge7"><a xlink:title="left: mean probability 0.53">
+<path fill="none" stroke="#6b7680" stroke-width="2.18" d="M206.13,-99.31C178.9,-83.36 144.25,-63.07 117.24,-47.26"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="2.18" points="118.53,-45.17 111.25,-43.75 116.05,-49.4 118.53,-45.17"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="196.96" y="-76.31" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.53</text>
+</g>
+<!-- n8 -->
+<g id="node9" class="node">
+<title>n8</title>
+<path fill="#fcedeb" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="5,2" d="M312.6,-41.64C312.6,-41.64 189,-41.64 189,-41.64 183,-41.64 177,-35.64 177,-29.64 177,-29.64 177,-12 177,-12 177,-6 183,0 189,0 189,0 312.6,0 312.6,0 318.6,0 324.6,-6 324.6,-12 324.6,-12 324.6,-29.64 324.6,-29.64 324.6,-35.64 318.6,-41.64 312.6,-41.64"></path>
+<text text-anchor="start" x="247.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">0</text>
+<text text-anchor="start" x="185.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="222.43" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">10% of the data</text>
+</g>
+<!-- n3&#45;&gt;n8 -->
+<g id="edge8" class="edge">
+<title>n3-&gt;n8</title>
+<g id="a_edge8"><a xlink:title="right: mean probability 0.47">
+<path fill="none" stroke="#6b7680" stroke-width="2.02" d="M250.8,-99.31C250.8,-84.89 250.8,-66.92 250.8,-51.91"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="2.02" points="253.25,-52.14 250.8,-45.14 248.35,-52.14 253.25,-52.14"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="238.18" y="-78.29" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.47</text>
+</g>
+<!-- n9 -->
+<g id="node10" class="node">
+<title>n9</title>
+<path fill="#eaf4fb" stroke="#3498db" stroke-width="1.2" stroke-dasharray="5,2" d="M489.6,-41.64C489.6,-41.64 366,-41.64 366,-41.64 360,-41.64 354,-35.64 354,-29.64 354,-29.64 354,-12 354,-12 354,-6 360,0 366,0 366,0 489.6,0 489.6,0 495.6,0 501.6,-6 501.6,-12 501.6,-12 501.6,-29.64 501.6,-29.64 501.6,-35.64 495.6,-41.64 489.6,-41.64"></path>
+<text text-anchor="start" x="424.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">1</text>
+<text text-anchor="start" x="362.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="401.68" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">1% of the data</text>
+</g>
+<!-- n4&#45;&gt;n9 -->
+<g id="edge9" class="edge">
+<title>n4-&gt;n9</title>
+<g id="a_edge9"><a xlink:title="left: mean probability 0.02">
+<path fill="none" stroke="#6b7680" stroke-width="0.67" d="M493.59,-99.31C480.29,-83.64 463.43,-63.78 450.1,-48.09"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="0.67" points="452.06,-46.6 445.66,-42.85 448.32,-49.77 452.06,-46.6"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="491.55" y="-74.4" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.02</text>
+</g>
+<!-- n10 -->
+<g id="node11" class="node">
+<title>n10</title>
+<path fill="#eaf4fb" stroke="#3498db" stroke-width="1.2" stroke-dasharray="5,2" d="M666.6,-41.64C666.6,-41.64 543,-41.64 543,-41.64 537,-41.64 531,-35.64 531,-29.64 531,-29.64 531,-12 531,-12 531,-6 537,0 543,0 543,0 666.6,0 666.6,0 672.6,0 678.6,-6 678.6,-12 678.6,-12 678.6,-29.64 678.6,-29.64 678.6,-35.64 672.6,-41.64 666.6,-41.64"></path>
+<text text-anchor="start" x="601.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">1</text>
+<text text-anchor="start" x="539.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="576.43" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">36% of the data</text>
+</g>
+<!-- n4&#45;&gt;n10 -->
+<g id="edge10" class="edge">
+<title>n4-&gt;n10</title>
+<g id="a_edge10"><a xlink:title="right: mean probability 0.98">
+<path fill="none" stroke="#6b7680" stroke-width="3.53" d="M538.26,-99.31C550.88,-84.61 566.67,-66.22 579.7,-51.05"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="3.53" points="581.22,-53.04 583.92,-46.13 577.5,-49.85 581.22,-53.04"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="540.43" y="-74.41" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.98</text>
+</g>
+<!-- n11 -->
+<g id="node12" class="node">
+<title>n11</title>
+<path fill="#eaf4fb" stroke="#3498db" stroke-width="1.2" stroke-dasharray="5,2" d="M843.6,-41.64C843.6,-41.64 720,-41.64 720,-41.64 714,-41.64 708,-35.64 708,-29.64 708,-29.64 708,-12 708,-12 708,-6 714,0 720,0 720,0 843.6,0 843.6,0 849.6,0 855.6,-6 855.6,-12 855.6,-12 855.6,-29.64 855.6,-29.64 855.6,-35.64 849.6,-41.64 843.6,-41.64"></path>
+<text text-anchor="start" x="778.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">1</text>
+<text text-anchor="start" x="716.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="755.68" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">2% of the data</text>
+</g>
+<!-- n5&#45;&gt;n11 -->
+<g id="edge11" class="edge">
+<title>n5-&gt;n11</title>
+<g id="a_edge11"><a xlink:title="left: mean probability 0.40">
+<path fill="none" stroke="#6b7680" stroke-width="1.8" d="M847.59,-99.31C834.64,-84.05 818.32,-64.83 805.17,-49.35"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="1.8" points="807.16,-47.91 800.76,-44.16 803.43,-51.08 807.16,-47.91"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="845.55" y="-74.4" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.40</text>
+</g>
+<!-- n12 -->
+<g id="node13" class="node">
+<title>n12</title>
+<path fill="#fcedeb" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="5,2" d="M1020.6,-41.64C1020.6,-41.64 897,-41.64 897,-41.64 891,-41.64 885,-35.64 885,-29.64 885,-29.64 885,-12 885,-12 885,-6 891,0 897,0 897,0 1020.6,0 1020.6,0 1026.6,0 1032.6,-6 1032.6,-12 1032.6,-12 1032.6,-29.64 1032.6,-29.64 1032.6,-35.64 1026.6,-41.64 1020.6,-41.64"></path>
+<text text-anchor="start" x="955.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">0</text>
+<text text-anchor="start" x="893.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="932.68" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">3% of the data</text>
+</g>
+<!-- n5&#45;&gt;n12 -->
+<g id="edge12" class="edge">
+<title>n5-&gt;n12</title>
+<g id="a_edge12"><a xlink:title="right: mean probability 0.60">
+<path fill="none" stroke="#6b7680" stroke-width="2.4" d="M892.26,-99.31C905.24,-84.19 921.56,-65.18 934.8,-49.77"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="2.4" points="936.33,-51.74 939.03,-44.84 932.62,-48.55 936.33,-51.74"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="894.43" y="-74.41" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.60</text>
+</g>
+<!-- n13 -->
+<g id="node14" class="node">
+<title>n13</title>
+<path fill="#fcedeb" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="5,2" d="M1197.6,-41.64C1197.6,-41.64 1074,-41.64 1074,-41.64 1068,-41.64 1062,-35.64 1062,-29.64 1062,-29.64 1062,-12 1062,-12 1062,-6 1068,0 1074,0 1074,0 1197.6,0 1197.6,0 1203.6,0 1209.6,-6 1209.6,-12 1209.6,-12 1209.6,-29.64 1209.6,-29.64 1209.6,-35.64 1203.6,-41.64 1197.6,-41.64"></path>
+<text text-anchor="start" x="1132.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">0</text>
+<text text-anchor="start" x="1070.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="1107.43" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">36% of the data</text>
+</g>
+<!-- n6&#45;&gt;n13 -->
+<g id="edge13" class="edge">
+<title>n6-&gt;n13</title>
+<g id="a_edge13"><a xlink:title="left: mean probability 0.97">
+<path fill="none" stroke="#6b7680" stroke-width="3.5" d="M1135.8,-99.31C1135.8,-85.58 1135.8,-68.63 1135.8,-54.1"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="3.5" points="1138.25,-54.38 1135.8,-47.38 1133.35,-54.38 1138.25,-54.38"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="1148.42" y="-78.29" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.97</text>
+</g>
+<!-- n14 -->
+<g id="node15" class="node">
+<title>n14</title>
+<path fill="#fcedeb" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="5,2" d="M1374.6,-41.64C1374.6,-41.64 1251,-41.64 1251,-41.64 1245,-41.64 1239,-35.64 1239,-29.64 1239,-29.64 1239,-12 1239,-12 1239,-6 1245,0 1251,0 1251,0 1374.6,0 1374.6,0 1380.6,0 1386.6,-6 1386.6,-12 1386.6,-12 1386.6,-29.64 1386.6,-29.64 1386.6,-35.64 1380.6,-41.64 1374.6,-41.64"></path>
+<text text-anchor="start" x="1309.8" y="-27.52" font-family="IBM Plex Sans, Helvetica" font-weight="bold" font-size="12.00" fill="#15202b">0</text>
+<text text-anchor="start" x="1247.64" y="-15.52" font-family="IBM Plex Sans, Helvetica" font-size="12.00" fill="#15202b">2 leaves below, mostly this</text>
+<text text-anchor="start" x="1286.68" y="-6.22" font-family="IBM Plex Sans, Helvetica" font-size="9.00" fill="#6b7680">1% of the data</text>
+</g>
+<!-- n6&#45;&gt;n14 -->
+<g id="edge14" class="edge">
+<title>n6-&gt;n14</title>
+<g id="a_edge14"><a xlink:title="right: mean probability 0.03">
+<path fill="none" stroke="#6b7680" stroke-width="0.7" d="M1180.46,-99.31C1208.41,-82.94 1244.16,-62.01 1271.45,-46.03"></path>
+<polygon fill="#6b7680" stroke="#6b7680" stroke-width="0.7" points="1272.48,-48.27 1277.28,-42.62 1270.01,-44.04 1272.48,-48.27"></polygon>
+</a>
+</g>
+<text text-anchor="middle" x="1189.64" y="-76.31" font-family="IBM Plex Mono, Menlo" font-size="10.00" fill="#6b7680">0.03</text>
+</g>
+</g>
+</svg>

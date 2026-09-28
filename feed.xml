@@ -9,6 +9,12 @@
     <language>en</language>
     <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
     <item>
+      <title>I Built neural-trees. It Is Ready for Other People. Here Is What It Does and What It Does Not.</title>
+      <link>https://cagritemel.com/blog/neural-trees-ready-for-other-people.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/neural-trees-ready-for-other-people.html</guid>
+      <pubDate>Mon, 28 Sep 2026 18:00:00 GMT</pubDate>
+      <description>A scikit-learn compatible library of tree models that train by gradient descent: soft, multivariate and omnivariate trees, a hierarchical mixture of experts and a growing network. Every claim is regenerated in CI, every prediction comes with a path and a verified counterfactual, the model exports to JSON and ONNX, and the honest benchmark says where it loses.</description>
+    </item>
       <title>What I Measured After Hacker News Broke My LLM Agent Gate</title>
       <link>https://cagritemel.com/blog/hn-broke-my-llm-agent-gate.html</link>
       <guid isPermaLink="true">https://cagritemel.com/blog/hn-broke-my-llm-agent-gate.html</guid>

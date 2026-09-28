@@ -9,6 +9,12 @@
     <language>tr</language>
     <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
     <item>
+      <title>neural-trees'i Yazdım. Artık Başkaları Kullanabilir. Ne Yapıyor, Ne Yapmıyor.</title>
+      <link>https://cagritemel.com/tr/blog/neural-trees-hazir.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/tr/blog/neural-trees-hazir.html</guid>
+      <pubDate>Mon, 28 Sep 2026 18:00:00 GMT</pubDate>
+      <description>Gradyan inişiyle eğitilen ağaç modelleri için scikit-learn uyumlu bir kütüphane: yumuşak, çok değişkenli ve omnivariate ağaçlar, hiyerarşik uzman karışımı ve büyüyen bir ağ. Her iddia CI'da yeniden üretiliyor, her tahminin yolu ve doğrulanmış karşı örneği var, model JSON ve ONNX'e çıkıyor, ve dürüst kıyaslama nerede kaybettiğini söylüyor.</description>
+    </item>
       <title>Depo robotu durdu, arkasındaki işçi ona çarptı. Peki neden durduğunu kim bulabilir?</title>
       <link>https://cagritemel.com/tr/blog/robot-neden-durdu.html</link>
       <guid isPermaLink="true">https://cagritemel.com/tr/blog/robot-neden-durdu.html</guid>

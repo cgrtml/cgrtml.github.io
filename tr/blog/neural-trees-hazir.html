@@ -1,0 +1,109 @@
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neural-trees'i Yazdım. Artık Başkaları Kullanabilir. Ne Yapıyor, Ne Yapmıyor. · Cagri Temel</title>
+  <meta name="description" content="Gradyan inişiyle eğitilen ağaç modelleri için scikit-learn uyumlu bir kütüphane: yumuşak, çok değişkenli ve omnivariate ağaçlar, hiyerarşik uzman karışımı ve büyüyen bir ağ. Her iddia CI'da yeniden üretiliyor, her tahminin yolu ve doğrulanmış karşı örneği var, model JSON ve ONNX'e çıkıyor, ve dürüst kıyaslama nerede kaybettiğini söylüyor." />
+  <link rel="canonical" href="https://cagritemel.com/tr/blog/neural-trees-hazir.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="../research.html">Araştırma</a></li>
+        <li><a href="../publications.html">Yayınlar</a></li>
+        <li><a href="../patents.html">Patentler</a></li>
+        <li><a href="../teaching.html">Eğitim</a></li>
+        <li><a href="../speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="../contact.html">İletişim</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><a href="../../blog/neural-trees-ready-for-other-people.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">28 Eylül 2026</p>
+        <h1 style="margin-bottom:.4em;">neural-trees'i Yazdım. Artık Başkaları Kullanabilir. Ne Yapıyor, Ne Yapmıyor.</h1>
+
+        <p>Birkaç aydır neural-trees'i yazıyorum ve artık başkalarının önüne koyabileceğim bir noktaya geldi.</p>
+
+        <p>Gradyan inişiyle eğitilen ağaç biçimli modeller için scikit-learn uyumlu bir kütüphane: yumuşak karar ağaçları, çok değişkenli ve omnivariate ağaçlar, hiyerarşik uzman karışımı ve öğrenirken büyüyen bir ağ. Algoritmalar Ethem Alpaydın'ın grubundan; uygulamalar, düzeltmeler ve ölçümler benim.</p>
+
+        <figure style="margin:28px 0;">
+          <img src="../../assets/img/neural-trees/moons-three-trees.png" alt="Aynı iki-ay verisinde üç karar sınırı: eksenlere paralel basamaklarla kesen sert bir CART ağacı, düz çizgilerle kesen çok değişkenli bir ağaç ve pürüzsüz sınırlı bir yumuşak ağaç" style="width:100%;height:auto;border:1px solid #e3e8e5;border-radius:6px;" loading="lazy" />
+          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">Aynı 400 nokta, üç ağaç türü, varsayılan ayarlar. Sert ağaç her seferinde tek bir özellik boyunca kesebilir, o yüzden bir merdiven kurar ve eğitim noktalarına en iyi o oturur. Çok değişkenli ağaç ağırlıklı bir toplamla keser. Yumuşak ağaç her kesimi bir sigmoid kapıyla değiştirir; her nokta iki tarafa da oranıyla akar ve sınır pürüzsüz çıkar. Eğitim doğrulukları her panelin üstünde yazıyor; merdiven eğitim verisinde kazanıyor, ve bu tam olarak yazının geri kalanının dikkat ettiği türden bir sayı.</figcaption>
+        </figure>
+
+        <h2>Model listesinden daha çok önemsediğim iki şey</h2>
+
+        <p><strong>Birincisi, her iddia ölçülüyor.</strong> README'deki kıyaslama tablosu CI'da yeniden üretiliyor ve bir hücre kayarsa derleme düşüyor. Makalelerin açık bıraktığı tasarım kararları (yumuşak ağaç nasıl büyümeli, yeni birim artıktan mı başlamalı, ne zaman durmalı) fikirle değil ölçümle karara bağlandı; aleyhime çıkanlar da belgelendi.</p>
+
+        <p><strong>İkincisi, model kendini açıklayabiliyor.</strong> <code>explain()</code> tek bir tahmin için ağaçtaki yolu, her kapıyı belirleyen özellikleri ve cevabı çevirecek en küçük değişikliği veriyor; o değişiklik yeniden tahmin edilerek doğrulanıyor. Eğitilmiş ağaç yalnızca numpy ile tahmin yapan bir JSON dosyasına ve ONNX'e çıkıyor; ONNX'te bir tahmin yaklaşık 11 mikrosaniye sürüyor ve ne torch'a ne kütüphaneye ihtiyaç duyuyor.</p>
+
+        <figure style="margin:28px 0;">
+          <img src="../../assets/img/neural-trees/moons-soft-tree.png" alt="İki-ay verisine oturtulmuş bir yumuşak karar ağacının yapısı: yedi kapı, her birinde en büyük iki ağırlık ve oraya ulaşan verinin payı, kenarlarda dal olasılıkları, sınıfa göre renklenmiş yapraklar" style="width:100%;height:auto;border:1px solid #e3e8e5;border-radius:6px;" loading="lazy" />
+          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">Yukarıdaki yumuşak ağacın gerçekte ne olduğu. Her kutu bir kapı: içinde en çok ağırlığı olan iki özellik ve oraya ulaşan verinin payı. Kenardaki sayı o dalı alma olasılığının ortalaması; kenar, içinden ne kadar veri akıyorsa o kadar kalın çizilmiş. Yapraklar tahmin ettikleri sınıfa göre renkli. Playground her model ve her veri kümesi için bu çizimi gösteriyor; açıklama da tek bir tahmin için aynı yapının içinde yürüyor.</figcaption>
+        </figure>
+
+        <h2>Dürüst bir sonuç</h2>
+
+        <p>24 veri kümesinde XGBoost, LightGBM, GRANDE ve NODE'a karşı, hiçbiri ayarlanmadan, yumuşak modeller küçük tablolarda (birkaç yüz satır) kazanıyor, binin üstünde kaybediyor. Binlerce satırınız varsa ve tek derdiniz doğruluksa LightGBM kullanın. Birkaç yüz satırınız varsa ve her kararı açıklamak zorundaysanız, bu on dakikanıza değer.</p>
+
+        <p>İlk tam vaka çalışması herkese açık German Credit verisi üzerinde: 1.000 kredi başvurusu ve veri kümesinin kendi maliyet matrisi. Yumuşak ağaç doğrulukta, AUC'de ve maliyette lojistik regresyonla başa baş; üstüne küçük bir kural ağacı ve her başvuru için gerçek bir başvuranın ulaşabileceği bir karşı örnekle birlikte bir yol ekliyor. Ayarlanmamış boosting modelleri doğrulukta eşit, maliyette kaybediyor, çünkü olasılıkları kalibre değil ve maliyet ağırlıklı bir karar tam da kalibrasyonun bedelinin ödendiği yer. Kat kat sayılardan model belgesine kadar bütün paket tek bir betikten yeniden üretiliyor: <a href="https://github.com/cgrtml/neural-trees/blob/main/cases/german-credit/report.md">cases/german-credit</a>.</p>
+
+        <h2>Nerede bulunur</h2>
+
+        <p>Kendi CSV ya da Excel dosyanızla tarayıcıda deneyebilirsiniz, kurulum yok: <a href="https://neural-trees.streamlit.app">neural-trees.streamlit.app</a>.</p>
+
+        <ul>
+          <li>Kod: <a href="https://github.com/cgrtml/neural-trees">github.com/cgrtml/neural-trees</a></li>
+          <li>Kurulum: <code>pip install neural-trees</code></li>
+          <li>Belgeler: <a href="https://cagritemel.com/neural-trees">cagritemel.com/neural-trees</a></li>
+          <li>Arşivlenmiş sürüm: <a href="https://doi.org/10.5281/zenodo.22718897">doi.org/10.5281/zenodo.22718897</a></li>
+        </ul>
+
+        <p>Birkaç yüz ile birkaç bin satır arasında, her kararın açıklanmak zorunda olduğu bir tablonuz varsa iki hafta içinde ücretsiz bir vaka çalışması yaparım; alacağınız şey yukarıdaki German Credit paketi. Issue ve pull request'e açığım; şimdiye kadar açılanların hepsi ölçülmüş bir raporla geldi, öyle kalsın isterim.</p>
+
+        <div class="giscus" style="margin-top:40px;"></div>
+        <script src="https://giscus.app/client.js"
+                data-repo="cgrtml/cgrtml.github.io"
+                data-repo-id="R_kgDOS-Gdjw"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOS-Gdj84DFsQd"
+                data-mapping="pathname"
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="preferred_color_scheme"
+                data-lang="tr"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async></script>
+
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Tüm yazılara dön</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

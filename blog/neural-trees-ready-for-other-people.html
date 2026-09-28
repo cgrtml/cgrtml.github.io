@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Built neural-trees. It Is Ready for Other People. Here Is What It Does and What It Does Not. · Cagri Temel</title>
+  <meta name="description" content="A scikit-learn compatible library of tree models that train by gradient descent: soft, multivariate and omnivariate trees, a hierarchical mixture of experts and a growing network. Every claim is regenerated in CI, every prediction comes with a path and a verified counterfactual, the model exports to JSON and ONNX, and the honest benchmark says where it loses." />
+  <link rel="canonical" href="https://cagritemel.com/blog/neural-trees-ready-for-other-people.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="../tr/blog/neural-trees-hazir.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">September 28, 2026</p>
+        <h1 style="margin-bottom:.4em;">I Built neural-trees. It Is Ready for Other People. Here Is What It Does and What It Does Not.</h1>
+
+        <p>I have been building neural-trees for the past few months and it is now at a point where I would put it in front of other people.</p>
+
+        <p>It is a scikit-learn compatible library of tree-shaped models that train by gradient descent: soft decision trees, multivariate and omnivariate trees, a hierarchical mixture of experts, and a network that grows while it learns. The algorithms come from Ethem Alpaydin's group; the implementations, the fixes and the measurements are mine.</p>
+
+        <figure style="margin:28px 0;">
+          <img src="../assets/img/neural-trees/moons-three-trees.png" alt="Three decision boundaries on the same two-moons data: a hard CART tree with axis-aligned steps, a multivariate tree with straight cuts, and a soft tree with a smooth boundary" style="width:100%;height:auto;border:1px solid #e3e8e5;border-radius:6px;" loading="lazy" />
+          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">The same 400 points, three kinds of tree, default settings. A hard tree can only cut along one feature at a time, so it builds a staircase and fits the training points best. A multivariate tree cuts with a weighted sum. A soft tree replaces each cut with a sigmoid gate, so every point flows down both sides in proportion and the boundary comes out smooth. The training accuracies are printed above each panel; the staircase wins on training data, which is exactly the kind of number the rest of this post is careful about.</figcaption>
+        </figure>
+
+        <h2>Two things I care about more than the model list</h2>
+
+        <p><strong>First, every claim is measured.</strong> The README benchmark table is regenerated in CI and the build fails if a cell drifts. The design choices the papers leave open (how a soft tree should grow, whether a new unit should start from the residual, when to stop) are each settled by a measurement, not an opinion, and the ones that went against me are documented too.</p>
+
+        <p><strong>Second, the model can explain itself.</strong> <code>explain()</code> gives, for any single prediction, the path through the tree, the features that decided each gate, and the smallest change that would flip the answer, checked by re-predicting. The fitted tree exports to a JSON file that predicts with numpy alone, and to ONNX, where a prediction takes about 11 microseconds and needs neither torch nor the library.</p>
+
+        <figure style="margin:28px 0;">
+          <img src="../assets/img/neural-trees/moons-soft-tree.png" alt="The structure of a soft decision tree fitted on the two-moons data: seven gates with their two largest weights and the share of data reaching them, edges labelled with branch probabilities, leaves coloured by class" style="width:100%;height:auto;border:1px solid #e3e8e5;border-radius:6px;" loading="lazy" />
+          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">What the soft tree above actually is. Each box is a gate: the two features that weigh most in it and the share of the data that reaches it. The number on an edge is the mean probability of taking that branch, and the edge is drawn thicker the more data flows through it. Leaves are coloured by the class they predict. This is the drawing the playground shows for any model on any of its datasets, and the same structure the explanation walks through for a single prediction.</figcaption>
+        </figure>
+
+        <h2>One honest result</h2>
+
+        <p>On 24 datasets against XGBoost, LightGBM, GRANDE and NODE, all untuned, the soft models win on small tables (a few hundred rows) and lose above a thousand. If you have thousands of rows and only care about accuracy, use LightGBM. If you have a few hundred and have to explain every decision, this is worth ten minutes.</p>
+
+        <p>The first complete case study is on the public German Credit data, 1 000 loan applicants with the dataset's own cost matrix. The soft tree ties logistic regression on accuracy, AUC and cost, and adds a small tree of rules and a per-applicant path with a counterfactual a real applicant could reach. The untuned boosted models match it on accuracy and lose on cost, because their probabilities are not calibrated and a cost-weighted decision is exactly where calibration is paid for. The whole package, from the fold-level numbers to the model document, regenerates from one script: <a href="https://github.com/cgrtml/neural-trees/blob/main/cases/german-credit/report.md">cases/german-credit</a>.</p>
+
+        <h2>Where to find it</h2>
+
+        <p>You can try it on your own CSV or Excel file in the browser, no install: <a href="https://neural-trees.streamlit.app">neural-trees.streamlit.app</a>.</p>
+
+        <ul>
+          <li>Code: <a href="https://github.com/cgrtml/neural-trees">github.com/cgrtml/neural-trees</a></li>
+          <li>Install: <code>pip install neural-trees</code></li>
+          <li>Docs: <a href="https://cagritemel.com/neural-trees">cagritemel.com/neural-trees</a></li>
+          <li>Archived release: <a href="https://doi.org/10.5281/zenodo.22718897">doi.org/10.5281/zenodo.22718897</a></li>
+        </ul>
+
+        <p>If you have a table of a few hundred to a few thousand rows where every decision has to be explained, I will run a free case study on it within two weeks; the German Credit package above is what you would get. Issues and pull requests are welcome; the open ones so far all came with a measured report, and I would like to keep it that way.</p>
+
+        <div class="giscus" style="margin-top:40px;"></div>
+        <script src="https://giscus.app/client.js"
+                data-repo="cgrtml/cgrtml.github.io"
+                data-repo-id="R_kgDOS-Gdjw"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOS-Gdj84DFsQd"
+                data-mapping="pathname"
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="preferred_color_scheme"
+                data-lang="en"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async></script>
+
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
