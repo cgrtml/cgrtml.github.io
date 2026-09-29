@@ -37,35 +37,107 @@
         <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">28 Eylül 2026</p>
         <h1 style="margin-bottom:.4em;">neural-trees'i Yazdım. Artık Başkaları Kullanabilir. Ne Yapıyor, Ne Yapmıyor.</h1>
 
-        <p>Birkaç aydır neural-trees'i yazıyorum ve artık başkalarının önüne koyabileceğim bir noktaya geldi.</p>
+        <p>Kütüphane bir ders kitabıyla başladı. Ethem Alpaydın'ın <em>Introduction to Machine Learning</em> (Yapay Öğrenme) kitabında karar ağaçları bölümü tam işin ilginçleştiği yerde bitiyor: bölünmeleri tek bir özellik yerine özelliklerin ağırlıklı toplamı olan ağaçlar, bölünmeleri yumuşak olan ağaçlar ve eğitilirken kendi boyutuna kendisi karar veren modeller. Bunların her birini Alpaydın'ın grubu yıllar içinde yayımladı. Hiçbirinin pip install'ı yoktu. Kendi verinizde bir yumuşak karar ağacını scikit-learn'ün CART'ının yanına koymak istiyorsanız kendiniz yazıyordunuz, sonra da çalışmayanın sizin sürümünüz mü yoksa makaledeki mi olduğunu bilmenin bir yolu yoktu.</p>
 
-        <p>Gradyan inişiyle eğitilen ağaç biçimli modeller için scikit-learn uyumlu bir kütüphane: yumuşak karar ağaçları, çok değişkenli ve omnivariate ağaçlar, hiyerarşik uzman karışımı ve öğrenirken büyüyen bir ağ. Algoritmalar Ethem Alpaydın'ın grubundan; uygulamalar, düzeltmeler ve ölçümler benim.</p>
+        <p>Ben de yazdım. İlk sürüm nisanda PyPI'a çıktı; şu anki sürüm 0.7.0. Bu yazı, ne işe yaradığının adım adım hesabı ve nerede işe yaramadığının; çünkü okuyanın gerçekten kullanabileceği kısım ikincisi.</p>
+
+        <p>Önce bir sınır çizeyim. Aşağıdaki her sayı depodaki bir betikten geliyor ve yeniden çalıştırılabilir. Bir tasarım kararı makalenin değil de benimse, o karar ölçüldü ve ölçümler belgeleme sitesinde duruyor; aleyhime çıkanlar da dahil.</p>
+
+        <h2>Adım 1. Karar Ağacı Ne Yapar, Yumuşak Olanı Neyi Değiştirir</h2>
+
+        <p>Bir karar ağacı her seferinde tek bir soru sorar. Kredi 24 aydan uzun mu? Sola ya da sağa git. Sonra bir soru daha, bir daha, ta ki bir yaprak cevabı verene kadar. İnsanların ağaçlara güvenmesinin sebebi bu: kökten yaprağa giden yol kararın gerekçesidir ve ilgili kişiye yüksek sesle okunabilir. Ağaçların zayıf olmasının sebebi de aynı. Her soruda tek özellik demek, her sınırın bir eksen boyunca bir basamak olması demek; çapraz bir çizgiyle ayrılan iki sınıfa oturmak için onlarca basamaklı bir merdiven gerekiyor.</p>
 
         <figure style="margin:28px 0;">
           <a href="../../assets/img/neural-trees/moons-three-trees.png" target="_blank" rel="noopener"><img src="../../assets/img/neural-trees/moons-three-trees.png" alt="Aynı iki-ay verisinde üç karar sınırı: eksenlere paralel basamaklarla kesen sert bir CART ağacı, düz çizgilerle kesen çok değişkenli bir ağaç ve pürüzsüz sınırlı bir yumuşak ağaç" style="width:100%;height:auto;border:1px solid #e3e8e5;border-radius:6px;" loading="lazy" /></a>
-          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">Aynı 400 nokta, üç ağaç türü, varsayılan ayarlar. Sert ağaç her seferinde tek bir özellik boyunca kesebilir, o yüzden bir merdiven kurar ve eğitim noktalarına en iyi o oturur. Çok değişkenli ağaç ağırlıklı bir toplamla keser. Yumuşak ağaç her kesimi bir sigmoid kapıyla değiştirir; her nokta iki tarafa da oranıyla akar ve sınır pürüzsüz çıkar. Eğitim doğrulukları her panelin üstünde yazıyor; merdiven eğitim verisinde kazanıyor, ve bu tam olarak yazının geri kalanının dikkat ettiği türden bir sayı.</figcaption>
+          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">Şekil 1. scikit-learn'ün make_moons verisinden aynı 400 nokta, üç ağaç türü, varsayılan ayarlar, her panelin üstünde eğitim doğruluğu.</figcaption>
         </figure>
 
-        <h2>Model listesinden daha çok önemsediğim iki şey</h2>
+        <p>Şekil 1'in sol paneli o merdiven. Ortadaki panel çok değişkenli ağaç: her soru özelliklerin ağırlıklı bir toplamı üzerine, dolayısıyla bir kesim herhangi bir açıda düz bir çizgi olabiliyor ve merdivenin bir düzine basamakla yaptığını iki kesim yapıyor. Sağdaki panel yumuşak ağaç ve bir şeyi daha değiştiriyor. Her kapıda nokta sola ya da sağa gönderilmiyor. Bir payı bir tarafa, kalanı öbür tarafa gidiyor; pay, ağırlıklı toplamın sigmoidi. Aynısı bir sonraki kapıda da oluyor, yani her nokta her yoldan oranıyla akıyor ve tahmin bütün yaprakların karışımı. Bunların hepsi türevlenebilir olduğu için ağacın tamamı gradyan inişiyle, bir sinir ağı nasıl eğitiliyorsa öyle eğitiliyor. İsimdeki "neural" bu, ve sınırın pürüzsüz çıkmasının sebebi de bu.</p>
 
-        <p><strong>Birincisi, her iddia ölçülüyor.</strong> README'deki kıyaslama tablosu CI'da yeniden üretiliyor ve bir hücre kayarsa derleme düşüyor. Makalelerin açık bıraktığı tasarım kararları (yumuşak ağaç nasıl büyümeli, yeni birim artıktan mı başlamalı, ne zaman durmalı) fikirle değil ölçümle karara bağlandı; aleyhime çıkanlar da belgelendi.</p>
+        <p>Eğitim doğrulukları panellerin üstünde yazıyor ve merdiven kazanıyor: 0.88'e karşı 0.97. Eğitim doğruluğu ezberleyen modeli ödüllendirir; yazıdaki şüpheyle okunması gereken ilk sayı bu. Asıl kıyaslamalar ileride, modellerin hiç görmediği veride.</p>
 
-        <p><strong>İkincisi, model kendini açıklayabiliyor.</strong> <code>explain()</code> tek bir tahmin için ağaçtaki yolu, her kapıyı belirleyen özellikleri ve cevabı çevirecek en küçük değişikliği veriyor; o değişiklik yeniden tahmin edilerek doğrulanıyor. Eğitilmiş ağaç yalnızca numpy ile tahmin yapan bir JSON dosyasına ve ONNX'e çıkıyor; ONNX'te bir tahmin yaklaşık 11 mikrosaniye sürüyor ve ne torch'a ne kütüphaneye ihtiyaç duyuyor.</p>
+        <h2>Adım 2. Kutuda Ne Var</h2>
+
+        <p>Beş model, tek bir scikit-learn arayüzü (fit, predict, predict_proba, sınıf ve örnek ağırlıkları) ve bir regresör. Birine gösterecek olsam şu sırayla:</p>
+
+        <ul>
+          <li><strong>SoftDecisionTree.</strong> Sağ paneldeki model; İrsoy, Yıldız ve Alpaydın'dan. Ya bir derinlik verirsiniz ya da her seferinde bir yaprak büyümesini ve ayrılmış bir doğrulama parçası "dur" deyince durmasını söylersiniz. Regresyon sürümü de var.</li>
+          <li><strong>MultivariateDecisionTree.</strong> Ortadaki panel: düz kesimler, sert kararlar, okunabilir ağırlıklar.</li>
+          <li><strong>OmnivariateDecisionTree</strong>, Yıldız ve Alpaydın'dan. Her düğümde tek özellikli, doğrusal ve doğrusal olmayan bölünme arasında istatistiksel bir testle seçim yapıyor; ağaç yalnızca o düğümdeki verinin gerektirdiği kadar karmaşık oluyor.</li>
+          <li><strong>HierarchicalMixtureOfExperts</strong>, Jordan ve Jacobs'tan. Yaprakları sabit değil küçük birer model olan bir yumuşak ağaç.</li>
+          <li><strong>GALNetwork</strong>, Alpaydın'dan. Hata yapınca bir birim ekleyen, artık ihtiyaç duymadığı birimleri çıkaran, yani kendi boyutuna kendisi karar veren bir ağ.</li>
+        </ul>
+
+        <p>Yanlarında birleşik 5x2cv F testi var, o da Alpaydın'ın; çünkü iki modelin tek bir eğitim-test bölünmesindeki farkı çoğunlukla gürültüdür ve bunu kullanıcıya bırakmak yerine kütüphanenin söylemesini istedim.</p>
+
+        <h2>Adım 3. Ayları Alan Kısım</h2>
+
+        <p>Modellerin dördü ilk yazıldığında çalışmıyordu; "yavaştı" demiyorum, çalışmıyordu. Uzman karışımı tek bir gradyan adımı atamıyordu. Omnivariate ağaç her girdi için aynı yaprağı döndürüyordu. GAL, düz bir çizgiyle ayrılan veride yazı tura seviyesindeydi. Her biri teşhis edildi, düzeltildi ve eski koda karşı düşen bir regresyon testi aldı; hata sessizce geri dönemez.</p>
+
+        <p>Bir de makalelerin açık bıraktığı, kütüphanenin vermek zorunda olduğu kararlar var. İlk anlatacağım, bir yumuşak ağacın nasıl büyümesi gerektiği. Bir ağacı derinleştirmenin doğal yolu bir yaprağı iki çocuğa bölmek ve ikisine de ebeveynin dağılımını vermek; böylece bölünme anında hiçbir şey değişmiyor ve eğitim devam ediyor. Ben de öyle yaptım ve yeni kapı hiçbir şey öğrenmedi. Sebep gradyanının küçük olması değil. İki çocuk tam olarak aynı şeyi tahmin ederken aralarında seçim yapan kapının gradyanı tam olarak sıfır; ilerleyeceği bir yön yok. Düzeltme tek satır: iki çocuğu artıktan, yani ebeveynin yanlış yaptığı kısımdan, zıt yönlere itilmiş olarak başlat. İspat ve ölçümler kütüphaneye eşlik eden makalede; aynı kusur yaprak yaprak büyümede de ortaya çıktı ve orada da düzeltildi.</p>
+
+        <p>Diğerleri aynı yolla karara bağlandı: alternatifler kıyaslama veri kümelerinde çalıştırıldı, kazanan kaldı. Büyüme sabit bir eşikte değil, ayrılmış verideki hatada duruyor; yeni GAL birimleri artıktan başlıyor; yumuşak kapılarda bir sıcaklık parametresi var ama varsayılan olarak kapalı, çünkü ölçülen etkisi karışıktı. Bunların her birinin belgeleme sitesinde bir tablosu var ve işe yaramayan alternatifler silinmedi, işe yaramadı diye yazıldı.</p>
+
+        <h2>Adım 4. Modeli Geri Okumak</h2>
 
         <figure style="margin:28px 0;">
           <a href="../../assets/img/neural-trees/moons-soft-tree.png" target="_blank" rel="noopener"><img src="../../assets/img/neural-trees/moons-soft-tree.png" alt="İki-ay verisine oturtulmuş bir yumuşak karar ağacının yapısı: yedi kapı, her birinde en büyük iki ağırlık ve oraya ulaşan verinin payı, kenarlarda dal olasılıkları, sınıfa göre renklenmiş yapraklar" style="width:100%;height:auto;border:1px solid #e3e8e5;border-radius:6px;" loading="lazy" /></a>
-          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">Yukarıdaki yumuşak ağacın gerçekte ne olduğu. Her kutu bir kapı: içinde en çok ağırlığı olan iki özellik ve oraya ulaşan verinin payı. Kenardaki sayı o dalı alma olasılığının ortalaması; kenar, içinden ne kadar veri akıyorsa o kadar kalın çizilmiş. Yapraklar tahmin ettikleri sınıfa göre renkli. Playground her model ve her veri kümesi için bu çizimi gösteriyor; açıklama da tek bir tahmin için aynı yapının içinde yürüyor.</figcaption>
+          <figcaption style="color:var(--muted);font-size:.92rem;margin-top:8px;">Şekil 2. Şekil 1'in sağ panelindeki yumuşak ağacın çizimi. Her kutu bir kapı; içinde en büyük iki ağırlık ve oraya ulaşan verinin payı var. Kenardaki sayı o dalı alma olasılığının ortalaması, kenar içinden ne kadar veri akıyorsa o kadar kalın. Yapraklar tahmin ettikleri sınıfın renginde. Tam boy açmak için tıklayın.</figcaption>
         </figure>
 
-        <h2>Dürüst bir sonuç</h2>
+        <p>Şekil 2, Şekil 1'deki ağacın gerçekte ne olduğu, ve küçük: yedi kapı, sekiz yaprak, her birinde iki ağırlık. Playground her model ve her veri kümesi için bu çizimi gösteriyor. Tek bir tahmin için <code>explain()</code> aynı yapıda yürüyor ve şu sırayla raporluyor:</p>
 
-        <p>24 veri kümesinde XGBoost, LightGBM, GRANDE ve NODE'a karşı, hiçbiri ayarlanmadan, yumuşak modeller küçük tablolarda (birkaç yüz satır) kazanıyor, binin üstünde kaybediyor. Binlerce satırınız varsa ve tek derdiniz doğruluksa LightGBM kullanın. Birkaç yüz satırınız varsa ve her kararı açıklamak zorundaysanız, bu on dakikanıza değer.</p>
+        <ol>
+          <li>tahmin edilen sınıf ve olasılığı;</li>
+          <li>o satırın çoğunu alan yaprak ve ne kadarını aldığı;</li>
+          <li>o yaprağa giden yoldaki her kapı: alınan yön, o yönün olasılığı ve kararı belirleyen iki üç özellik;</li>
+          <li>tahmin edilen sınıfı çeviren en küçük tek özellik değişikliği. Kütüphane bunu tahmin etmiyor. Özelliği oynatıyor, yeniden tahmin ediyor ve değişikliği yalnızca sınıf gerçekten değişirse raporluyor; o yolda hiçbir tek değişiklik çevirmiyorsa öyle diyor.</li>
+        </ol>
 
-        <p>İlk tam vaka çalışması herkese açık German Credit verisi üzerinde: 1.000 kredi başvurusu ve veri kümesinin kendi maliyet matrisi. Yumuşak ağaç doğrulukta, AUC'de ve maliyette lojistik regresyonla başa baş; üstüne küçük bir kural ağacı ve her başvuru için gerçek bir başvuranın ulaşabileceği bir karşı örnekle birlikte bir yol ekliyor. Ayarlanmamış boosting modelleri doğrulukta eşit, maliyette kaybediyor, çünkü olasılıkları kalibre değil ve maliyet ağırlıklı bir karar tam da kalibrasyonun bedelinin ödendiği yer. Kat kat sayılardan model belgesine kadar bütün paket tek bir betikten yeniden üretiliyor: <a href="https://github.com/cgrtml/neural-trees/blob/main/cases/german-credit/report.md">cases/german-credit</a>.</p>
+        <p>Bununla gelen iki dışa aktarma var. Eğitilmiş ağaç sert kurallar olarak okunabiliyor, her kapı bir evet-hayır kararı sayılarak; bu farklı bir model ve öyle raporlanıyor: kütüphane kuralların geldikleri ağaçla ne sıklıkla uyuştuğunu varsaymıyor, ölçüyor. Ağaç ayrıca yalnızca numpy ile tahmin yapan bir JSON dosyasına ve ONNX'e yazılabiliyor; ONNX'te tek satırın tahmini tek bir işlemci çekirdeğinde yaklaşık 11 mikrosaniye sürüyor ve ne torch'a ne kütüphaneye ihtiyaç duyuyor. Aynı makinede torch modeli 91 mikrosaniye.</p>
 
-        <h2>Nerede bulunur</h2>
+        <h2>Adım 5. Nerede Kazanıyor, Nerede Kaybediyor</h2>
 
-        <p>Kendi CSV ya da Excel dosyanızla tarayıcıda deneyebilirsiniz, kurulum yok: <a href="https://neural-trees.streamlit.app">neural-trees.streamlit.app</a>.</p>
+        <p>Dokuz model, 24 veri kümesi (alışılmış scikit-learn kümeleri ve OpenML'den yirmi tane, 5.000 satırla sınırlı), üç tohumla beş katlı çapraz doğrulama ve hiçbir şey ayarlanmadan: her model her yerde tek bir sabit yapılandırmada; yumuşak modeller de XGBoost, LightGBM, GRANDE ve NODE da.</p>
+
+        <p>24'ünün toplamında boosting toplulukları, Random Forest ve düz bir MLP önde, yumuşak modeller bir iki puan geride. Veri kümelerini boyuta göre ayırınca sıra tersine dönüyor. En fazla 1.000 satırı olan sekiz kümede GAL ayarlanmamış XGBoost'u hepsinde geçiyor, ortalama 2.9 puanla; yaprak yaprak büyüyen yumuşak ağaç sekizin yedisinde geçiyor, 2.1 puanla. 1.000 satırın üstünde XGBoost neredeyse her kıyaslamayı kazanıyor.</p>
+
+        <p>Üç uyarı, çünkü alıntılanacak paragraf yukarıdaki. 1.000 satırlık bölme noktası veriyi gördükten sonra seçildi. MLP de küçük kümelerde kazanıyor, yani bulgu şu: gradyan inişiyle eğitilen pürüzsüz modeller küçük tablolarda ayarlanmamış boosting'i geçiyor; yumuşak ağacın eklediği şey okunabilmesi. Ve o cümledeki "ayarlanmamış" kelimesi gerçekten iş görüyor; ayarlanmış bir LightGBM farkın bir kısmını kapatır, ne kadarını ölçmedim.</p>
+
+        <p>Kural kısa. Binlerce satırınız varsa ve tek derdiniz doğruluksa LightGBM kullanın.</p>
+
+        <h2>Adım 6. Her Kararın Açıklanmak Zorunda Olduğu Bir Tablo</h2>
+
+        <p>Kütüphaneyi yazma sebebim öbür durum, o yüzden onu herkese açık German Credit verisinde baştan sona çalıştırdım: 1.000 kredi başvurusu, 20 özellik, 700'ü geri ödemiş, 300'ü ödememiş. Veri kümesiyle birlikte bir maliyet matrisi geliyor. Sonradan kötü çıkan bir başvuranı kabul etmek 5'e, iyi çıkacak birini reddetmek 1'e mal oluyor. Bunu sonuna kadar götürün: beklenen maliyeti en aza indiren karar "P(kötü) yarımın üstündeyse reddet" değil, "P(kötü) altıda birin üstündeyse reddet"; çünkü kaçırılan bir kötü başvuru, reddedilen bir iyi başvurunun beş katına mal oluyor. Aşağıdaki her şey o eşikte ölçüldü.</p>
+
+        <p>Her model için aynı katlar, üç tohumla beş kat, hiçbir şey ayarlanmadan, altıda bir eşiğinde başvuru başına maliyet:</p>
+
+        <div style="overflow-x:auto;">
+        <table class="result-table">
+          <thead><tr><th>Model</th><th>Doğruluk</th><th>AUC</th><th>Başvuru başına maliyet</th></tr></thead>
+          <tbody>
+            <tr><td>Yumuşak ağaç, yaprak yaprak büyüyen</td><td>0.747</td><td>0.786</td><td>0.548</td></tr>
+            <tr><td>Lojistik regresyon</td><td>0.747</td><td>0.787</td><td>0.536</td></tr>
+            <tr><td>Random forest</td><td>0.763</td><td>0.794</td><td>0.544</td></tr>
+            <tr><td>XGBoost</td><td>0.749</td><td>0.775</td><td>0.625</td></tr>
+            <tr><td>LightGBM</td><td>0.746</td><td>0.775</td><td>0.710</td></tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>Yumuşak ağaç ile lojistik regresyon, ki bir kredi skor kartının altında yatan şey odur, bu veride birbirinden ayırt edilemiyor. Random forest 1.6 puan daha doğru ve daha ucuz değil; oraya varmak için başvuranların %71'ini reddediyor, yumuşak ağaç %59'unu. İki boosting modeli doğrulukta herkese yetişiyor, maliyette kaybediyor, ve sebebi takip etmeye değer, çünkü kalibrasyon lehine bütün argüman bu. Boosting olasılıklarını 0'a ve 1'e doğru itiyor. Bu veride LightGBM 1.000 başvurunun 604'ünü 0.1'in altına koydu ve onların %16'sı kötü çıktı; yumuşak ağacın olasılıkları gözlenen oranı aralık aralık izliyor, beklenen kalibrasyon hatası LightGBM'in 0.16'sına karşı 0.03. Eşik yarımken bu pek fark etmiyor. İş kararının verildiği altıda birde ise iki maliyet sütunu arasındaki fark tam olarak bu.</p>
+
+        <p>Yumuşak ağacın skor kartına eklediği şey, 3. ve 4. adımların sebebi. Son modelde iki yumuşak bölünme ve üç yaprak var; sert kural olarak okununca ayrılmış başvuruların %92'sinde modelle uyuşuyor. Her başvuru için yol var ve gerçek bir insanın uygulayabileceği bir karşı örnek var. Tam eşikte duran başvuran için meslek kategorisini "vasıflı"dan "vasıfsız, yerleşik"e çevirmek kararı eşiğin öbür tarafına geçiriyor, ve rapor bunu standartlaştırılmış birimlerle değil tablonun kendi kelimeleriyle söylüyor. Rapor kararları yaşa, cinsiyete ve yerleşikliğe göre de diliyor, çünkü bir denetçi dileyecek: 25 yaş altı başvuranlar %77 oranında reddediliyor, geri kalanlar %56; aynısı lojistik regresyonda da var, yani mesele model değil veri. Kat kat sayılardan model belgesine kadar her şey tek bir betikten yeniden üretiliyor: <a href="https://github.com/cgrtml/neural-trees/blob/main/cases/german-credit/report.md">cases/german-credit</a>.</p>
+
+        <h2>Kimin İçin</h2>
+
+        <p>Üç durum var ve cevap her birinde farklı.</p>
+
+        <p>Binlerce satırınız var ve doğrulukla ölçülüyorsunuz. Bu değil. LightGBM kullanın; biri neden diye sorarsa 5. adımdaki sayıları gösterin.</p>
+
+        <p>Birkaç yüz ile birkaç bin arasında satırınız var ve her karar birine açıklanmak zorunda: bir kredi reddi, bir klinik uyarı, bir denetim bulgusu. Kütüphane bunun için ve uyup uymadığını anlamaya on dakika yetiyor. Kendi CSV ya da Excel dosyanızı <a href="https://neural-trees.streamlit.app">neural-trees.streamlit.app</a> adresindeki playground'a yükleyin; 6. adımdaki kıyaslamayı sizin tablonuzda çalıştırıyor, kuralları ve açıklamaları gösteriyor, JSON ve ONNX dosyalarını veriyor. Yüklediğiniz hiçbir şey saklanmıyor.</p>
+
+        <p>Bu modelleri öğretiyor ya da çalışıyorsunuz. Her biri tek bir import uzağınızda; geldiği makale docstring'de yazıyor, uygulamanın makaleden ayrıldığı yerler sayılarıyla not edilmiş.</p>
 
         <ul>
           <li>Kod: <a href="https://github.com/cgrtml/neural-trees">github.com/cgrtml/neural-trees</a></li>
@@ -74,8 +146,7 @@
           <li>Arşivlenmiş sürüm: <a href="https://doi.org/10.5281/zenodo.22718897">doi.org/10.5281/zenodo.22718897</a></li>
         </ul>
 
-        <p>Birkaç yüz ile birkaç bin satır arasında, her kararın açıklanmak zorunda olduğu bir tablonuz varsa iki hafta içinde ücretsiz bir vaka çalışması yaparım; alacağınız şey yukarıdaki German Credit paketi. Issue ve pull request'e açığım; şimdiye kadar açılanların hepsi ölçülmüş bir raporla geldi, öyle kalsın isterim.</p>
-
+        <p>İkinci türden bir tablonuz varsa German Credit paketini onun üzerinde çalıştırırım, ücretsiz, iki hafta içinde; yukarıda bağlantısı verilen rapor tam olarak elinize geçecek şey. Issue ve pull request'e açığım; şimdiye kadar açılanların hepsi ölçülmüş bir raporla geldi, öyle kalmasını isterim.</p>
         <div class="giscus" style="margin-top:40px;"></div>
         <script src="https://giscus.app/client.js"
                 data-repo="cgrtml/cgrtml.github.io"
