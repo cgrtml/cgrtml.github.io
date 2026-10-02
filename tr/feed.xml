@@ -13,13 +13,13 @@
       <link>https://cagritemel.com/tr/blog/siniflandiriciyi-buyutmenin-dort-yolu.html</link>
       <guid isPermaLink="true">https://cagritemel.com/tr/blog/siniflandiriciyi-buyutmenin-dort-yolu.html</guid>
       <pubDate>Thu, 01 Oct 2026 22:00:00 GMT</pubDate>
-      <description>arXiv'deki makalem: bir yumuşak karar ağacını fonksiyonunu bozmadan derinleştirmenin apaçık yolu, yeni kapılara küçük değil tam olarak sıfır bir gradyan bırakıyor; eklenen seviye hiç öğrenmiyor. İspat, Iris, Wine ve Digits'teki bedeli, bedelin iki sınıflı problemlerde neden sıfır ve çok sınıflılarda neden onlarca puan olduğu, ve öbür üç büyüme kararının gerçekte ne satın aldığı.</description>
+      <description>arXiv'deki makalem: bir yumuşak karar ağacını fonksiyonunu bozmadan derinleştirmenin apaçık yolu, yeni kapılara küçük değil tam olarak sıfır bir gradyan bırakıyor; eklenen seviye hiç öğrenmiyor. İspat, Iris, Wine ve Digits'teki bedeli, bedelin iki sınıflı problemlerde neden sıfır ve çok sınıflılarda neden onlarca puan olduğu ve öbür üç büyüme kararının gerçekte ne satın aldığı.</description>
     </item>
       <title>neural-trees'i Yazdım. Artık Başkaları Kullanabilir. Ne Yapıyor, Ne Yapmıyor.</title>
       <link>https://cagritemel.com/tr/blog/neural-trees-hazir.html</link>
       <guid isPermaLink="true">https://cagritemel.com/tr/blog/neural-trees-hazir.html</guid>
       <pubDate>Mon, 28 Sep 2026 18:00:00 GMT</pubDate>
-      <description>Gradyan inişiyle eğitilen ağaç modelleri için scikit-learn uyumlu bir kütüphane: yumuşak, çok değişkenli ve omnivariate ağaçlar, hiyerarşik uzman karışımı ve büyüyen bir ağ. Her iddia CI'da yeniden üretiliyor, her tahminin yolu ve doğrulanmış karşı örneği var, model JSON ve ONNX'e çıkıyor, ve dürüst kıyaslama nerede kaybettiğini söylüyor.</description>
+      <description>Gradyan inişiyle eğitilen ağaç modelleri için scikit-learn uyumlu bir kütüphane: yumuşak, çok değişkenli ve omnivariate ağaçlar, hiyerarşik uzman karışımı ve büyüyen bir ağ. Her iddia CI'da yeniden üretiliyor, her tahminin yolu ve doğrulanmış karşı örneği var, model JSON ve ONNX'e çıkıyor ve dürüst kıyaslama nerede kaybettiğini söylüyor.</description>
     </item>
       <title>Depo robotu durdu, arkasındaki işçi ona çarptı. Peki neden durduğunu kim bulabilir?</title>
       <link>https://cagritemel.com/tr/blog/robot-neden-durdu.html</link>
