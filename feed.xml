@@ -9,6 +9,12 @@
     <language>en</language>
     <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
     <item>
+      <title>Four Ways to Grow a Classifier, and Why the Safest One Cannot Learn</title>
+      <link>https://cagritemel.com/blog/four-ways-to-grow-a-classifier.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/blog/four-ways-to-grow-a-classifier.html</guid>
+      <pubDate>Thu, 01 Oct 2026 22:00:00 GMT</pubDate>
+      <description>My paper on arXiv: the obvious way to deepen a soft decision tree without changing its function leaves the new gates with a gradient that is exactly zero, not small, so the added level never learns. The proof, what it cost on Iris, Wine and Digits, why the cost is zero on two-class problems and tens of points on multi-class ones, and what the other three growth decisions actually buy.</description>
+    </item>
       <title>I Built neural-trees. It Is Ready for Other People. Here Is What It Does and What It Does Not.</title>
       <link>https://cagritemel.com/blog/neural-trees-ready-for-other-people.html</link>
       <guid isPermaLink="true">https://cagritemel.com/blog/neural-trees-ready-for-other-people.html</guid>

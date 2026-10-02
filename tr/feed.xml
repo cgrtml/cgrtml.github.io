@@ -9,6 +9,12 @@
     <language>tr</language>
     <lastBuildDate>Thu, 27 Aug 2026 18:00:00 GMT</lastBuildDate>
     <item>
+      <title>Bir Sınıflandırıcıyı Büyütmenin Dört Yolu ve En Güvenli Görüneninin Neden Hiç Öğrenemediği</title>
+      <link>https://cagritemel.com/tr/blog/siniflandiriciyi-buyutmenin-dort-yolu.html</link>
+      <guid isPermaLink="true">https://cagritemel.com/tr/blog/siniflandiriciyi-buyutmenin-dort-yolu.html</guid>
+      <pubDate>Thu, 01 Oct 2026 22:00:00 GMT</pubDate>
+      <description>arXiv'deki makalem: bir yumuşak karar ağacını fonksiyonunu bozmadan derinleştirmenin apaçık yolu, yeni kapılara küçük değil tam olarak sıfır bir gradyan bırakıyor; eklenen seviye hiç öğrenmiyor. İspat, Iris, Wine ve Digits'teki bedeli, bedelin iki sınıflı problemlerde neden sıfır ve çok sınıflılarda neden onlarca puan olduğu, ve öbür üç büyüme kararının gerçekte ne satın aldığı.</description>
+    </item>
       <title>neural-trees'i Yazdım. Artık Başkaları Kullanabilir. Ne Yapıyor, Ne Yapmıyor.</title>
       <link>https://cagritemel.com/tr/blog/neural-trees-hazir.html</link>
       <guid isPermaLink="true">https://cagritemel.com/tr/blog/neural-trees-hazir.html</guid>
