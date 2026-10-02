@@ -47,16 +47,20 @@
 
         <h2>Adım 1. Burada "Büyümek" Ne Demek</h2>
 
-        <p>Bir yumuşak karar ağacı, her iç düğümü bir kapı olan tam bir ikili ağaç: özelliklerin ağırlıklı toplamının sigmoidi, her örneğin bir payını sola kalanını sağa gönderiyor. Her yaprak bir sınıf dağılımı tutuyor ve tahmin, örneğin her yaprağa ne kadarının ulaştığıyla ağırlıklanmış yaprak karışımı. Bunların hepsi türevlenebilir olduğu için ağacın tamamı gradyan inişiyle eğitiliyor; eğitilince de ağacı eğitim sırasında büyütmek ayrı bir algoritma olmaktan çıkıp bir tasarım tercihi oluyor.</p>
+        <p>Kredi memurunu hatırlayın. Sıradan bir karar ağacı o memur gibi çalışır: her düğümde tek bir soru, evet ya da hayır, ve her başvuran tek bir yola gider. Yumuşak karar ağacında soru aynı ama cevap bir oran. "Vade 24 aydan uzun mu" sorusuna 25 aylık bir başvuran yüzde seksen evet, yüzde yirmi hayır diye geçer; 60 aylık bir başvuran neredeyse tamamen evet tarafına gider. Oran, vadenin eşikten ne kadar uzakta olduğuna bağlı pürüzsüz bir eğridir, teknik adıyla sigmoid. Ağacın en altındaki her yaprakta bir karar durur, mesela "yüzde yetmiş iyi, yüzde otuz kötü". Bir başvuranın sonucu, ulaştığı bütün yaprakların, oraya ne kadar ulaştığıyla ağırlıklı karışımıdır.</p>
 
-        <p>Makale böyle dört tercihe bakıyor. Üçü kapasite ekliyor: ağaca koca bir seviye, bir ağa bir gizli birim, tek bir yaprağa bir bölünme. Dördüncüsü her düğümde o düğümün hangi tür bölünme alacağını seçiyor. Sırayla:</p>
+        <p>Bunun sonucu şu: her soru ve her yaprak pürüzsüz birer sayıdan oluştuğu için ağacın tamamı bir sinir ağı gibi, gradyan inişiyle eğitilebilir. Ve eğitilebilen bir ağacı eğitim sırasında büyütmek de mümkün hale gelir: yeni bir soru eklersiniz, eğitim devam eder, yeni soru da öğrenir. Makalede "büyümek" bu: modele eğitim sürerken yapı eklemek.</p>
+
+        <p>Ekleme dört şekilde yapılabilir, makale dördünü de ölçüyor:</p>
 
         <ol>
-          <li>Eğitilmiş bir ağacı hesapladığı fonksiyonu değiştirmeden bir seviye derinleştirmek.</li>
-          <li>Yeni bir gizli birimi rastgele kurmak yerine önce ağın artık hatasına oturtup sonra kurmak.</li>
-          <li>Koca bir seviye yerine her seferinde tek yaprağı, en çok beklenen hatayı taşıyanı bölmek.</li>
-          <li>Bir düğüme daha ifade gücü yüksek bir bölünmeyi yalnızca iyileşme istatistiksel olarak anlamlıysa vermek.</li>
+          <li><strong>Bir seviye birden eklemek.</strong> Ağacın bütün yapraklarının altına aynı anda birer soru koymak, hem de ağacın verdiği cevaplar o an hiç değişmeyecek şekilde. Hikâyenin kahramanı bu.</li>
+          <li><strong>Yeni bir nöronu hazırlayıp eklemek.</strong> Bu karar ağaçla değil, büyüyen bir sinir ağıyla ilgili. Ağ tıkanınca yeni bir gizli birim ekleniyor; soru, o birimi rastgele mi kurmalı, yoksa önce ağın yaptığı hatalara oturtup sonra mı eklemeli.</li>
+          <li><strong>Tek bir yaprağı bölmek.</strong> Seviye yerine her seferinde yalnızca bir yaprağın altına soru koymak, o da en çok hatanın biriktiği yaprak. Daha küçük ağaçlar vaat ediyor.</li>
+          <li><strong>Sorunun türünü seçmek.</strong> Bir düğümdeki soru tek bir özelliğe bakabilir ("vade 24'ten uzun mu"), birkaç özelliğin ağırlıklı toplamına bakabilir ya da doğrusal olmayan bir sınır çizebilir. Daha güçlü soruyu yalnızca ölçülebilir bir iyileşme getiriyorsa seçmek, kulağa tutumlu geliyor.</li>
         </ol>
+
+        <p>Dördü de makul. Üçü bir şey verip bir şey alıyor; biri hiçbir şey öğrenmiyor.</p>
 
         <h2>Adım 2. Herkesin İlk Yazdığı İşlem</h2>
 

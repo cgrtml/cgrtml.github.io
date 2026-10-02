@@ -47,16 +47,20 @@
 
         <h2>Step 1. What "grow" means here</h2>
 
-        <p>A soft decision tree is a complete binary tree in which every internal node is a gate, a sigmoid of a weighted sum of the features, that sends a share of each sample left and the rest right. Every leaf holds a class distribution, and the prediction is the mixture of the leaves weighted by how much of the sample reached each one. Because all of that is differentiable, the whole tree trains by gradient descent, and once it does, growing it during training stops being a separate algorithm and becomes a design choice.</p>
+        <p>Keep the credit officer in mind. An ordinary decision tree works like that officer: one question at each node, yes or no, and every applicant takes exactly one path. A soft decision tree asks the same question but answers with a share. To "is the term longer than 24 months", a 25-month applicant passes eighty percent yes and twenty percent no; a 60-month applicant goes almost entirely to the yes side. The share is a smooth curve of how far the term sits from the threshold, a sigmoid. At the bottom of the tree every leaf holds a verdict, say "seventy percent good, thirty percent bad", and an applicant's result is the mixture of every leaf they reached, weighted by how much of them reached it.</p>
 
-        <p>The paper looks at four such choices. Three add capacity: a whole level to the tree, a hidden unit to a network, a split at one leaf. The fourth chooses, at each node, which kind of split the node gets. In order:</p>
+        <p>The consequence is this. Because every question and every leaf is made of smooth numbers, the whole tree can be trained like a neural network, by gradient descent. And a tree that trains that way can be grown while it trains: add a question, keep training, the new question learns too. That is what "grow" means in the paper: adding structure to a model while training is under way.</p>
+
+        <p>There are four ways to add it, and the paper measures all four:</p>
 
         <ol>
-          <li>Deepen a trained tree by one level without changing what it computes.</li>
-          <li>Fit a new hidden unit to the network's residual error before installing it, instead of installing it at random.</li>
-          <li>Split one leaf at a time, the leaf carrying the most expected error, instead of a whole level.</li>
-          <li>Give a node a more expressive split only when the improvement is statistically significant.</li>
+          <li><strong>Add a whole level at once.</strong> Put a new question under every leaf of the tree at the same time, arranged so that the tree's answers do not change at that moment. This is the one the story is about.</li>
+          <li><strong>Prepare a new neuron before adding it.</strong> This one is about a growing neural network rather than a tree. When the network stalls it adds a hidden unit; the question is whether to install that unit at random or to fit it to the network's current mistakes first.</li>
+          <li><strong>Split a single leaf.</strong> Instead of a level, put a question under one leaf at a time, the leaf where the most error has collected. It promises much smaller trees.</li>
+          <li><strong>Choose the kind of question.</strong> A node's question can look at one feature ("is the term longer than 24 months"), at a weighted sum of several, or draw a curved boundary. Taking the more powerful question only when it brings a measurable improvement sounds like the frugal choice.</li>
         </ol>
+
+        <p>All four are reasonable. Three give something and take something; one learns nothing at all.</p>
 
         <h2>Step 2. The operation everyone writes first</h2>
 
