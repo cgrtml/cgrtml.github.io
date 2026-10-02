@@ -37,7 +37,7 @@
         <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">October 1, 2026</p>
         <h1 style="margin-bottom:.4em;">Four Ways to Grow a Classifier, and Why the Safest One Cannot Learn</h1>
 
-        <p>arXiv has just published a paper of mine: <a href="https://arxiv.org/abs/2610.00180">Four Ways to Grow a Classifier and Why One of Them Cannot Learn</a>, arXiv:2610.00180. This post is the paper told in order, with the numbers, for someone who would rather read twenty minutes of prose than twelve pages of LaTeX. It is also the account of how the paper came to exist, because that part explains its shape.</p>
+        <p>arXiv has just published a paper of mine: <a href="https://arxiv.org/abs/2610.00180">Four Ways to Grow a Classifier and Why One of Them Cannot Learn</a>, arXiv:2610.00180. What follows is the paper in order, with the numbers, and the account of how it came to exist, because that part explains its shape.</p>
 
         <p>It was not designed as a study. While building <a href="https://github.com/cgrtml/neural-trees">neural-trees</a>, a scikit-learn compatible library of tree models that train by gradient descent, I had to settle four implementation questions about models that grow while they train. For each I wrote down the sensible-sounding option, implemented it, and measured it against the thing it was meant to improve on, under one fixed protocol. Three of the four traded one quantity for another. The fourth could not learn at all, and that one had a cause that could be proved rather than read off a table. That is the paper.</p>
 
