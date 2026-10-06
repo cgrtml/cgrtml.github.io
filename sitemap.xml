@@ -58,6 +58,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://cagritemel.com/blog/agent-gate-measured-without-a-model.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/agent-gate-measured-without-a-model.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/ajan-kapisini-modelsiz-olctum.html"/>
+    <lastmod>2026-10-06</lastmod>
+  </url>
+  <url>
+    <loc>https://cagritemel.com/tr/blog/ajan-kapisini-modelsiz-olctum.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/agent-gate-measured-without-a-model.html"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/ajan-kapisini-modelsiz-olctum.html"/>
+    <lastmod>2026-10-06</lastmod>
+  </url>
+  <url>
     <loc>https://cagritemel.com/blog/four-ways-to-grow-a-classifier.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://cagritemel.com/blog/four-ways-to-grow-a-classifier.html"/>
     <xhtml:link rel="alternate" hreflang="tr" href="https://cagritemel.com/tr/blog/siniflandiriciyi-buyutmenin-dort-yolu.html"/>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bir Ajan Kapısını Döngüde Model Olmadan Ölçtüm. Neyi Yakalıyor, Neye Mal Oluyor. · Cagri Temel</title>
+  <meta name="description" content="ReasonGate'in arkasındaki makale, artık Zenodo'da. Araç çağrıları üzerinde bir köken kapısı; tamamen ele geçirilmiş ajanı AgentDojo'da hiç model olmadan yeniden oynatarak ölçüldü: saldırı başarısı %95.6'dan %3.1'e, bedeli kullanıcının kendi görevlerinden 34 puan, gerçek MCP sunucularının önünde neye mal olduğu, kendi kapımda bulunan on dört kusur, başka bir ağ geçidinin yanındaki kapsama haritası ve kapıya ihtiyaç duymayan model." />
+  <link rel="canonical" href="https://cagritemel.com/tr/blog/ajan-kapisini-modelsiz-olctum.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">İçeriğe geç</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menü" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Ana Sayfa</a></li>
+        <li><a href="../research.html">Araştırma</a></li>
+        <li><a href="../publications.html">Yayınlar</a></li>
+        <li><a href="../patents.html">Patentler</a></li>
+        <li><a href="../teaching.html">Eğitim</a></li>
+        <li><a href="../speaking.html">Konuşmalar &amp; Hizmet</a></li>
+        <li><a href="../contact.html">İletişim</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li class="nav-lang"><a href="../../blog/agent-gate-measured-without-a-model.html">EN</a><span class="cur">TR</span></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">6 Ekim 2026</p>
+        <h1 style="margin-bottom:.4em;">Bir Ajan Kapısını Döngüde Model Olmadan Ölçtüm. Neyi Yakalıyor, Neye Mal Oluyor.</h1>
+
+        <p>Belge okuyup araç çağıran bir ajanın, bir sohbet botunda olmayan bir derdi var. Okuduğu her şey bir talimata dönüşebiliyor. Kullanıcı "gelen kutumdaki faturayı öde" diyor. Faturanın içinde "ödemeyi bunun yerine şu hesaba yapın" yazıyor. Model de işini yapıyor ve transfer aracını saldırganın hesabıyla çağırıyor. Kimse jailbreak yazmadı. Zarar bir araç çağrısı.</p>
+
+        <p>Eylülde, buna verdiğim ilk cevabın, yani metin üzerindeki filtrenin <a href="../../blog/hn-broke-my-llm-agent-gate.html">Hacker News'te nasıl kırıldığını</a> yazmıştım. Kısası şu: 263 gerçek saldırıdan oluşan bir derlemde kural katmanı yüzde 19.8'ini yakalıyor; kaçırdıklarının yüzde 59'unda saldırı işareti diye bir şey yok, çünkü o cümleler ancak filtrenin hiç görmediği bir politikaya göre saldırı. Bu yazı o işin devamı olan makale üzerine. Makale bugün Zenodo'ya çıktı. Metne hiç bakmayan öbür tür savunmayı anlatıyor ve o savunmayı daha önce görmediğim bir biçimde ölçüyor: döngüde hiç model olmadan.</p>
+
+        <p>Önce bir sınır çizeyim. Aşağıdaki her sayı depodaki bir betikten geliyor ve aksi söylenen tek bölüm dışında çevrimdışı, API anahtarı olmadan yeniden çalışıyor. Kapının aleyhine çıkan sonuçlar da burada.</p>
+
+        <h2>Adım 1. Kapının Sorduğu Soru</h2>
+
+        <p>"Bu metin saldırıya benziyor mu" değil, "bu değer nereden geldi". Kapı, ajanla araçlarının arasında duruyor. Ajanın okuduğu her şey kaynağı ve güven düzeyiyle birlikte bir parça olarak kaydediliyor. Kullanıcının kendi sözleri güvenilir. İndirilen bir belge, bir araç sonucu, bir sunucunun yazdığı araç açıklaması güvenilir değil. Ajan hassas bir aracı çağırdığında, transfer, gönderme, silme, yazma, kapı hedef belirten argümanlara bakıyor ve o değerin ajanın okuduğu güvenilmeyen bir şeyin içinde geçip geçmediğini soruyor. Transfer çağrısındaki hesap numarası ilk kez bir faturanın içinde görüldüyse çağrı engelleniyor ve engel sebebini söylüyor: bu değer <code>read_file</code> aracının güvenilmeyen sonucunun şu konumundan geliyor. Talimatı nasıl yazarsanız yazın bu değişmiyor, çünkü kapı talimatı hiç okumadı.</p>
+
+        <p>Mekanizmanın tamamı bu. Üç iyileştirme onu kullanılabilir yaptı ve makale her birini ayrı ayrı ölçüyor: eşleşme noktalama işaretlerinin ve base64'ün içinden de çalışıyor; temiz argümanlarla üretilen bir sonuç güvenilmez değil tarafsız sayılıyor; kullanıcının onayı eylemi kapsıyor, enjeksiyonun o eylem için seçtiği değeri asla kapsamıyor.</p>
+
+        <h2>Adım 2. Bir Savunma Modelsiz Nasıl Ölçülür</h2>
+
+        <p>Alışılmış yöntem, bir modelle ajanı bir kıyaslama kümesinde çalıştırıp saldırının kaç kez başardığını saymak. Sorun şu: modelin kendi reddetmeleri de o sayının içinde. Saldırı başarısız olduysa kapı mı durdurdu, model mi istemedi, bilemiyorsunuz.</p>
+
+        <p>Bu tehdit için yapılmış kıyaslama kümesi AgentDojo, her kullanıcı görevi ve her enjeksiyon görevi için gerçek araç dizisini de veriyor: tamamen itaatkâr bir ajanın yapacağı çağrılar. Ben de onu yeniden oynattım. 609 kullanıcı görevi ve enjeksiyon görevi çiftinin her birinde kapı önce kullanıcının çağrılarını, sonra saldırganınkileri görüyor, tam ele geçirilmiş bir ajan nasıl yapacaksa tam öyle; geçenleri de kıyaslama kümesinin kendi denetleyicileri puanlıyor. Model yok, API maliyeti yok, sonuç belirlenimci ve her çift tek tek izlenebilir. Bir muhasebe kuralını doğru yapmam zaman aldı: kapının ajana ulaşmasını engellediği bir enjeksiyon, mesela engellenen bir araç sonucunun içinde duruyorsa, yeniden oynatılmamalı. Yoksa savunma, zaten önlediği saldırılara karşı puanlanıyor.</p>
+
+        <h2>Adım 3. Neyi Yakalıyor, Neye Mal Oluyor</h2>
+
+        <table class="result-table">
+          <thead><tr><th>Ayar</th><th>Temiz trafikte tamamlanan kullanıcı görevi</th><th>Saldırı başarısı</th></tr></thead>
+          <tbody>
+            <tr><td>Kapı yok</td><td>%100.0</td><td>%95.6</td></tr>
+            <tr><td>İz, beyan edilmiş hedefler</td><td>%66.0</td><td>%3.1</td></tr>
+            <tr><td>İz, enjeksiyon vektörü başına güven haritasıyla</td><td>%69.1</td><td>%3.8</td></tr>
+            <tr><td>Katı: güvenilmeyen veri kapsamdayken her hassas çağrı</td><td>%41.2</td><td>%0.0</td></tr>
+          </tbody>
+        </table>
+
+        <p>İkinci satır makalenin manşeti ve üçüncü sütun işin kolay yarısı. Zor yarısı, içinde hiç saldırı olmayan trafikte kullanıcının kaybettiği 34 puan; makale o 34 puana 3.1'den daha çok sayfa ayırıyor.</p>
+
+        <p>O puanlar nereye gidiyor? Gelin bir vakayı izleyelim. Kullanıcı "gelen kutumdaki faturayı öde" diyor. Ajan faturayı okuyor, IBAN'ı oradan alıyor ve transferi çağırıyor. IBAN güvenilmeyen bir belgeden çıktı, dolayısıyla kapı meşru bir ödemeyi engelliyor. 97 kullanıcı görevinin yaklaşık üçte biri böyle: meşru hedef, saldırganın yazdığı depoda yaşıyor. Faydayı geri almak için yalnızca enjeksiyonun gerçekten ulaşabildiği araçları güvenilmez saymayı denedim; hangileri olduğunu her enjeksiyon vektörüne bir kanarya koyarak mekanik olarak buldum. Üç puan geri geldi. Bedel uygulamanın değil tehdit modelinin özelliği ve makale bunu iddia etmek yerine gösteriyor.</p>
+
+        <p>Engellemek tek cevap değil. MCP sarmalayıcısı izli çağrıyı kanıt satırıyla birlikte protokolün elicitation mekanizması üzerinden kullanıcıya da sorabiliyor. Aynı 609 çiftte bu, görev başına 0.51 soru demek. Kabul edilebilir mi, dağıtıma bağlı; iki sayının da raporlanma sebebi bu.</p>
+
+        <h2>Adım 4. Gerçek Sunucuların Önünde</h2>
+
+        <p>Her enjeksiyonun hedefini adıyla yazdığı bir kıyaslama kümesi, hedef denetimi için yapılmış bir kıyaslama kümesidir. O yüzden ağ geçidini gerçek MCP sunucularının önünde, içinde saldırı olmayan sıradan işte de çalıştırdım ve kesintileri saydım.</p>
+
+        <table class="result-table">
+          <thead><tr><th>Sunucu</th><th>Görev başına soru</th><th>Kesilen görev</th></tr></thead>
+          <tbody>
+            <tr><td>dosya sistemi, 12 görev</td><td>0.00</td><td>12'de 0</td></tr>
+            <tr><td>git, 6 görev</td><td>0.00</td><td>6'da 0</td></tr>
+            <tr><td>posta ve takvim, 10 görev</td><td>0.40</td><td>10'da 4</td></tr>
+            <tr><td>operasyon yönetim paneli, 10 görev</td><td>0.40</td><td>10'da 4</td></tr>
+          </tbody>
+        </table>
+
+        <p>İki sıfır zayıf kanıt. O sunucular hiçbir yere hiçbir şey göndermiyor ve hedef üzerindeki bir kontrolün hedef olmayan yerde yapacak işi yok. Son iki satır hedef denetiminin iş yaptığı yer ve orada on görevin dördünü kesiyor; dördü de kuralın tam olarak söylediğini yapması: alıcısı gelen kutusundan çıkan bir yanıt, etkinlik kimliği bir listelemeden çıkan bir takvim değişikliği. Bir dağıtım sahip olduğu hedeflere kefil olabiliyor, kendi posta alan adına mesela. Posta sunucusunda bu, bedeli 0.40'tan 0.10'a indiriyor. Yönetim panelinde 0.20'de duruyor, çünkü dört değerin ikisi hesap kimliği ve saldırganın dikte ettiği hesap gerçek hesaplarla aynı kimlik uzayında oturuyor. Bir izin listesi "kendi alan adımız" diyebiliyor. "Kendi defterimiz" diyemiyor.</p>
+
+        <h2>Adım 5. İnsansız Politika</h2>
+
+        <p>Kapının hangi araçların hassas, hangi argümanların hedef olduğunu bilmesi gerekiyor. Bunu elle yazmak entegrasyonların öldüğü yer; o yüzden ağ geçidi bunu araç şemalarından taslaklıyor. AgentDojo'nun 74 aracında taslak, özenli bir el beyanıyla her çiftte ve her yapılandırmada birebir aynı sonucu verdi. Benim seçmediğim bir derlem olan InjecAgent'ın 330 aracında ise kıyaslama kümesinin saldırgana verdiği 63 aracın 14'ünü kaçırdı ve isimler sebebini söylüyor: <code>UnlockDoor</code>, <code>Deposit</code>, <code>GoToRoom</code>, <code>ManageTrafficLightState</code>, <code>ManagePatientRecords</code>. Çıkarım send, transfer, delete ve post fiillerini biliyor. Akıllı kilidin ya da hastanenin fiillerini bilmiyor. Taslaklama yazma işini kaldırıyor. Yargıyı kaldırmıyor.</p>
+
+        <h2>Adım 6. Kendi Kapımda Kırılanlar</h2>
+
+        <p>Hedef denetimi iki dizenin aynı yeri göstermesine dayanıyor ve buna kapı değil alıcı araç karar veriyor. Eşleştirici üzerinden üç geçiş sekiz kusur buldu. Saldırganın hedefinin bir yeniden yazımı, düzeltilene kadar saldırı başarısını ikiye katladı. Bir başkası, yoldaki tek bir nokta-nokta parçasıyla saldırganın dosyasını gerçek dosya sistemi sunucusu üzerinden diske yazdırdı, çünkü sunucu yolu normalleştirdi, kapı ise dizeyi karşılaştırdı. Bir başkası, bir URL'nin userinfo kısmı üzerinden saldırgana giden bir isteği şirkete giden bir istek gibi okuttu. Üçüncü geçiş örnekleme yerine sayıyor: tek bir hedefin 41 yazımı, her biri iki yazımın aynı yere gidip gitmediğini belirtiyor ve CI'da çalışıyor.</p>
+
+        <p>Sonra ağ geçidini saldırılara karşı değil protokole karşı okudum ve kümedeki hiçbir saldırının ulaşmadığı altı kusur daha buldum. İlki, bir güvenlik kontrolünün sahip olmasına izin verilmeyen hata. Denetim kaydı engelleme yolunun içinde yazılıyordu, aktarım katmanı her istisnayı geçişe çeviriyordu ve yazılamayan bir denetim dosyası, engellenen çağrıyı teslim edilen çağrıya dönüştürüyordu. Denetim yolunu bir dizine göstererek ölçtüm: saldırganın postası gitti. Bu hafta da protokolün kendi izleyicisindeki bir tartışmanın tetiklediği üçüncü bir okuma, ağ geçidinin araç açıklamalarıyla araç sonuçlarını kaydettiğini ve sunucunun döndürdüğü başka hiçbir şeyi kaydetmediğini gösterdi: ne sunucunun bağlantı anında gönderdiği instructions alanını ne de bir kaynak okumasından dönen metni. Kaynak olarak çekilen zehirli bir belge kapının yanından geçip gidiyordu. Hepsi düzeltildi, her kusur önceki commit'te düşen bir testle ve hepsi makalede; çünkü kendi sınırının nerede yanlış olduğunu yazmayan bir savunma makalesi, yazandan daha az değerli.</p>
+
+        <h2>Adım 7. Bir Kapsama Haritası, Üstünde Başka Bir Ağ Geçidiyle</h2>
+
+        <p>Bir puan, aracın yapmadığını gizliyor; o yüzden makale puan yerine harita yayımlıyor ve değerlendirme herhangi bir MCP ağ geçidini zaten olduğu komut olarak kabul ediyor. Trail of Bits'in mcp-context-protector'ını içinden geçirdim.</p>
+
+        <table class="result-table">
+          <thead><tr><th>Ağ geçidi</th><th>Sıradan iş</th><th>dikte edilen hedef</th><th>sızdırma</th><th>açıklamada talimat</th><th>halı çekme</th><th>sunucular arası</th><th>eklenen araç</th></tr></thead>
+          <tbody>
+            <tr><td>yok</td><td>12/12</td><td>geçti</td><td>geçti</td><td>geçti</td><td>geçti</td><td>geçti</td><td>geçti</td></tr>
+            <tr><td>bu kapı, iz</td><td>12/12</td><td>durdu</td><td>durdu</td><td>durdu</td><td>durdu</td><td>geçti</td><td>geçti</td></tr>
+            <tr><td>bu kapı, paylaşılan oturum</td><td>12/12</td><td>durdu</td><td>durdu</td><td>durdu</td><td>durdu</td><td>durdu</td><td>geçti</td></tr>
+            <tr><td>mcp-context-protector</td><td>12/12</td><td>geçti</td><td>geçti</td><td>geçti</td><td>durdu</td><td>geçti</td><td>durdu</td></tr>
+          </tbody>
+        </table>
+
+        <p>İki ağ geçidi farklı sorulara cevap veriyor. Onlarınki sunucu bütünlüğü: araç listesi siz onayladıktan sonra değişti mi. Benimki köken: bu değer nereden geldi. Eklenen araç sütunu, bir köken kapısının yapısı gereği ulaşamayacağı bir sütun; halı çekme sütununu ise benimki yalnızca tesadüfen durduruyor, çünkü değiştirilen açıklama bir adres yazmıştı. Tablo ikisini yan yana söylüyor.</p>
+
+        <h2>Adım 8. Ürünü Yeniden Çerçeveleyen Sonuç</h2>
+
+        <p>Çağırabildiğim modellerle bankacılık kümesinde saldırı başarısı kapı olmadan da zaten sıfır. Claude Haiku 4.5 ile 144 çift, Sonnet 4.5 ile 36 çift ve hiçbiri saldırgana para göndermedi. Enjeksiyon 144 bölümün 117'sinde modele ulaştı ve model reddetti. Yani bugün kapı, üretemediğim bir arızaya karşı sigorta ve fiyatı belli: o kümede kullanıcı görevlerinin 12.5 puanı. Bence dürüst satış şekli bu. Yeniden oynatma, modelin yargısının çöktüğü gün ne olacağını gösteriyor, 95.6'dan 3.1'e; model koşusu ise o güne kadar her gün ne ödeyeceğinizi.</p>
+
+        <h2>Hâlâ Açık Olanlar</h2>
+
+        <p>İz, değerleri karşılaştırıyor. Hedefini yazmak yerine tarif eden bir enjeksiyon, "bu yazışmanın imza bloğundaki adres", karşılaştıracak bir şey bırakmıyor ve altı tarif biçiminin üçü geçiyor. Hedefin kullanıcının adlandırdığı ya da dağıtımın izin verdiği bir hedef olmasını şart koşmak altısını da kapatıyor ama pek çok dağıtım o listeyi yazamıyor. Meşru taraftaki apaçık onarım, kullanıcının sözlerini taşıyan bir kaydı kullanıcının kendi sözü saymak, saldırı başarısını 3.1'den 15.3'e çıkardı ve ürüne konmak yerine olumsuz sonuç olarak yayımlandı. Bir de bütün bunlar tek kişi tarafından, o kişinin seçtiği kıyaslama kümelerinde ölçüldü. Yöntem depoda duruyor, başkası farklı seçebilsin diye.</p>
+
+        <ul>
+          <li>Makale: <a href="https://doi.org/10.5281/zenodo.23178080">doi.org/10.5281/zenodo.23178080</a></li>
+          <li>Kod, ölçüm düzeneği ve çift başına veri: <a href="https://github.com/cgrtml/reasongate">github.com/cgrtml/reasongate</a></li>
+          <li>Kurulum: <code>pip install reasongate</code>, sonra <code>reasongate-mcp -- &lt;MCP sunucu komutunuz&gt;</code></li>
+        </ul>
+
+        <div class="giscus" style="margin-top:40px;"></div>
+        <script src="https://giscus.app/client.js"
+                data-repo="cgrtml/cgrtml.github.io"
+                data-repo-id="R_kgDOS-Gdjw"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOS-Gdj84DFsQd"
+                data-mapping="pathname"
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="preferred_color_scheme"
+                data-lang="tr"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async></script>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Tüm yazılara dön</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>

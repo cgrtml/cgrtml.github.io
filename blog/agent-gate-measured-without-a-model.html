@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Measured an Agent Gate Without a Model in the Loop. Here Is What It Catches, and What It Costs. · Cagri Temel</title>
+  <meta name="description" content="The paper behind ReasonGate, now on Zenodo. A provenance gate on tool calls, measured by replaying the fully hijacked agent through AgentDojo with no model at all: attack success from 95.6% to 3.1%, 34 points of the user's own tasks as the price, what it costs in front of real MCP servers, the fourteen defects found in my own gate, a coverage map next to another gateway, and the model that did not need it." />
+  <link rel="canonical" href="https://cagritemel.com/blog/agent-gate-measured-without-a-model.html" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="../index.html" class="nav-brand">Cagri Temel</a>
+      <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../research.html">Research</a></li>
+        <li><a href="../publications.html">Publications</a></li>
+        <li><a href="../patents.html">Patents</a></li>
+        <li><a href="../teaching.html">Teaching</a></li>
+        <li><a href="../speaking.html">Speaking &amp; Service</a></li>
+        <li><a href="../blog.html" class="active">Blog</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li class="nav-lang"><span class="cur">EN</span><a href="../tr/blog/ajan-kapisini-modelsiz-olctum.html">TR</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose" style="max-width:720px;">
+        <p class="meta" style="color:var(--muted);font-style:italic;margin-bottom:6px;">October 6, 2026</p>
+        <h1 style="margin-bottom:.4em;">I Measured an Agent Gate Without a Model in the Loop. Here Is What It Catches, and What It Costs.</h1>
+
+        <p>An agent that reads documents and calls tools has a problem a chatbot does not have. Whatever it reads can turn into an instruction. The user asks it to pay the invoice in the inbox. The invoice says "pay to this account instead". The model, doing its job, calls the transfer tool with the attacker's account. Nobody typed a jailbreak. The damage is a tool call.</p>
+
+        <p>In September I wrote about <a href="hn-broke-my-llm-agent-gate.html">what Hacker News taught me about my first answer to this</a>, a filter on the text. The short version: on a corpus of 263 real attacks the rule layer catches 19.8 per cent, and 59 per cent of what it misses carries no attack marker at all, because those sentences are attacks only relative to a policy the filter never sees. This post is about the paper that came out of that work. It went up on Zenodo today. It describes the other kind of defence, one that does not look at the text, and it measures that defence in a way I had not seen done before: with no model in the loop at all.</p>
+
+        <p>One boundary first. Every number below comes from a script in the repository and re-runs offline, without an API key, except for the one section that says otherwise. Where a result went against the gate, it is in here too.</p>
+
+        <h2>Step 1. The question the gate asks</h2>
+
+        <p>Not "does this text look like an attack" but "where did this value come from". The gate sits between the agent and its tools. Everything the agent reads is recorded as a segment with a source and a trust level. The user's own words are trusted. A fetched document, a tool result, a tool description written by a server are not. When the agent calls a sensitive tool, a transfer, a send, a delete, a write, the gate looks at the arguments that name a destination and asks whether that value appears in anything untrusted the agent has read. If the account number in the transfer call was first seen inside an invoice, the call is blocked, and the block says why: this value originates from the untrusted result of <code>read_file</code>, at this position. Rewording the instruction changes nothing, because the gate never read the instruction.</p>
+
+        <p>That is the whole mechanism. Three refinements made it usable, and the paper measures each one on its own: the match works through punctuation and through base64; a result produced from clean arguments counts as neutral rather than untrusted; and the user's authorisation covers the action, never the value an injection chose for it.</p>
+
+        <h2>Step 2. How to measure a defence without a model</h2>
+
+        <p>The usual way to evaluate this is to run an agent with a model on a benchmark and count how often the attack succeeds. The trouble is that the model's own refusals are inside that number. When the attack fails, you do not know whether the gate stopped it or the model declined.</p>
+
+        <p>AgentDojo, the benchmark built for this threat, ships the ground-truth tool sequence for every user task and every injection task: the calls a fully obedient agent would make. So I replayed that. For each of 609 pairs of a user task and an injection task, the gate sees the user's calls and then the attacker's, exactly as a completely hijacked agent would make them, and the benchmark's own checkers score what got through. No model, no API cost, a deterministic result, and every pair attributable on its own. One accounting rule took me a while to get right: an injection the gate kept from reaching the agent, because it sat in a tool result the gate blocked, must not be replayed. Otherwise the defence is scored against attacks it had already prevented.</p>
+
+        <h2>Step 3. What it catches, and what it costs</h2>
+
+        <table class="result-table">
+          <thead><tr><th>Setting</th><th>User's tasks completed, clean traffic</th><th>Attack success</th></tr></thead>
+          <tbody>
+            <tr><td>No gate</td><td>100.0%</td><td>95.6%</td></tr>
+            <tr><td>Taint, declared destinations</td><td>66.0%</td><td>3.1%</td></tr>
+            <tr><td>Taint, with a trust map per injection vector</td><td>69.1%</td><td>3.8%</td></tr>
+            <tr><td>Strict: any sensitive call while untrusted data is in scope</td><td>41.2%</td><td>0.0%</td></tr>
+          </tbody>
+        </table>
+
+        <p>The second row is the paper's headline, and the third column is the easy half of it. The hard half is the 34 points the user loses on traffic with no attack in it, and the paper spends more pages on those 34 points than on the 3.1.</p>
+
+        <p>Where do they go? Follow one case. The user says "pay the bill in my inbox". The agent reads the bill, takes the IBAN from it and calls the transfer. The IBAN came out of an untrusted document, so the gate blocks a legitimate payment. About a third of the 97 user tasks are like this: the legitimate destination lives in the same store the attacker writes into. I tried to buy the utility back by marking as untrusted only the tools an injection can actually reach, found mechanically by putting a canary in every injection vector. That recovered three points. The cost is a property of the threat model rather than of the implementation, and the paper shows that instead of asserting it.</p>
+
+        <p>Blocking is not the only answer. The MCP wrapper can put the tainted call to the user instead, with the evidence line, through the protocol's elicitation mechanism. On the same 609 pairs that comes to 0.51 questions per task. Whether that is acceptable depends on the deployment, which is why both numbers are reported.</p>
+
+        <h2>Step 4. In front of real servers</h2>
+
+        <p>A benchmark in which every injection names its target is a benchmark built for a destination check. So I also ran the gateway in front of real MCP servers, on ordinary work with no attack in it, and counted the interruptions.</p>
+
+        <table class="result-table">
+          <thead><tr><th>Server</th><th>Questions per task</th><th>Tasks interrupted</th></tr></thead>
+          <tbody>
+            <tr><td>filesystem, 12 tasks</td><td>0.00</td><td>0 of 12</td></tr>
+            <tr><td>git, 6 tasks</td><td>0.00</td><td>0 of 6</td></tr>
+            <tr><td>mail and calendar, 10 tasks</td><td>0.40</td><td>4 of 10</td></tr>
+            <tr><td>operations admin panel, 10 tasks</td><td>0.40</td><td>4 of 10</td></tr>
+          </tbody>
+        </table>
+
+        <p>The two zeros are weak evidence. Those servers send nothing anywhere, and a control on destinations has nothing to do where there are none. The last two rows are where a destination check has work, and there it interrupts four tasks in ten, each of them the rule doing exactly what it says: a reply whose recipient came out of the inbox, a calendar change whose event id came out of a listing. A deployment can vouch for the destinations it owns, its own mail domain for instance. On the mail server that takes the cost from 0.40 to 0.10. On the admin panel it stops at 0.20, because two of the four values are account identifiers, and the account the attacker dictates sits in the same identifier space as the real ones. An allowlist can say "our own domain". It cannot say "our own ledger".</p>
+
+        <h2>Step 5. Policies without a human</h2>
+
+        <p>The gate has to know which tools are sensitive and which arguments are destinations. Writing that down by hand is where integrations die, so the gateway drafts it from the tool schemas. On AgentDojo's 74 tools the draft matched a careful hand declaration on every pair and every configuration. On InjecAgent's 330 tools, a corpus I did not choose, it missed fourteen of the sixty-three tools that benchmark hands the attacker, and the names say why: <code>UnlockDoor</code>, <code>Deposit</code>, <code>GoToRoom</code>, <code>ManageTrafficLightState</code>, <code>ManagePatientRecords</code>. The inference knows send, transfer, delete and post. It does not know the verbs of a smart lock or of a hospital. Drafting removes the typing. It does not remove the judgement.</p>
+
+        <h2>Step 6. What broke in my own gate</h2>
+
+        <p>A destination check depends on two strings meaning the same place, and the receiving tool decides that, not the gate. Three passes over the matcher found eight defects. One rewrite of the attacker's destination doubled attack success until it was fixed. Another wrote the attacker's file to disk through the real filesystem server, with a single dot-dot segment in the path, because the server normalised the path and the gate compared the string. Another made a request to the attacker read as a request to the company, through the userinfo part of a URL. The third pass enumerates instead of sampling: 41 spellings of one destination, each stating whether the two spellings reach the same place, and it runs in CI.</p>
+
+        <p>Then I read the gateway against the protocol instead of against the attacks, and found six more defects that no attack in the suite reaches. The first is the one a security control is not allowed to have. The audit record was written inside the block path, the transport turned any exception into a pass-through, and an audit file that could not be written turned a blocked call into a delivered one. I measured it by pointing the audit path at a directory: the attacker's mail arrived. And this week, prompted by a thread on the protocol's own issue tracker, a third reading found that the gateway recorded tool descriptions and tool results and nothing else a server returns: not the instructions field a server sends at connection, not the text that comes back from a resource read. A poisoned document fetched as a resource walked past the gate entirely. All of it is fixed, each defect with a test that fails on the previous commit, and all of it is in the paper, because a defence paper that leaves out where its own boundary was wrong is worth less than one that says so.</p>
+
+        <h2>Step 7. A coverage map, with another gateway on it</h2>
+
+        <p>A score hides what a tool does not do, so the paper publishes a map instead, and the evaluation accepts any MCP gateway as the command it already is. I ran Trail of Bits' mcp-context-protector through it.</p>
+
+        <table class="result-table">
+          <thead><tr><th>Gateway</th><th>Ordinary work</th><th>dictated</th><th>exfiltration</th><th>line-jump</th><th>rug-pull</th><th>cross-server</th><th>added-tool</th></tr></thead>
+          <tbody>
+            <tr><td>none</td><td>12/12</td><td>through</td><td>through</td><td>through</td><td>through</td><td>through</td><td>through</td></tr>
+            <tr><td>this gate, taint</td><td>12/12</td><td>stopped</td><td>stopped</td><td>stopped</td><td>stopped</td><td>through</td><td>through</td></tr>
+            <tr><td>this gate, shared session</td><td>12/12</td><td>stopped</td><td>stopped</td><td>stopped</td><td>stopped</td><td>stopped</td><td>through</td></tr>
+            <tr><td>mcp-context-protector</td><td>12/12</td><td>through</td><td>through</td><td>through</td><td>stopped</td><td>through</td><td>stopped</td></tr>
+          </tbody>
+        </table>
+
+        <p>The two gateways answer different questions. Theirs is server integrity: did the tool list change after you approved it. Mine is provenance: where did this value come from. The added-tool column is one a provenance gate cannot reach by construction, and the rug-pull column is one mine stops only incidentally, because the swapped description happened to name an address. The table says both, side by side.</p>
+
+        <h2>Step 8. The result that reframes the product</h2>
+
+        <p>With the models I can call, attack success on the banking suite is already zero with no gate at all. Claude Haiku 4.5 over 144 pairs, Sonnet 4.5 over 36, and none of them sent money to the attacker. The injection reached the model in 117 of the 144 episodes, and the model declined. So today the gate is insurance against a failure I could not produce, and it has a price: 12.5 points of the user's tasks on that suite. I think that is the honest way to sell it. The replay shows what happens on the day the model's judgement fails, 95.6 down to 3.1, and the model run shows what you pay every day until then.</p>
+
+        <h2>What is still open</h2>
+
+        <p>Taint compares values. An injection that describes its destination instead of writing it, "the address in the signature block of this thread", leaves nothing to compare, and three of six description styles get through. Requiring a destination to be one the user named or the deployment allowed closes all six, and many deployments cannot write that list. The obvious repair on the legitimate side, treating a record as the user's own when it carries the user's words, took attack success from 3.1 to 15.3 per cent, and is published as a negative result rather than shipped. And all of this was measured by one person on benchmarks that person chose. The method is in the repository so that someone else can choose differently.</p>
+
+        <ul>
+          <li>Paper: <a href="https://doi.org/10.5281/zenodo.23178080">doi.org/10.5281/zenodo.23178080</a></li>
+          <li>Code, harness and per-pair data: <a href="https://github.com/cgrtml/reasongate">github.com/cgrtml/reasongate</a></li>
+          <li>Install: <code>pip install reasongate</code>, then <code>reasongate-mcp -- &lt;your MCP server command&gt;</code></li>
+        </ul>
+
+        <div class="giscus" style="margin-top:40px;"></div>
+        <script src="https://giscus.app/client.js"
+                data-repo="cgrtml/cgrtml.github.io"
+                data-repo-id="R_kgDOS-Gdjw"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOS-Gdj84DFsQd"
+                data-mapping="pathname"
+                data-strict="1"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="preferred_color_scheme"
+                data-lang="en"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async></script>
+
+        <p style="margin-top:32px;"><a href="../blog.html">&larr; Back to all posts</a></p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>&copy; 2026 Cagri Temel</span>
+      <span><a href="https://cagritemel.com">cagritemel.com</a></span>
+    </div>
+  </footer>
+</body>
+</html>
