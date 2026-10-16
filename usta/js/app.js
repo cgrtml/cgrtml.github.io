@@ -122,7 +122,7 @@ async function saveActivity(patch = {}) {
 
 // ---------- kabuk ----------
 const NAV = [
-  ['bugun', '☀️', 'Bugün'], ['tekrar', '🔁', 'Tekrar'], ['gorev', '🛠️', 'Görev'], ['ders', '📘', 'Ders'],
+  ['bugun', '☀️', 'Bugün'], ['tekrar', '🔁', 'Tekrar'], ['ogren', '🎓', 'Öğren'], ['gorev', '🛠️', 'Görev'], ['ders', '📘', 'Kapanış'],
   ['ingilizce', '🗣️', 'İngilizce'], ['gelisim', '📈', 'Gelişim'], ['mufredat', '🧭', 'Müfredat'],
   ['resume', '📄', 'Resume'], ['gecmis', '🗂️', 'Geçmiş'], ['ayarlar', '⚙️', 'Ayarlar'],
 ];
@@ -174,8 +174,8 @@ ROUTES.bugun = async (main) => {
   const [fbToday, fbPrev] = await Promise.all([
     gh.readText(`days/${S.dayDate}/feedback.md`), prev ? gh.readText(`days/${prev}/feedback.md`) : null,
   ]);
-  const icon = { review: '🔁', ticket: '🛠️', lesson: '📘', english: '🗣️' };
-  const link = { review: '#/tekrar', ticket: '#/gorev', lesson: '#/ders', english: '#/ingilizce' };
+  const icon = { review: '🔁', learn: '🎓', ticket: '🛠️', lesson: '📘', english: '🗣️' };
+  const link = { review: '#/tekrar', learn: '#/ogren', ticket: '#/gorev', lesson: '#/ders', english: '#/ingilizce' };
   const blockDone = (b) => (b.kind === 'lesson' ? !!a.lesson?.done : !!a[b.kind]?.done);
   const total = p.blocks.filter((b) => b.minutes).length, doneN = p.blocks.filter((b) => b.minutes && blockDone(b)).length;
   main.innerHTML = `
@@ -190,7 +190,7 @@ ROUTES.bugun = async (main) => {
       ${p.blocks.map((b) => `
         <div class="block ${blockDone(b) ? 'done' : ''}">
           <div class="ico">${blockDone(b) ? '✓' : icon[b.kind] || '•'}</div>
-          <div><div class="t">${esc(b.title)}</div><div class="faint">${b.minutes ? b.minutes + ' dk' : 'teslimden sonra açılır'}${b.kind === 'review' ? ` · ${due} kart bekliyor` : ''}</div></div>
+          <div><div class="t">${esc(b.title)}</div><div class="faint">${b.minutes ? b.minutes + ' dk' : ''}${b.unlock === 'after_ticket' && !a.ticket?.done ? `${b.minutes ? ' · ' : ''}teslimden sonra açılır` : ''}${b.kind === 'review' ? ` · ${due} kart bekliyor` : ''}${b.kind === 'learn' && !blockDone(b) ? ' · önce bunu oku' : ''}</div></div>
           <a class="btn ${blockDone(b) ? '' : 'primary'} small" href="${link[b.kind]}">${blockDone(b) ? 'Aç' : 'Başla'}</a>
         </div>`).join('')}
       </div>
@@ -211,6 +211,23 @@ function streak() {
 }
 
 // ---------- TEKRAR (FSRS) ----------
+const REVIEW_HELP = `**Ne:** Öğrendiğin her şey bir karta dönüşür. Kart, tam unutmak üzereyken karşına tekrar gelir. Buna *aralıklı tekrar* denir.
+
+**Neden:** Beyin bir bilgiyi okuyarak değil, **hatırlamaya çalışarak** kalıcı yapar. Zorlanarak hatırladığın her seferde unutma süresi uzar: önce 1 gün, sonra 3, sonra 10, sonra aylar. Böylece öğrendiğin hiçbir şey kaybolmaz, ama zaten çok iyi bildiğin şeylerle de vakit kaybetmezsin.
+
+**Nasıl:**
+1. Kartın ön yüzünü oku. Cevabı **açmadan önce** kafanda ya da sesli olarak tam kur. "Galiba biliyorum" yetmez.
+2. *Cevabı göster*'e bas (ya da boşluk tuşu) ve kendi cevabınla karşılaştır.
+3. Dürüstçe puanla:
+   - **Again (1):** bilemedin ya da yanlış bildin. Kart bugün tekrar gelir.
+   - **Hard (2):** bildin ama çok zorlandın.
+   - **Good (3):** biraz düşünerek doğru bildin. En sık basacağın tuş bu.
+   - **Easy (4):** hiç düşünmeden bildin.
+   Butonların altındaki süre kartın bir sonraki gelişini gösterir.
+4. Yazma kartında cevabı kutuya yaz ve Enter'a bas. Konuşma kartında mikrofona söyle.
+
+**Dürüstlük kuralı:** Bilmediğine "Good" dersen kart aylarca gelmez ve o bilgi kaybolur. "Again" demek başarısızlık değil, sistemin çalışma şekli.`;
+
 function buildQueue() {
   const t = todayLA();
   const st = S.srs.cards;
@@ -274,7 +291,8 @@ ROUTES.tekrar = async (main) => {
         </div>
         <div class="row" id="revealRow" style="margin-top:auto;padding-top:16px"><button class="btn primary" id="reveal">Cevabı göster <kbd>boşluk</kbd></button></div>
       </div>
-      <p class="faint">Önce cevabı zihninde (ya da sesli) kur, sonra aç. Dürüst puan ver: sistem buna göre tekrar zamanlar.</p>`;
+      <p class="faint">Önce cevabı zihninde (ya da sesli) kur, sonra aç. Dürüst puan ver: sistem buna göre tekrar zamanlar.</p>
+      <details class="card learnbox" ${S.srs.log.length < 40 ? 'open' : ''}><summary>🎓 Tekrar nasıl çalışır?</summary><div class="md">${md(REVIEW_HELP)}</div></details>`;
     const front = $('#front'), back = $('#back'), inter = $('#interact');
     if (c.type === 'cloze') front.innerHTML = md(clozeFront(c.front, false));
     else front.innerHTML = md(c.front);
@@ -359,6 +377,20 @@ function pronounce(target, out, btn, onDone) {
   });
 }
 
+// ---------- ÖĞREN ----------
+ROUTES.ogren = async (main) => {
+  const lb = S.plan?.blocks?.find((b) => b.kind === 'learn');
+  if (!lb) { main.innerHTML = '<div class="card">Bugün ayrı bir öğretim sayfası yok. Doğrudan <a href="#/gorev">göreve</a> geç.</div>'; return; }
+  const text = await gh.readText(`days/${S.dayDate}/${lb.file}`);
+  const done = !!S.activity.blocks.learn?.done;
+  main.innerHTML = `
+    <div class="row between"><span class="pill accent">🎓 Öğren</span><a class="btn small" href="#/gorev">Bileti yan sekmede aç ↗</a></div>
+    <div class="card md" style="margin-top:10px">${md(text || '_Öğretim dosyası yok._')}</div>
+    <div class="card row between"><span>Adımları yaptın ve testlerin geçiyor mu? Şimdi bilete dön, teslimi yap.</span><button class="btn primary" id="lrn">${done ? 'Göreve git →' : 'Öğrendim, göreve geç →'}</button></div>`;
+  $$('a[href="#/gorev"]', main)[0].onclick = (e) => { e.preventDefault(); window.open(`${location.pathname}#/gorev`, '_blank'); };
+  $('#lrn').onclick = () => guard(async () => { if (!done) await saveActivity({ blocks: { learn: { done: true, at: new Date().toISOString() } } }); location.hash = '#/gorev'; });
+};
+
 // ---------- GÖREV ----------
 ROUTES.gorev = async (main) => {
   if (!S.plan?.ticket) { main.innerHTML = '<div class="card">Bugün bilet yok.</div>'; return; }
@@ -367,7 +399,9 @@ ROUTES.gorev = async (main) => {
     gh.readText(`days/${S.dayDate}/ticket.md`), gh.readText(subPath('pr.md')), gh.listDir(tk.deliver?.replace(/\/$/, '') || `work/${tk.id}`),
   ]);
   const done = !!S.activity.blocks.ticket?.done;
+  const needLearn = S.plan.blocks?.some((b) => b.kind === 'learn') && !S.activity.blocks.learn?.done;
   main.innerHTML = `
+    ${needLearn ? '<div class="card" style="border-color:var(--accent)"><div class="row between"><span><b>Önce Öğren sayfası.</b> Bu biletteki her adım orada sıfırdan, nedenleriyle anlatılıyor.</span><a class="btn primary small" href="#/ogren">Öğren\'e git</a></div></div>' : ''}
     <div class="row between"><span class="pill accent">${esc(tk.id)}</span>${done ? '<span class="pill ok">Teslim edildi</span>' : '<span class="pill">Açık</span>'}</div>
     <div class="card md" style="margin-top:10px">${md(ticket || '_Bilet dosyası bulunamadı._')}</div>
     <div class="card stack">
@@ -400,14 +434,14 @@ ROUTES.ders = async (main) => {
   if (!lb) { main.innerHTML = '<div class="card">Bugün ders yok.</div>'; return; }
   const unlocked = lb.unlock !== 'after_ticket' || S.activity.blocks.ticket?.done;
   if (!unlocked) {
-    main.innerHTML = `<h1>${esc(lb.title)}</h1><div class="card"><h2>🔒 Önce dene</h2>
-      <p>Bu ders, biletteki işi kendi başına denedikten sonra açılır. Önce kendi çözümünü üretmek, sonradan okuduğun her şeyin kalıcılığını belirgin şekilde artırır.</p>
-      <div class="row"><a class="btn primary" href="#/gorev">Bilete git</a></div></div>`;
+    main.innerHTML = `<h1>${esc(lb.title)}</h1><div class="card"><h2>🔒 Teslimden sonra açılır</h2>
+      <p>Kapanış dersi kendi kodunu kontrol etmen, kararların nedenini pekiştirmen ve bu konunun mülakatta nasıl sorulduğunu görmen için. Önce Öğren sayfasındaki adımları bitir ve bileti teslim et.</p>
+      <div class="row"><a class="btn" href="#/ogren">Öğren</a><a class="btn primary" href="#/gorev">Bilete git</a></div></div>`;
     return;
   }
   const text = await gh.readText(`days/${S.dayDate}/${lb.file}`);
   main.innerHTML = `<div class="card md">${md(text || '_Ders dosyası yok._')}</div>
-    <div class="card row between"><span>Dersi bitirdin mi? Kendi kodunla karşılaştırdıysan işaretle.</span><button class="btn primary" id="ld" ${S.activity.blocks.lesson?.done ? 'disabled' : ''}>${S.activity.blocks.lesson?.done ? 'Okundu ✓' : 'Okudum'}</button></div>`;
+    <div class="card row between"><span>Kontrol listesini kendi kodunda uyguladın mı?</span><button class="btn primary" id="ld" ${S.activity.blocks.lesson?.done ? 'disabled' : ''}>${S.activity.blocks.lesson?.done ? 'Okundu ✓' : 'Okudum'}</button></div>`;
   $('#ld').onclick = () => guard(async () => { await saveActivity({ blocks: { lesson: { done: true } } }); $('#ld').disabled = true; $('#ld').textContent = 'Okundu ✓'; }, 'İşaretlendi');
 };
 
@@ -419,13 +453,42 @@ ROUTES.ingilizce = async (main, tab = 'telaffuz') => {
   main.innerHTML = `
     <div class="row between"><h1 style="margin:0">İngilizce</h1><span class="pill accent">Odak: ${esc(E.focus || '-')}</span></div>
     ${!sp.hasRecognition ? '<div class="card" style="border-color:var(--warn)">Bu tarayıcıda konuşma tanıma yok. Telaffuz ve konuşma için Chrome ya da Safari (macOS/iOS) kullan.</div>' : ''}
+    <div id="enIntro"></div>
     <div class="tabs" style="margin-top:14px">${tabs.map(([id, t]) => `<button data-t="${id}" class="${id === tab ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div id="enLearn"></div>
     <div id="pane"></div>
-    <div class="card row between"><span>15 dakikalık İngilizce bloğunu bitirdin mi?</span><button class="btn primary" id="endone" ${S.activity.blocks.english?.done ? 'disabled' : ''}>${S.activity.blocks.english?.done ? 'Tamam ✓' : 'Bitirdim'}</button></div>`;
+    <div class="card row between"><span>İngilizce bloğunu bitirdin mi?</span><button class="btn primary" id="endone" ${S.activity.blocks.english?.done ? 'disabled' : ''}>${S.activity.blocks.english?.done ? 'Tamam ✓' : 'Bitirdim'}</button></div>`;
   $$('.tabs button').forEach((b) => (b.onclick = () => { location.hash = `#/ingilizce/${b.dataset.t}`; }));
   $('#endone').onclick = () => guard(async () => { await saveActivity({ blocks: { english: { done: true } } }); $('#endone').disabled = true; $('#endone').textContent = 'Tamam ✓'; }, 'Kaydedildi');
+  const lf = S.plan.blocks?.find((b) => b.kind === 'english')?.learn_file;
+  if (lf) {
+    const sec = splitLearn(await gh.readText(`days/${S.dayDate}/${lf}`));
+    const key = (id) => `usta.enl.${S.dayDate}.${id}`;
+    const box = (id, title, body) => {
+      let closed = false; try { closed = localStorage.getItem(key(id)) === '0'; } catch {}
+      return `<details class="card learnbox" data-k="${id}" ${closed ? '' : 'open'}><summary>🎓 ${esc(title)}</summary><div class="md">${md(body)}</div></details>`;
+    };
+    if (sec.intro) $('#enIntro').innerHTML = box('intro', 'Bugünkü İngilizce bloğu nasıl çalışır?', sec.intro);
+    const cur = sec.parts.find((x) => x.id.startsWith(tab === 'kelime' ? 'kelime' : tab));
+    if (cur) $('#enLearn').innerHTML = box(tab, `Önce öğren: ${cur.title}`, cur.body);
+    $$('details.learnbox', main).forEach((d) => d.addEventListener('toggle', () => { try { localStorage.setItem(key(d.dataset.k), d.open ? '1' : '0'); } catch {} }));
+  }
   await (EN_TABS[tab] || EN_TABS.telaffuz)($('#pane'), E);
 };
+
+function splitLearn(text) {
+  const out = { intro: '', parts: [] };
+  if (!text) return out;
+  const chunks = text.split(/^## /m);
+  out.intro = chunks.shift().trim();
+  for (const c of chunks) {
+    const nl = c.indexOf('\n');
+    const title = (nl < 0 ? c : c.slice(0, nl)).trim();
+    const id = title.toLocaleLowerCase('tr').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ı/g, 'i');
+    out.parts.push({ id, title, body: nl < 0 ? '' : c.slice(nl + 1).trim() });
+  }
+  return out;
+}
 
 async function appendJSON(file, item) {
   const cur = (await gh.readJSON(subPath(file), [])) || [];
@@ -667,22 +730,23 @@ ROUTES.gecmis = async (main) => {
 
 ROUTES.gun = async (main, date, tab = 'geri') => {
   if (!date) { location.hash = '#/gecmis'; return; }
-  const [plan, ticket, lesson, feedback, writing, pr, speaking] = await Promise.all([
+  const [plan, ticket, lesson, feedback, writing, pr, speaking, learn] = await Promise.all([
     gh.readJSON(`days/${date}/plan.json`, null), gh.readText(`days/${date}/ticket.md`), gh.readText(`days/${date}/lesson.md`),
     gh.readText(`days/${date}/feedback.md`), gh.readText(`days/${date}/submission/writing.md`), gh.readText(`days/${date}/submission/pr.md`),
-    gh.readJSON(`days/${date}/submission/speaking.json`, null),
+    gh.readJSON(`days/${date}/submission/speaking.json`, null), gh.readText(`days/${date}/learn.md`),
   ]);
   const act = date === S.dayDate ? S.activity : await gh.readJSON(`days/${date}/submission/activity.json`, {});
   const lessonOpen = !(plan?.blocks || []).some((b) => b.kind === 'lesson' && b.unlock === 'after_ticket') || act?.blocks?.ticket?.done || date < S.dayDate;
   const panes = {
     geri: feedback ? md(feedback) : '<p class="muted">Değerlendirme bir sonraki sabah 07:00 (Pacific) rutininde yazılır.</p>',
+    ogren: md(learn || '_yok_'),
     bilet: md(ticket || '_yok_'),
     ders: lessonOpen ? md(lesson || '_yok_') : '<p class="muted">🔒 Bilet teslim edilmeden açılmaz.</p>',
     teslim: `<h3>PR açıklaması</h3>${pr ? md(pr) : '<p class="muted">yok</p>'}<h3>Yazı</h3>${writing ? `<pre style="white-space:pre-wrap">${esc(writing.replace(/^<!--[\s\S]*?-->\n?/, ''))}</pre>` : '<p class="muted">yok</p>'}<h3>Konuşma dökümü</h3>${speaking ? `<p>${esc(speaking.transcript)}</p><p class="faint">${speaking.seconds} sn · ${speaking.wpm} wpm</p>` : '<p class="muted">yok</p>'}`,
   };
   main.innerHTML = `
     <div class="faint">${esc(fmtDate(date))}</div><h1>Gün ${esc(plan?.day ?? '?')} · ${esc(plan?.title || '')}</h1>
-    <div class="tabs">${[['geri', 'Değerlendirme'], ['bilet', 'Bilet'], ['ders', 'Ders'], ['teslim', 'Teslimlerin']].map(([id, t]) => `<button data-t="${id}" class="${id === tab ? 'on' : ''}">${t}</button>`).join('')}</div>
+    <div class="tabs">${[['geri', 'Değerlendirme'], ['ogren', 'Öğren'], ['bilet', 'Bilet'], ['ders', 'Kapanış'], ['teslim', 'Teslimlerin']].map(([id, t]) => `<button data-t="${id}" class="${id === tab ? 'on' : ''}">${t}</button>`).join('')}</div>
     <div class="card md" id="pane">${panes[tab] || panes.geri}</div>`;
   $$('.tabs button').forEach((b) => (b.onclick = () => { $$('.tabs button').forEach((x) => x.classList.toggle('on', x === b)); $('#pane').innerHTML = panes[b.dataset.t]; }));
 };
