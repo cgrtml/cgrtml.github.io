@@ -22,8 +22,8 @@ async function guard(fn, okMsg) {
   catch (e) { console.error(e); toast('Hata: ' + e.message, 4500); return undefined; }
 }
 
-const DECK_LABEL = { ai: 'AI kavram', code: 'Kod', 'en-vocab': 'Kelime', 'en-phrase': 'İş İngilizcesi', 'en-pron': 'Telaffuz', 'en-grammar': 'Dilbilgisi' };
-const DECK_ORDER = ['ai', 'en-pron', 'code', 'en-vocab', 'en-phrase', 'en-grammar'];
+const DECK_LABEL = { ai: 'AI kavram', proj: 'Projelerim', code: 'Kod', 'en-vocab': 'Kelime', 'en-phrase': 'İş İngilizcesi', 'en-pron': 'Telaffuz', 'en-grammar': 'Dilbilgisi' };
+const DECK_ORDER = ['ai', 'proj', 'en-pron', 'code', 'en-vocab', 'en-phrase', 'en-grammar'];
 
 // ---------- durum ----------
 const S = {
@@ -151,7 +151,7 @@ function updateDueBadge() {
 const ROUTES = {};
 async function route() {
   const hash = location.hash.replace(/^#\/?/, '') || 'bugun';
-  const [name, arg] = hash.split('/');
+  const [name, arg, arg2] = hash.split("/");
   $$('.nav a').forEach((a) => a.classList.toggle('on', a.dataset.r === name || (name === 'gun' && a.dataset.r === 'gecmis')));
   $('#side')?.classList.remove('open');
   sp.hasTTS && speechSynthesis.cancel();
@@ -161,7 +161,7 @@ async function route() {
   old.replaceWith(main);
   main.innerHTML = '<p class="muted">Yükleniyor…</p>';
   window.scrollTo(0, 0);
-  await guard(() => (ROUTES[name] || ROUTES.bugun)(main, arg));
+  await guard(() => (ROUTES[name] || ROUTES.bugun)(main, arg, arg2));
 }
 
 // ---------- BUGÜN ----------
@@ -707,11 +707,12 @@ ROUTES.mufredat = async (main) => {
 };
 
 // ---------- RESUME ----------
-ROUTES.resume = async (main, tab = 'resume') => {
-  const tabs = [['resume', 'Resume'], ['acik', 'Açıklar'], ['kanit', 'Kanıtlar']];
+ROUTES.resume = async (main, tab = 'resume', arg2) => {
+  const tabs = [['resume', 'Resume'], ['projeler', 'Projelerim'], ['prova', 'Mülakat provası'], ['acik', 'Açıklar'], ['kanit', 'Kanıtlar']];
   main.innerHTML = `<h1>Resume</h1><div class="tabs">${tabs.map(([id, t]) => `<button data-t="${id}" class="${id === tab ? 'on' : ''}">${t}</button>`).join('')}</div><div id="pane"><p class="muted">Yükleniyor…</p></div>`;
   $$('.tabs button').forEach((b) => (b.onclick = () => { location.hash = `#/resume/${b.dataset.t}`; }));
   const pane = $('#pane');
+  if (tab === 'projeler' || tab === 'prova') return RESUME_TABS[tab](pane, arg2);
   if (tab === 'kanit') {
     const ev = (await gh.readJSON('resume/evidence.json', { items: [] })).items || [];
     pane.innerHTML = `<div class="card">${ev.slice().reverse().map((e) => `<div class="comp"><span>${esc(e.claim)}<br><span class="faint">${esc(e.date || '')} · ${(e.competencies || []).map(esc).join(', ')} · ${esc(e.source || '')}</span></span>${e.link ? `<a class="btn small" href="${esc(e.link)}" target="_blank" rel="noopener">Bağlantı</a>` : ''}</div>`).join('') || 'Henüz kanıt yok.'}</div>`;
@@ -719,6 +720,85 @@ ROUTES.resume = async (main, tab = 'resume') => {
   }
   const text = await gh.readText(tab === 'acik' ? 'resume/gap.md' : 'resume/resume.md');
   pane.innerHTML = `<div class="card md">${md(text || '_Dosya yok._')}</div>${tab === 'resume' ? '<p class="faint">Rutin her ayın ilk günü bu belgeyi yalnız yeni kanıtlarla günceller. <code>[[TODO]]</code> işaretleri senin doldurman gereken gerçek bilgileri gösterir.</p>' : ''}`;
+};
+
+// ---------- PROJELER (savunma dosyaları) ----------
+async function loadDossiers() {
+  const files = (await gh.listDir('resume/projects')).filter((f) => f.name.endsWith('.md') && f.name !== 'README.md');
+  const texts = await Promise.all(files.map((f) => gh.readText(`resume/projects/${f.name}`)));
+  return files.map((f, i) => {
+    const t = texts[i] || '';
+    const title = (t.match(/^# (.+)$/m)?.[1] || f.name).replace(/:\s*savunma dosyası\s*$/i, '');
+    const s8 = t.split(/^## /m).find((x) => /^8\./.test(x)) || '';
+    const qs = s8.split(/^### /m).slice(1).map((q) => {
+      const nl = q.indexOf('\n');
+      return { q: q.slice(0, nl).replace(/^S[^:]*:\s*/, '').trim(), body: q.slice(nl + 1).trim() };
+    }).filter((x) => x.q);
+    return { slug: f.name.replace(/\.md$/, ''), title, text: t, qs };
+  });
+}
+
+const RESUME_TABS = {};
+RESUME_TABS.projeler = async (pane, slug) => {
+  const ds = await loadDossiers();
+  if (!ds.length) { pane.innerHTML = '<div class="card">Henüz savunma dosyası yok.</div>'; return; }
+  const cur = ds.find((d) => d.slug === slug) || ds[0];
+  pane.innerHTML = `
+    <div class="card"><p class="muted" style="margin-top:0">Her proje için koddan doğrulanmış savunma dosyası: ne yaptın, mimari, kararların nedeni, İngilizce hikayeler, mülakat soruları ve henüz savunamadığın boşluklar. Mülakattan önce buradan çalış, sonra <a href="#/resume/prova">Mülakat provası</a>'nda sesli dene.</p>
+    <div class="row">${ds.map((d) => `<a class="btn small ${d === cur ? 'primary' : ''}" href="#/resume/projeler/${d.slug}">${esc(d.title)}</a>`).join('')}</div></div>
+    <div class="card md">${md(cur.text)}</div>`;
+};
+
+RESUME_TABS.prova = async (pane, slug) => {
+  const ds = (await loadDossiers()).filter((d) => d.qs.length);
+  if (!ds.length) { pane.innerHTML = '<div class="card">Soru bulunamadı.</div>'; return; }
+  const pool = slug && slug !== 'karisik' ? ds.filter((d) => d.slug === slug) : ds;
+  const all = pool.flatMap((d) => d.qs.map((q) => ({ ...q, d })));
+  const pick = all[Math.floor(Math.random() * all.length)];
+  pane.innerHTML = `
+    <div class="card"><p class="muted" style="margin-top:0">Gerçek mülakattaki gibi: soruyu oku, 10 saniye düşün, sonra 60-90 saniye İngilizce cevap ver. Cevap iskeleti ancak denedikten sonra açılır (önce hatırlamaya çalışmak kalıcı öğrenmeyi sağlar). Gönderdiğin denemeler ertesi sabah değerlendirilir.</p>
+      <div class="row"><a class="btn small ${!slug || slug === 'karisik' ? 'primary' : ''}" href="#/resume/prova/karisik">Karışık</a>${ds.map((d) => `<a class="btn small ${d.slug === slug ? 'primary' : ''}" href="#/resume/prova/${d.slug}">${esc(d.title)}</a>`).join('')}</div></div>
+    <div class="card">
+      <div class="row between"><span class="pill accent">${esc(pick.d.title)}</span><button class="btn small" id="nextq">Başka soru ↻</button></div>
+      <div class="say" style="margin-top:10px">${esc(pick.q)}</div>
+      <div class="row" style="margin-top:12px"><button class="btn" id="hear">🔊 Soruyu dinle</button><button class="btn primary" id="go">🎙 Cevapla</button><span id="clock" class="faint"></span></div>
+      <div class="live" id="live" style="margin-top:10px"></div>
+      <div id="out"></div>
+      <details class="learnbox" id="skel" style="margin-top:12px"><summary>Cevap iskeletini göster</summary><div class="md">${md(pick.body)}</div></details>
+    </div>`;
+  $('#nextq').onclick = () => route();
+  $('#hear').onclick = () => sp.speak(pick.q, 0.95);
+  const skel = $('#skel'); let tried = false;
+  skel.addEventListener('toggle', () => { if (skel.open && !tried && !confirm('Önce sesli cevap vermeyi denemedin. Yine de iskeleti açmak istiyor musun?')) skel.open = false; });
+  let handle = null, tick;
+  $('#go').onclick = () => {
+    const btn = $('#go');
+    if (handle) { handle.stop(); return; }
+    if (!sp.hasRecognition) { toast('Konuşma tanıma yok (Chrome/Safari).'); return; }
+    const t0 = Date.now(); btn.textContent = '■ Bitir'; btn.classList.add('rec');
+    tick = setInterval(() => { $('#clock').textContent = `${Math.round((Date.now() - t0) / 1000)} sn`; }, 250);
+    handle = sp.listen({ continuous: true, maxSeconds: 150, onInterim: (t) => ($('#live').textContent = t) });
+    handle.done.then((r) => {
+      clearInterval(tick); handle = null; tried = true; btn.textContent = '🎙 Yeniden dene'; btn.classList.remove('rec');
+      const m = sp.speechMetrics(r.transcript, r.seconds);
+      const fill = Object.entries(m.fillers).map(([k, v]) => `${k} ×${v}`).join(', ') || 'yok';
+      $('#out').innerHTML = `
+        <div class="grid4" style="margin-top:12px">
+          <div class="card stat"><div class="v">${Math.round(r.seconds)}</div><div class="k">saniye</div></div>
+          <div class="card stat"><div class="v">${m.wpm}</div><div class="k">kelime/dk</div></div>
+          <div class="card stat"><div class="v">${m.words}</div><div class="k">kelime</div></div>
+          <div class="card stat"><div class="v">${m.lexical_variety}</div><div class="k">çeşitlilik</div></div>
+        </div>
+        <p class="tip">Dolgu sözcükleri: ${esc(fill)}. Şimdi iskeleti aç ve kendi cevabınla karşılaştır: hangi maddeyi atladın, hangi sayıyı söylemedin?</p>
+        ${r.audioUrl ? `<audio controls src="${r.audioUrl}" style="width:100%"></audio>` : ''}
+        <div class="row" style="margin-top:10px"><button class="btn primary" id="psave">Bu denemeyi gönder</button></div>`;
+      skel.open = true;
+      $('#psave').onclick = () => guard(async () => {
+        await appendJSON('project_drill.json', { project: pick.d.slug, question: pick.q, transcript: r.transcript, seconds: Math.round(r.seconds), ...m });
+        $('#psave').disabled = true;
+      }, 'Gönderildi; yarın değerlendirilecek');
+    });
+  };
 };
 
 // ---------- GEÇMİŞ ve GÜN GÖRÜNÜMÜ ----------
