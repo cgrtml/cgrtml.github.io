@@ -293,3 +293,26 @@ details.bib pre {
 .crumb a { color: var(--muted); }
 .paper-links { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px; }
 .paper-links a { font-size: .92rem; font-weight: 500; }
+
+/* ---------- Atatürk banner (homepage top) ---------- */
+.ata-banner { background: #111; color: #fff; }
+.ata-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 24px;
+  display: grid; grid-template-columns: 190px 1fr 190px; align-items: center; gap: 28px;
+}
+.ata-inner > * { min-width: 0; }
+.ata-photo { width: 190px; height: auto; display: block; align-self: end; filter: grayscale(1) contrast(1.05); }
+.ata-text { text-align: center; padding: 22px 0; }
+.ata-quote { font-family: var(--serif); font-size: 2.1rem; font-weight: 600; line-height: 1.2; margin: 0; color: #fff; }
+.ata-quote-en { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: #d6d6d6; margin: 8px 0 0; }
+.ata-sig { width: 150px; height: auto; margin: 14px auto 0; display: block; opacity: .92; }
+.ata-flag { width: 190px; height: auto; display: block; box-shadow: 0 2px 10px rgba(0,0,0,.4); }
+@media (max-width: 720px) {
+  .ata-inner { grid-template-columns: 84px 1fr 54px; gap: 12px; padding: 0 16px; }
+  .ata-photo { width: 84px; }
+  .ata-flag { width: 54px; }
+  .ata-text { padding: 16px 0; text-align: left; }
+  .ata-quote { font-size: 1.25rem; }
+  .ata-quote-en { font-size: .98rem; }
+  .ata-sig { width: 100px; margin: 10px 0 0; }
+}
