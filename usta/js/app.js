@@ -22,8 +22,8 @@ async function guard(fn, okMsg) {
   catch (e) { console.error(e); toast('Hata: ' + e.message, 4500); return undefined; }
 }
 
-const DECK_LABEL = { ai: 'AI kavram', proj: 'Projelerim', code: 'Kod', 'en-vocab': 'Kelime', 'en-phrase': 'İş İngilizcesi', 'en-pron': 'Telaffuz', 'en-grammar': 'Dilbilgisi' };
-const DECK_ORDER = ['ai', 'proj', 'en-pron', 'code', 'en-vocab', 'en-phrase', 'en-grammar'];
+const DECK_LABEL = { prep: 'Hazırlık', ai: 'AI kavram', proj: 'Projelerim', code: 'Kod', 'en-vocab': 'Kelime', 'en-phrase': 'İş İngilizcesi', 'en-pron': 'Telaffuz', 'en-grammar': 'Dilbilgisi' };
+const DECK_ORDER = ['prep', 'ai', 'proj', 'en-pron', 'code', 'en-vocab', 'en-phrase', 'en-grammar'];
 
 // ---------- durum ----------
 const S = {
@@ -122,7 +122,7 @@ async function saveActivity(patch = {}) {
 
 // ---------- kabuk ----------
 const NAV = [
-  ['bugun', '☀️', 'Bugün'], ['tekrar', '🔁', 'Tekrar'], ['ogren', '🎓', 'Öğren'], ['gorev', '🛠️', 'Görev'], ['ders', '📘', 'Kapanış'],
+  ['bugun', '☀️', 'Bugün'], ['hazirlik', '🎯', 'Hazırlık'], ['tekrar', '🔁', 'Tekrar'], ['ogren', '🎓', 'Öğren'], ['gorev', '🛠️', 'Görev'], ['ders', '📘', 'Kapanış'],
   ['ingilizce', '🗣️', 'İngilizce'], ['gelisim', '📈', 'Gelişim'], ['mufredat', '🧭', 'Müfredat'],
   ['resume', '📄', 'Resume'], ['gecmis', '🗂️', 'Geçmiş'], ['ayarlar', '⚙️', 'Ayarlar'],
 ];
@@ -723,9 +723,10 @@ ROUTES.resume = async (main, tab = 'resume', arg2) => {
 };
 
 // ---------- PROJELER (savunma dosyaları) ----------
-async function loadDossiers() {
-  const files = (await gh.listDir('resume/projects')).filter((f) => f.name.endsWith('.md') && f.name !== 'README.md');
-  const texts = await Promise.all(files.map((f) => gh.readText(`resume/projects/${f.name}`)));
+async function loadDossiers(dir = 'resume/projects', extra = []) {
+  const listed = (await gh.listDir(dir)).filter((f) => f.name.endsWith('.md') && f.name !== 'README.md').map((f) => ({ name: f.name, path: `${dir}/${f.name}` }));
+  const files = listed.concat(extra.map((p) => ({ name: p.split('/').pop(), path: p })));
+  const texts = await Promise.all(files.map((f) => gh.readText(f.path)));
   return files.map((f, i) => {
     const t = texts[i] || '';
     const title = (t.match(/^# (.+)$/m)?.[1] || f.name).replace(/:\s*savunma dosyası\s*$/i, '');
@@ -749,15 +750,16 @@ RESUME_TABS.projeler = async (pane, slug) => {
     <div class="card md">${md(cur.text)}</div>`;
 };
 
-RESUME_TABS.prova = async (pane, slug) => {
-  const ds = (await loadDossiers()).filter((d) => d.qs.length);
+RESUME_TABS.prova = async (pane, slug, opts = {}) => {
+  const base = opts.base || '#/resume/prova';
+  const ds = (await (opts.load ? opts.load() : loadDossiers())).filter((d) => d.qs.length);
   if (!ds.length) { pane.innerHTML = '<div class="card">Soru bulunamadı.</div>'; return; }
   const pool = slug && slug !== 'karisik' ? ds.filter((d) => d.slug === slug) : ds;
   const all = pool.flatMap((d) => d.qs.map((q) => ({ ...q, d })));
   const pick = all[Math.floor(Math.random() * all.length)];
   pane.innerHTML = `
     <div class="card"><p class="muted" style="margin-top:0">Gerçek mülakattaki gibi: soruyu oku, 10 saniye düşün, sonra 60-90 saniye İngilizce cevap ver. Cevap iskeleti ancak denedikten sonra açılır (önce hatırlamaya çalışmak kalıcı öğrenmeyi sağlar). Gönderdiğin denemeler ertesi sabah değerlendirilir.</p>
-      <div class="row"><a class="btn small ${!slug || slug === 'karisik' ? 'primary' : ''}" href="#/resume/prova/karisik">Karışık</a>${ds.map((d) => `<a class="btn small ${d.slug === slug ? 'primary' : ''}" href="#/resume/prova/${d.slug}">${esc(d.title)}</a>`).join('')}</div></div>
+      <div class="row"><a class="btn small ${!slug || slug === 'karisik' ? 'primary' : ''}" href="${base}/karisik">Karışık</a>${ds.map((d) => `<a class="btn small ${d.slug === slug ? 'primary' : ''}" href="${base}/${d.slug}">${esc(d.title)}</a>`).join('')}</div></div>
     <div class="card">
       <div class="row between"><span class="pill accent">${esc(pick.d.title)}</span><button class="btn small" id="nextq">Başka soru ↻</button></div>
       <div class="say" style="margin-top:10px">${esc(pick.q)}</div>
@@ -794,11 +796,38 @@ RESUME_TABS.prova = async (pane, slug) => {
         <div class="row" style="margin-top:10px"><button class="btn primary" id="psave">Bu denemeyi gönder</button></div>`;
       skel.open = true;
       $('#psave').onclick = () => guard(async () => {
-        await appendJSON('project_drill.json', { project: pick.d.slug, question: pick.q, transcript: r.transcript, seconds: Math.round(r.seconds), ...m });
+        await appendJSON('project_drill.json', { project: pick.d.slug, ...(opts.track ? { track: opts.track } : {}), question: pick.q, transcript: r.transcript, seconds: Math.round(r.seconds), ...m });
         $('#psave').disabled = true;
       }, 'Gönderildi; yarın değerlendirilecek');
     });
   };
+};
+
+// ---------- HAZIRLIK (özel hazırlık izleri; içerik private repoda: interview/index.json) ----------
+ROUTES.hazirlik = async (main, tab = 'plan', arg) => {
+  const idx = await gh.readJSON('interview/index.json', { tracks: [] });
+  const tr = (idx.tracks || [])[0];
+  if (!tr) { main.innerHTML = '<div class="card">Henüz hazırlık izi yok.</div>'; return; }
+  const tabs = [['plan', 'Plan'], ['ogren', 'Öğren'], ['prova', 'Prova'], ['kod', 'Kodlama'], ['basvuru', 'Başvuru']];
+  main.innerHTML = `<h1>${esc(tr.title)}</h1><div class="tabs">${tabs.map(([id, t]) => `<button data-t="${id}" class="${id === tab ? 'on' : ''}">${t}</button>`).join('')}</div><div id="pane"><p class="muted">Yükleniyor…</p></div>`;
+  $$('.tabs button').forEach((b) => (b.onclick = () => { location.hash = `#/hazirlik/${b.dataset.t}`; }));
+  const pane = $('#pane');
+  const docList = async (sub, file) => {
+    const items = (await gh.listDir(`${tr.dir}/${sub}`)).filter((f) => (file ? f.type === 'dir' : f.name.endsWith('.md'))).sort((a, b) => a.name.localeCompare(b.name));
+    const cur = items.find((f) => f.name.replace(/\.md$/, '') === arg) || items[0];
+    const path = cur ? `${tr.dir}/${sub}/${cur.name}${file ? '/' + file : ''}` : null;
+    const [text, intro] = await Promise.all([path ? gh.readText(path) : null, file ? gh.readText(`${tr.dir}/${sub}/README.md`) : null]);
+    const label = (f) => f.name.replace(/\.md$/, '').replace(/^\d+-/, '').replace(/[-_]/g, ' ');
+    pane.innerHTML = `${intro ? `<details class="card"><summary><b>Nasıl çalışılır</b></summary><div class="md">${md(intro)}</div></details>` : ''}
+      <div class="card"><div class="row">${items.map((f) => `<a class="btn small ${f === cur ? 'primary' : ''}" href="#/hazirlik/${tab}/${f.name.replace(/\.md$/, '')}">${esc(label(f))}</a>`).join('') || '<span class="muted">Boş.</span>'}</div>
+      ${file && cur ? `<p class="faint" style="margin-bottom:0">Klasör: <code>${esc(`${tr.dir}/${sub}/${cur.name}`)}</code> · kodunu <code>solution.py</code> içine yaz, <code>python3 -m pytest -q</code> ile dene.</p>` : ''}</div>
+      <div class="card md">${md(text || '_Dosya yok._')}</div>`;
+  };
+  if (tab === 'ogren') return docList('learn');
+  if (tab === 'kod') return docList('coding', 'task.md');
+  if (tab === 'prova') return RESUME_TABS.prova(pane, arg, { base: '#/hazirlik/prova', track: tr.slug, load: () => loadDossiers(`${tr.dir}/prova`, tr.prova_extra || []) });
+  const text = await gh.readText(`${tr.dir}/${tab === 'basvuru' ? 'basvuru.md' : 'README.md'}`);
+  pane.innerHTML = `<div class="card md">${md(text || '_Dosya yok._')}</div>`;
 };
 
 // ---------- GEÇMİŞ ve GÜN GÖRÜNÜMÜ ----------
