@@ -808,7 +808,7 @@ ROUTES.hazirlik = async (main, tab = 'plan', arg) => {
   const idx = await gh.readJSON('interview/index.json', { tracks: [] });
   const tr = (idx.tracks || [])[0];
   if (!tr) { main.innerHTML = '<div class="card">Henüz hazırlık izi yok.</div>'; return; }
-  const tabs = [['plan', 'Plan'], ['ogren', 'Öğren'], ['prova', 'Prova'], ['kod', 'Kodlama'], ['basvuru', 'Başvuru']];
+  const tabs = [['plan', 'Plan'], ['ogren', 'Öğren'], ['prova', 'Prova'], ['banka', 'Soru bankası'], ['kod', 'Kodlama'], ['basvuru', 'Başvuru']];
   main.innerHTML = `<h1>${esc(tr.title)}</h1><div class="tabs">${tabs.map(([id, t]) => `<button data-t="${id}" class="${id === tab ? 'on' : ''}">${t}</button>`).join('')}</div><div id="pane"><p class="muted">Yükleniyor…</p></div>`;
   $$('.tabs button').forEach((b) => (b.onclick = () => { location.hash = `#/hazirlik/${b.dataset.t}`; }));
   const pane = $('#pane');
@@ -824,6 +824,7 @@ ROUTES.hazirlik = async (main, tab = 'plan', arg) => {
       <div class="card md">${md(text || '_Dosya yok._')}</div>`;
   };
   if (tab === 'ogren') return docList('learn');
+  if (tab === 'banka') return docList('prova');
   if (tab === 'kod') return docList('coding', 'task.md');
   if (tab === 'prova') return RESUME_TABS.prova(pane, arg, { base: '#/hazirlik/prova', track: tr.slug, load: () => loadDossiers(`${tr.dir}/prova`, tr.prova_extra || []) });
   const text = await gh.readText(`${tr.dir}/${tab === 'basvuru' ? 'basvuru.md' : 'README.md'}`);
